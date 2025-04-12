@@ -1,4 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/react";
+import NavBar from "./components/NavBar";
 
 function App() {
   /* In Chakra UI v3, the none value for the display property is used to
@@ -11,11 +12,11 @@ function App() {
     <Grid
       templateAreas={{
         base: `"nav " "main"`,
-        lg: `"nav nav " "aside main"`, // 1024px or more
+        lg: `"nav nav" "aside main"`, // 1024px or more
       }}
     >
-      <GridItem area="nav" bg="coral">
-        Nav
+      <GridItem area="nav">
+        <NavBar />
       </GridItem>
       <GridItem area="aside" bg="gold" display={{ base: "none", lg: "block" }}>
         Aside

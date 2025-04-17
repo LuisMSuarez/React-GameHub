@@ -7,9 +7,11 @@ interface Props {
 }
 
 const CriticScore = ({ game }: Props) => {
+  const color =
+    game.metacritic > 75 ? "green" : game.metacritic > 60 ? "yellow" : "";
   return (
     <Tooltip content="Metacritic score">
-      <Badge>{game.metacritic}</Badge>
+      <Badge colorPalette={color}>{game.metacritic}</Badge>
     </Tooltip>
   );
 };

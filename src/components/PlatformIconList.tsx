@@ -6,7 +6,7 @@ import {
   FaLinux,
   FaAndroid,
 } from "react-icons/fa";
-import { MdPhoneIphone } from "react-icons/md";
+import { MdPhoneIphone, MdOutlineDeviceUnknown } from "react-icons/md";
 import { SiNintendo } from "react-icons/si";
 import { BsGlobe } from "react-icons/bs"; // for "web" games
 import { Platform } from "@/hooks/useGames";
@@ -35,7 +35,11 @@ const PlatformIconList = ({ platforms }: Props) => {
       {platforms.map((platform) => (
         <Tooltip content={platform.name}>
           <Icon
-            as={iconMap[platform.slug]}
+            as={
+              iconMap[platform.slug] !== undefined
+                ? iconMap[platform.slug]
+                : MdOutlineDeviceUnknown
+            }
             color="gray.500"
             aria-label={platform.name}
           />

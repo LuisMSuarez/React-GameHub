@@ -12,6 +12,7 @@ import { BsGlobe } from "react-icons/bs"; // for "web" games
 import { Platform } from "@/hooks/useGames";
 import { HStack, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
+import { Tooltip } from "@/components/ui/tooltip";
 
 interface Props {
   platforms: Platform[];
@@ -32,7 +33,13 @@ const PlatformIconList = ({ platforms }: Props) => {
   return (
     <HStack marginY={1}>
       {platforms.map((platform) => (
-        <Icon as={iconMap[platform.slug]} color="gray.500" />
+        <Tooltip content={platform.name}>
+          <Icon
+            as={iconMap[platform.slug]}
+            color="gray.500"
+            aria-label={platform.name}
+          />
+        </Tooltip>
       ))}
     </HStack>
   );

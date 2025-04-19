@@ -5,7 +5,7 @@ interface Props {
   game: Game;
 }
 
-const GameBackgroundImage = ({ game }: Props) => {
+const getGameBackgroundImage = ({ game }: Props) => {
   const baseUri = game.background_image;
   const rootIndex = baseUri.indexOf("/games/");
   const rootUri = baseUri.substring(0, rootIndex);
@@ -23,4 +23,4 @@ const GameBackgroundImage = ({ game }: Props) => {
   return imageUrl;
 };
 
-export default GameBackgroundImage;
+export default getGameBackgroundImage;

@@ -1,0 +1,53 @@
+import apiClient from "@/services/api-client";
+import { CanceledError } from "axios";
+import { useEffect, useState } from "react";
+
+export interface Genre {
+  id: number;
+  name: string;
+  slug: string;
+  background_image: string;
+}
+
+interface FetchGenresResponse {
+  count: number;
+  results: Genre[];
+}
+
+const useGenres = () => {
+      const [genres, setGenres] = useState<Genre[]>([]);
+      const [error, setError] = useState("");
+      const [isLoading, setIsLoading] = useState(false);
+
+      useEffect(() => {
+        const controller = new AbortController();
+        setIsLoading(true);
+
+        apiClient
+          .get<FetchGenresResponse>("/genres", { signal: controller.signal})
+          .then((res) => {
+            setGenres(res.data.results); 
+            setIsLoading(false);
+          })
+          .catch((err) => {             
+            if (err instanceof CanceledError) 
+            {
+                // don't display error in case we cancel a request calling controller.abort
+                return;
+            }
+            setError(err.message);
+            setIsLoading(false); // note: we don't call this in case of the canceled error, would mess up the effect
+        });
+        
+        // cleanup function to be called when unmounting the component.
+        // strict mode causes double-render quickly, instead of forcing two network calls
+        // we simply raise the abort signal.  in the case of the first request that is part of the first render, it will effectively abort it
+        // in the case of the second request, it won't cause any issues, as abort will be caused way after the call has been
+        // issued and data return, so no harm is caused.
+        return () => controller.abort();
+      }, []);
+
+      return { genres, error, isLoading};
+}
+
+export default useGenres;

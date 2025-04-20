@@ -2,51 +2,31 @@ import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 
-export interface Platform {
-    id: number;
-    name: string;
-    slug: string;
-}
-export interface Game {
+export interface Genre {
   id: number;
   name: string;
-  background_image: string;
-  rating: number;
-  parent_platforms: { platform: Platform} []
-  metacritic: number;
+  slug: string;
+  image_background: string;
 }
 
-interface FetchGamesResponse {
+interface FetchGenresResponse {
   count: number;
-  results: Game[];
+  results: Genre[];
 }
 
-interface Props {
-  selectedGenre: string;
-}
-
-const useGames = ({selectedGenre}: Props) => {
-      const [games, setGames] = useState<Game[]>([]);
+const useGenres = () => {
+      const [genres, setGenres] = useState<Genre[]>([]);
       const [error, setError] = useState("");
       const [isLoading, setIsLoading] = useState(false);
-
-      console.log(selectedGenre + "from hook");
 
       useEffect(() => {
         const controller = new AbortController();
         setIsLoading(true);
 
-        // Define query string parameters
-        const params = {
-          genres: selectedGenre
-        };
-
-        console.log(selectedGenre + "from effect");
-
         apiClient
-          .get<FetchGamesResponse>("/games", { signal: controller.signal, params: selectedGenre ==='' ? {} : params})
+          .get<FetchGenresResponse>("/genres", { signal: controller.signal})
           .then((res) => {
-            setGames(res.data.results); 
+            setGenres(res.data.results); 
             setIsLoading(false);
           })
           .catch((err) => {             
@@ -65,9 +45,9 @@ const useGames = ({selectedGenre}: Props) => {
         // in the case of the second request, it won't cause any issues, as abort will be caused way after the call has been
         // issued and data return, so no harm is caused.
         return () => controller.abort();
-      }, [selectedGenre]);
+      }, []);
 
-      return { games, error, isLoading};
+      return { genres, error, isLoading};
 }
 
-export default useGames;
+export default useGenres;

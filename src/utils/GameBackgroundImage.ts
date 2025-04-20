@@ -17,7 +17,7 @@ const getGameBackgroundImage = ({ game }: Props) => {
   const imageUrl = useBreakpointValue({
     base: optimizedUri, // Small screens
     md: optimizedUri, // Medium screens, example: https://media.rawg.io/media/crop/600/400/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg
-    lg: baseUri, // Large screens, example: https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg
+    lg: optimizedUri, // Large screens, example: https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg
   });
 
   return imageUrl;

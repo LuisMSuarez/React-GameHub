@@ -18,11 +18,12 @@ const useData = <T>({resource, params}: Props) => {
       const [isLoading, setIsLoading] = useState(false);
 
       useEffect(() => {
+        console.log(params);
         const controller = new AbortController();
         setIsLoading(true);
 
         apiClient
-          .get<FetchDataResponse<T>>(resource, { signal: controller.signal, params: params === null ? {} : params})
+          .get<FetchDataResponse<T>>(resource, { signal: controller.signal, params: params })
           .then((res) => {
             setData(res.data.results); 
             setIsLoading(false);
@@ -43,7 +44,7 @@ const useData = <T>({resource, params}: Props) => {
         // in the case of the second request, it won't cause any issues, as abort will be caused way after the call has been
         // issued and data return, so no harm is caused.
         return () => controller.abort();
-      }, [resource, params]);
+      }, []);
 
       return { data, error, isLoading};
 }

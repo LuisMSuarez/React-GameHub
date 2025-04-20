@@ -5,7 +5,7 @@ interface Props {
   game: Game;
 }
 
-const GameBackgroundImage = ({ game }: Props) => {
+const getGameBackgroundImage = ({ game }: Props) => {
   const baseUri = game.background_image;
   const rootIndex = baseUri.indexOf("/games/");
   const rootUri = baseUri.substring(0, rootIndex);
@@ -17,10 +17,10 @@ const GameBackgroundImage = ({ game }: Props) => {
   const imageUrl = useBreakpointValue({
     base: optimizedUri, // Small screens
     md: optimizedUri, // Medium screens, example: https://media.rawg.io/media/crop/600/400/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg
-    lg: baseUri, // Large screens, example: https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg
+    lg: optimizedUri, // Large screens, example: https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg
   });
 
   return imageUrl;
 };
 
-export default GameBackgroundImage;
+export default getGameBackgroundImage;

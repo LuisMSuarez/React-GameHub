@@ -6,7 +6,7 @@ export interface Genre {
   id: number;
   name: string;
   slug: string;
-  background_image: string;
+  image_background: string;
 }
 
 interface FetchGenresResponse {

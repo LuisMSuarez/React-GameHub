@@ -1,6 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
+import Aside from "./components/Aside";
 
 function App() {
   /* In Chakra UI v3, the none value for the display property is used to
@@ -19,8 +20,8 @@ function App() {
       <GridItem area="nav">
         <NavBar />
       </GridItem>
-      <GridItem area="aside" bg="gold" display={{ base: "none", lg: "block" }}>
-        Aside
+      <GridItem area="aside" display={{ base: "none", lg: "block" }}>
+        <Aside />
       </GridItem>
       <GridItem area="main">
         <GameGrid />

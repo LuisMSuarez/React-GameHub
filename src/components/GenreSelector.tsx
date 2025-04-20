@@ -9,7 +9,9 @@ const GenreSelector = ({ genre, onClick }: Props) => {
   return (
     <Stack
       direction="row"
-      justify="space-between"
+      justify="flex-start"
+      align="center"
+      width="80%" // Ensure enough width for spacing
       onClick={() => onClick(genre.slug)}
     >
       <Image width="50px" height="50px" src={genre.image_background} />

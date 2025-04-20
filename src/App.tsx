@@ -2,9 +2,16 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import Aside from "./components/Aside";
+import { useState } from "react";
 
 function App() {
-  /* In Chakra UI v3, the none value for the display property is used to
+  const [selectedGenre, setSelectedGenre] = useState("");
+  const handleGenreSelect = (selectedGenre: string) => {
+    setSelectedGenre(selectedGenre);
+    console.log(selectedGenre);
+  };
+
+  /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
     display property is used to make an element behave as a block-level
     element. This means the element will take up the full width available and
@@ -21,10 +28,10 @@ function App() {
         <NavBar />
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
-        <Aside />
+        <Aside onGenreSelect={handleGenreSelect} />
       </GridItem>
       <GridItem area="main">
-        <GameGrid />
+        <GameGrid selectedGenre={selectedGenre} />
       </GridItem>
     </Grid>
   );

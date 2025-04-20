@@ -21,17 +21,30 @@ interface FetchGamesResponse {
   results: Game[];
 }
 
-const useGames = () => {
+interface Props {
+  selectedGenre: string;
+}
+
+const useGames = ({selectedGenre}: Props) => {
       const [games, setGames] = useState<Game[]>([]);
       const [error, setError] = useState("");
       const [isLoading, setIsLoading] = useState(false);
+
+      console.log(selectedGenre + "from hook");
 
       useEffect(() => {
         const controller = new AbortController();
         setIsLoading(true);
 
+        // Define query string parameters
+        const params = {
+          genres: selectedGenre
+        };
+
+        console.log(selectedGenre + "from effect");
+
         apiClient
-          .get<FetchGamesResponse>("/games", { signal: controller.signal})
+          .get<FetchGamesResponse>("/games", { signal: controller.signal, params: selectedGenre ==='' ? {} : params})
           .then((res) => {
             setGames(res.data.results); 
             setIsLoading(false);
@@ -52,7 +65,7 @@ const useGames = () => {
         // in the case of the second request, it won't cause any issues, as abort will be caused way after the call has been
         // issued and data return, so no harm is caused.
         return () => controller.abort();
-      }, []);
+      }, [selectedGenre]);
 
       return { games, error, isLoading};
 }

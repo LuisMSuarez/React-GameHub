@@ -1,17 +1,23 @@
 import useGenres from "@/hooks/useGenres";
-import { Image, Text, HStack, VStack } from "@chakra-ui/react";
+import { Text, VStack } from "@chakra-ui/react";
+import GenreSelector from "./GenreSelector";
 
-const Aside = () => {
+interface Props {
+  onGenreSelect: (selectedGenre: string) => void;
+}
+
+const Aside = ({ onGenreSelect }: Props) => {
   const { genres, error, isLoading } = useGenres();
   return (
     <>
       {error && <Text>{error}</Text>}
       <VStack>
         {genres.map((genre) => (
-          <HStack>
-            <Image width="50px" height="50px" src={genre.image_background} />
-            <Text>{genre.name}</Text>
-          </HStack>
+          <GenreSelector
+            key={genre.slug}
+            genre={genre}
+            onClick={onGenreSelect}
+          />
         ))}
       </VStack>
     </>

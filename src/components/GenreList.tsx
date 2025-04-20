@@ -6,7 +6,7 @@ interface Props {
   onGenreSelect: (selectedGenre: string) => void;
 }
 
-const Aside = ({ onGenreSelect }: Props) => {
+const GenreList = ({ onGenreSelect }: Props) => {
   const { genres, error, isLoading } = useGenres();
   return (
     <>
@@ -24,4 +24,4 @@ const Aside = ({ onGenreSelect }: Props) => {
   );
 };
 
-export default Aside;
+export default GenreList;

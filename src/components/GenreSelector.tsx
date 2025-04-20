@@ -14,7 +14,13 @@ const GenreSelector = ({ genre, onClick }: Props) => {
       width="80%" // Ensure enough width for spacing
       onClick={() => onClick(genre.slug)}
     >
-      <Image width="50px" height="50px" src={genre.image_background} />
+      <Image
+        width="50px"
+        height="50px"
+        borderRadius={5}
+        overflow="hidden"
+        src={genre.image_background}
+      />
       <Text>{genre.name}</Text>
     </Stack>
   );

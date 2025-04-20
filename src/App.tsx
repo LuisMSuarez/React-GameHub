@@ -8,7 +8,6 @@ function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const handleGenreSelect = (selectedGenre: string) => {
     setSelectedGenre(selectedGenre);
-    console.log(selectedGenre);
   };
 
   /* In Chakra UI v3, the 'none' value for the display property is used to

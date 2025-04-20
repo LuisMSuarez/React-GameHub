@@ -2,31 +2,18 @@ import apiClient from "@/services/api-client";
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 
-export interface Platform {
-    id: number;
-    name: string;
-    slug: string;
-}
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  rating: number;
-  parent_platforms: { platform: Platform} []
-  metacritic: number;
-}
-
-interface FetchGamesResponse {
+interface FetchDataResponse<T> {
   count: number;
-  results: Game[];
+  results: T[];
 }
 
 interface Props {
-  selectedGenre: string;
+  resource: string;
+  params?: any;
 }
 
-const useGames = ({selectedGenre}: Props) => {
-      const [games, setGames] = useState<Game[]>([]);
+const useData = <T>({resource, params}: Props) => {
+      const [data, setData] = useState<T[]>([]);
       const [error, setError] = useState("");
       const [isLoading, setIsLoading] = useState(false);
 
@@ -34,15 +21,10 @@ const useGames = ({selectedGenre}: Props) => {
         const controller = new AbortController();
         setIsLoading(true);
 
-        // Define query string parameters
-        const params = {
-          genres: selectedGenre
-        };
-
         apiClient
-          .get<FetchGamesResponse>("/games", { signal: controller.signal, params: selectedGenre ==='' ? {} : params})
+          .get<FetchDataResponse<T>>(resource, { signal: controller.signal, params: params === null ? {} : params})
           .then((res) => {
-            setGames(res.data.results); 
+            setData(res.data.results); 
             setIsLoading(false);
           })
           .catch((err) => {             
@@ -61,9 +43,9 @@ const useGames = ({selectedGenre}: Props) => {
         // in the case of the second request, it won't cause any issues, as abort will be caused way after the call has been
         // issued and data return, so no harm is caused.
         return () => controller.abort();
-      }, [selectedGenre]);
+      }, [resource, params]);
 
-      return { games, error, isLoading};
+      return { data, error, isLoading};
 }
 
-export default useGames;
+export default useData;

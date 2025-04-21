@@ -9,9 +9,8 @@ interface Props {
 const GenreItem = ({ genre, onClick }: Props) => {
   return (
     <HStack
-      justify="flex-start"
-      align="center"
-      width="80%" // Ensure enough width for spacing
+      justifyContent="left"
+      width="80%"
       onClick={() => onClick(genre.slug)}
     >
       <Image

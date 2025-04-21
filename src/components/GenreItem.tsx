@@ -4,9 +4,10 @@ import getOptimizedImage from "@/utils/GetOptimizedImage";
 
 interface Props {
   genre: Genre;
+  isSelected: boolean;
   onClick: (selectedGenre: string) => void;
 }
-const GenreItem = ({ genre, onClick }: Props) => {
+const GenreItem = ({ genre, isSelected, onClick }: Props) => {
   return (
     <HStack
       justifyContent="left"
@@ -19,7 +20,7 @@ const GenreItem = ({ genre, onClick }: Props) => {
         overflow="hidden"
         src={getOptimizedImage(genre.image_background)}
       />
-      <Link>{genre.name}</Link>
+      <Link fontWeight={isSelected ? "bold" : "normal"}>{genre.name}</Link>
     </HStack>
   );
 };

@@ -1,12 +1,13 @@
 import useGenres from "@/hooks/useGenres";
 import { Text, VStack, Spinner } from "@chakra-ui/react";
-import GenreSelector from "./GenreItem";
+import GenreItem from "./GenreItem";
 
 interface Props {
+  selectedGenre: string;
   onGenreSelect: (selectedGenre: string) => void;
 }
 
-const GenreList = ({ onGenreSelect }: Props) => {
+const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
   const { data: genres, error, isLoading } = useGenres();
 
   if (error) {
@@ -19,9 +20,10 @@ const GenreList = ({ onGenreSelect }: Props) => {
       <VStack>
         {isLoading && <Spinner size="xl" />}
         {genres.map((genre) => (
-          <GenreSelector
+          <GenreItem
             key={genre.slug}
             genre={genre}
+            isSelected={selectedGenre === genre.slug}
             onClick={onGenreSelect}
           />
         ))}

@@ -8,7 +8,6 @@ function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
   const handleGenreSelect = (selectedGenre: string) => {
     setSelectedGenre(selectedGenre);
-    console.log(selectedGenre);
   };
 
   /* In Chakra UI v3, the 'none' value for the display property is used to
@@ -22,6 +21,10 @@ function App() {
       templateAreas={{
         base: `"nav " "main"`,
         lg: `"nav nav" "aside main"`, // 1024px or more
+      }}
+      templateColumns={{
+        base: "1fr",
+        lg: "200px 1fr",
       }}
     >
       <GridItem area="nav">

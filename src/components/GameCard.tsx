@@ -2,7 +2,7 @@ import { Game } from "@/hooks/useGames";
 import PlatformIconList from "./PlatformIconList";
 import { Image, Card, Heading, Stack } from "@chakra-ui/react";
 import CriticScore from "./CriticScore";
-import getGameBackgroundImage from "../utils/GameBackgroundImage";
+import getGameBackgroundImage from "../utils/GetOptimizedImage";
 import GameCardContainer from "./GameCardContainer";
 
 interface Props {
@@ -12,7 +12,7 @@ const GameCard = ({ game }: Props) => {
   return (
     <GameCardContainer>
       <Card.Root>
-        <Image src={getGameBackgroundImage({ game })} />
+        <Image src={getGameBackgroundImage(game.background_image)} />
         <Card.Body>
           <Heading fontSize="2xl">{game.name}</Heading>
           <Stack direction="row" justify="space-between">

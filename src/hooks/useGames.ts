@@ -1,6 +1,4 @@
-import apiClient from "@/services/api-client";
-import { CanceledError } from "axios";
-import { useEffect, useState } from "react";
+import useData from "./useData";
 
 export interface Platform {
     id: number;
@@ -16,58 +14,13 @@ export interface Game {
   metacritic: number;
 }
 
-interface FetchGamesResponse {
-  count: number;
-  results: Game[];
-}
-
 interface Props {
   selectedGenre: string;
 }
 
 const useGames = ({selectedGenre}: Props) => {
-      const [games, setGames] = useState<Game[]>([]);
-      const [error, setError] = useState("");
-      const [isLoading, setIsLoading] = useState(false);
-
-      console.log(selectedGenre + "from hook");
-
-      useEffect(() => {
-        const controller = new AbortController();
-        setIsLoading(true);
-
-        // Define query string parameters
-        const params = {
-          genres: selectedGenre
-        };
-
-        console.log(selectedGenre + "from effect");
-
-        apiClient
-          .get<FetchGamesResponse>("/games", { signal: controller.signal, params: selectedGenre ==='' ? {} : params})
-          .then((res) => {
-            setGames(res.data.results); 
-            setIsLoading(false);
-          })
-          .catch((err) => {             
-            if (err instanceof CanceledError) 
-            {
-                // don't display error in case we cancel a request calling controller.abort
-                return;
-            }
-            setError(err.message);
-            setIsLoading(false); // note: we don't call this in case of the canceled error, would mess up the effect
-        });
-        
-        // cleanup function to be called when unmounting the component.
-        // strict mode causes double-render quickly, instead of forcing two network calls
-        // we simply raise the abort signal.  in the case of the first request that is part of the first render, it will effectively abort it
-        // in the case of the second request, it won't cause any issues, as abort will be caused way after the call has been
-        // issued and data return, so no harm is caused.
-        return () => controller.abort();
-      }, [selectedGenre]);
-
-      return { games, error, isLoading};
+  const params = selectedGenre === '' ? {} : { genres: selectedGenre };
+  return useData<Game>("/games", params, [selectedGenre]);
 }
 
 export default useGames;

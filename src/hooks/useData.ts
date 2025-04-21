@@ -10,7 +10,7 @@ interface FetchDataResponse<T> {
 const useData = <T>(resource: string, params: any, deps?: any) => {
       const [data, setData] = useState<T[]>([]);
       const [error, setError] = useState("");
-      const [isLoading, setIsLoading] = useState(false);
+      const [isLoading, setIsLoading] = useState(true);
 
       useEffect(() => {
         const controller = new AbortController();

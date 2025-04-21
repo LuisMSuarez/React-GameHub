@@ -2,6 +2,7 @@ import useGames from "@/hooks/useGames";
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
+import PlatformSelector from "./PlatformSelector";
 
 interface Props {
   selectedGenre: string;
@@ -14,6 +15,7 @@ const GameGrid = ({ selectedGenre }: Props) => {
   return (
     <>
       {error && <Text>{error}</Text>}
+      <PlatformSelector />
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 5 }} gap={5} padding={5}>
         {isLoading &&
           skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}

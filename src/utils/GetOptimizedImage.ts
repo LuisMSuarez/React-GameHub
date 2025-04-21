@@ -1,15 +1,9 @@
-import { Game } from "@/hooks/useGames";
 import { useBreakpointValue } from "@chakra-ui/react";
 
-interface Props {
-  game: Game;
-}
-
-const getGameBackgroundImage = ({ game }: Props) => {
-  const baseUri = game.background_image;
-  const rootIndex = baseUri.indexOf("/games/");
-  const rootUri = baseUri.substring(0, rootIndex);
-  const suffix = baseUri.substring(rootIndex, baseUri.length);
+const getOptimizedImage = (image_uri: string) => {
+  const rootIndex = image_uri.indexOf("/games/");
+  const rootUri = image_uri.substring(0, rootIndex);
+  const suffix = image_uri.substring(rootIndex, image_uri.length);
   const optimizedUri = rootUri + "/crop/600/400" + suffix;
 
   // note: there appears to be a different route available too: worth exploring as a todo item
@@ -23,4 +17,4 @@ const getGameBackgroundImage = ({ game }: Props) => {
   return imageUrl;
 };
 
-export default getGameBackgroundImage;
+export default getOptimizedImage;

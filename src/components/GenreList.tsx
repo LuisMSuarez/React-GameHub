@@ -1,6 +1,6 @@
 import useGenres from "@/hooks/useGenres";
 import { Text, VStack } from "@chakra-ui/react";
-import GenreSelector from "./GenreSelector";
+import GenreSelector from "./GenreItem";
 
 interface Props {
   onGenreSelect: (selectedGenre: string) => void;

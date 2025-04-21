@@ -7,18 +7,12 @@ interface FetchDataResponse<T> {
   results: T[];
 }
 
-interface Props {
-  resource: string;
-  params?: any;
-}
-
-const useData = <T>({resource, params}: Props) => {
+const useData = <T>(resource: string, params: any, deps?: any) => {
       const [data, setData] = useState<T[]>([]);
       const [error, setError] = useState("");
       const [isLoading, setIsLoading] = useState(false);
 
       useEffect(() => {
-        console.log(params);
         const controller = new AbortController();
         setIsLoading(true);
 
@@ -36,6 +30,7 @@ const useData = <T>({resource, params}: Props) => {
             }
             setError(err.message);
             setIsLoading(false); // note: we don't call this in case of the canceled error, would mess up the effect
+            // also, finally block doesn't work well in strict mode
         });
         
         // cleanup function to be called when unmounting the component.
@@ -44,7 +39,7 @@ const useData = <T>({resource, params}: Props) => {
         // in the case of the second request, it won't cause any issues, as abort will be caused way after the call has been
         // issued and data return, so no harm is caused.
         return () => controller.abort();
-      }, []);
+      }, deps);
 
       return { data, error, isLoading};
 }

@@ -1,4 +1,4 @@
-import { Stack, Image, Text } from "@chakra-ui/react";
+import { Stack, Image, Link } from "@chakra-ui/react";
 import { Genre } from "@/hooks/useGenres";
 
 interface Props {
@@ -21,7 +21,7 @@ const GenreSelector = ({ genre, onClick }: Props) => {
         overflow="hidden"
         src={genre.image_background}
       />
-      <Text>{genre.name}</Text>
+      <Link>{genre.name}</Link>
     </Stack>
   );
 };

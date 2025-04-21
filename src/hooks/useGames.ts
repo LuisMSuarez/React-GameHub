@@ -20,7 +20,7 @@ interface Props {
 
 const useGames = ({selectedGenre}: Props) => {
   const params = selectedGenre === '' ? {} : { genres: selectedGenre };
-  return useData<Game>({ resource: "/games", params: params});
+  return useData<Game>("/games", params, [selectedGenre]);
 }
 
 export default useGames;

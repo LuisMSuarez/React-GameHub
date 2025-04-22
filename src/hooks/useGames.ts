@@ -14,19 +14,19 @@ export interface Game {
   metacritic: number | null;
 }
 
-const useGames = (selectedGenre: string, selectedPlatform: string) => {
+const useGames = (selectedGenre: string, selectedPlatforms: string[]) => {
   let params: { genres?: string; parent_platforms?: string } = {};
   
   if (selectedGenre !== '' )
   {
     params.genres = selectedGenre;
   }
-  if (selectedPlatform !== '' )
+  if (selectedPlatforms.length > 0 )
   {
-    params.parent_platforms = selectedPlatform;
+    params.parent_platforms = selectedPlatforms.join(",");
   }
 
-  return useData<Game>("/games", params, [selectedGenre, selectedPlatform]);
+  return useData<Game>("/games", params, [selectedGenre, selectedPlatforms]);
 }
 
 export default useGames;

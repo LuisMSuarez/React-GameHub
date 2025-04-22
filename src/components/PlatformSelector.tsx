@@ -8,11 +8,11 @@ import {
 } from "@chakra-ui/react";
 
 interface Props {
-  selectedPlatformId: string;
-  onPlatformSelect: (platform: string) => void;
+  selectedPlatformIds: string[];
+  onPlatformSelect: (platforms: string[]) => void;
 }
 
-const PlatformSelector = ({ selectedPlatformId, onPlatformSelect }: Props) => {
+const PlatformSelector = ({ selectedPlatformIds, onPlatformSelect }: Props) => {
   const { data: platforms, error, isLoading } = usePlatforms();
 
   if (error) {
@@ -27,14 +27,12 @@ const PlatformSelector = ({ selectedPlatformId, onPlatformSelect }: Props) => {
   }
 
   const handleChange = (details: SelectValueChangeDetails) => {
-    if (details.value.length === 1) {
-      // only 1 item should be selected
-      onPlatformSelect(details.value[0]);
-    }
     if (details.value.length === 0) {
       // user selected to clear the filter
-      onPlatformSelect("");
+      onPlatformSelect([]);
     }
+    // 1 or more items are selected
+    onPlatformSelect(details.value);
   };
 
   return (
@@ -50,7 +48,7 @@ const PlatformSelector = ({ selectedPlatformId, onPlatformSelect }: Props) => {
         <Select.HiddenSelect />
         <Select.Control>
           <Select.Trigger>
-            <Select.ValueText placeholder="Platform" />
+            <Select.ValueText placeholder="Platforms" />
           </Select.Trigger>
           <Select.IndicatorGroup>
             <Select.ClearTrigger />

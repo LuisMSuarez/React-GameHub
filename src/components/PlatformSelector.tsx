@@ -30,7 +30,7 @@ const PlatformSelector = () => {
         <Select.HiddenSelect />
         <Select.Control>
           <Select.Trigger>
-            <Select.ValueText placeholder="Select platform" />
+            <Select.ValueText placeholder="Platform" />
           </Select.Trigger>
           <Select.IndicatorGroup>
             <Select.Indicator />

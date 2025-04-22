@@ -8,18 +8,25 @@ import {
 
 const PlatformSelector = () => {
   const { data: platforms, error, isLoading } = usePlatforms();
+
+  if (error) {
+    return null;
+  }
   const platformsListCollection = createListCollection({
     items: platforms.map((p) => ({ label: p.name, value: p.slug })),
   });
 
-  console.log("is loading!! " + isLoading);
-
   if (isLoading) {
-    return <Spinner size="xl" />;
+    return <Spinner size="md" padding="20px" />;
   }
   return (
     <>
-      <Select.Root collection={platformsListCollection} size="sm" width="320px">
+      <Select.Root
+        collection={platformsListCollection}
+        size="sm"
+        width="300px"
+        padding="20px"
+      >
         <Select.HiddenSelect />
         <Select.Control>
           <Select.Trigger>

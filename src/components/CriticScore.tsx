@@ -7,6 +7,9 @@ interface Props {
 }
 
 const CriticScore = ({ game }: Props) => {
+  if (game.metacritic === null) {
+    return null;
+  }
   const color =
     game.metacritic > 75 ? "green" : game.metacritic > 60 ? "yellow" : "";
   return (

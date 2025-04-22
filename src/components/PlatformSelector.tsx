@@ -3,22 +3,40 @@ import {
   createListCollection,
   Portal,
   Select,
+  SelectValueChangeDetails,
   Spinner,
 } from "@chakra-ui/react";
 
-const PlatformSelector = () => {
+interface Props {
+  selectedPlatformId: string;
+  onPlatformSelect: (platform: string) => void;
+}
+
+const PlatformSelector = ({ selectedPlatformId, onPlatformSelect }: Props) => {
   const { data: platforms, error, isLoading } = usePlatforms();
 
   if (error) {
     return null;
   }
   const platformsListCollection = createListCollection({
-    items: platforms.map((p) => ({ label: p.name, value: p.slug })),
+    items: platforms.map((p) => ({ label: p.name, value: p.id })),
   });
 
   if (isLoading) {
     return <Spinner size="md" padding="20px" />;
   }
+
+  const handleChange = (details: SelectValueChangeDetails) => {
+    if (details.value.length === 1) {
+      // only 1 item should be selected
+      onPlatformSelect(details.value[0]);
+    }
+    if (details.value.length === 0) {
+      // user selected to clear the filter
+      onPlatformSelect("");
+    }
+  };
+
   return (
     <>
       <Select.Root
@@ -26,6 +44,7 @@ const PlatformSelector = () => {
         size="sm"
         width="300px"
         padding="20px"
+        onValueChange={handleChange}
       >
         <Select.HiddenSelect />
         <Select.Control>
@@ -33,6 +52,7 @@ const PlatformSelector = () => {
             <Select.ValueText placeholder="Platform" />
           </Select.Trigger>
           <Select.IndicatorGroup>
+            <Select.ClearTrigger />
             <Select.Indicator />
           </Select.IndicatorGroup>
         </Select.Control>

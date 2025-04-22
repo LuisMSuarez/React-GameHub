@@ -7,9 +7,7 @@ import PlatformSelector from "./components/PlatformSelector";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState("");
-  const handleGenreSelect = (selectedGenre: string) => {
-    setSelectedGenre(selectedGenre);
-  };
+  const [selectedPlatform, setSelectedPlatform] = useState("");
 
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
@@ -34,12 +32,18 @@ function App() {
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList
           selectedGenre={selectedGenre}
-          onGenreSelect={handleGenreSelect}
+          onGenreSelect={(genre) => setSelectedGenre(genre)}
         />
       </GridItem>
       <GridItem area="main">
-        <PlatformSelector />
-        <GameGrid selectedGenre={selectedGenre} />
+        <PlatformSelector
+          selectedPlatformId={selectedPlatform}
+          onPlatformSelect={(platform) => setSelectedPlatform(platform)}
+        />
+        <GameGrid
+          selectedGenre={selectedGenre}
+          selectedPlatform={selectedPlatform}
+        />
       </GridItem>
     </Grid>
   );

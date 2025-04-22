@@ -1,45 +1,38 @@
-import usePlatforms from "@/hooks/usePlatforms";
 import {
   createListCollection,
   Portal,
   Select,
   SelectValueChangeDetails,
-  Spinner,
 } from "@chakra-ui/react";
 
-interface Props {
-  selectedPlatformIds: string[];
-  onPlatformSelect: (platforms: string[]) => void;
-}
+interface Props {}
 
-const PlatformSelector = ({ selectedPlatformIds, onPlatformSelect }: Props) => {
-  const { data: platforms, error, isLoading } = usePlatforms();
-
-  if (error) {
-    return null;
-  }
-  const platformsListCollection = createListCollection({
-    items: platforms.map((p) => ({ label: p.name, value: p.id })),
+const SortBySelector = () => {
+  const orderByCollection = createListCollection({
+    items: [
+      { value: "name", label: "Name" },
+      { value: "released", label: "Date released" },
+      { value: "added", label: "Date added" },
+      { value: "created", label: "Date created" },
+      { value: "updated", label: "Date updated" },
+      { value: "rating", label: "Rating" },
+      { value: "metacritic", label: "Metacritic score" },
+    ],
   });
-
-  if (isLoading) {
-    return <Spinner size="md" padding="20px" />;
-  }
 
   const handleChange = (details: SelectValueChangeDetails) => {
     if (details.value.length === 0) {
       // user selected to clear the filter
-      onPlatformSelect([]);
+      console.log(details.value);
     }
     // 1 or more items are selected
-    onPlatformSelect(details.value);
+    console.log(details.value);
   };
 
   return (
     <>
       <Select.Root
-        multiple
-        collection={platformsListCollection}
+        collection={orderByCollection}
         size="sm"
         width="200px"
         onValueChange={handleChange}
@@ -47,7 +40,7 @@ const PlatformSelector = ({ selectedPlatformIds, onPlatformSelect }: Props) => {
         <Select.HiddenSelect />
         <Select.Control>
           <Select.Trigger>
-            <Select.ValueText placeholder="Platforms" />
+            <Select.ValueText placeholder="Sort by" />
           </Select.Trigger>
           <Select.IndicatorGroup>
             <Select.ClearTrigger />
@@ -57,7 +50,7 @@ const PlatformSelector = ({ selectedPlatformIds, onPlatformSelect }: Props) => {
         <Portal>
           <Select.Positioner>
             <Select.Content>
-              {platformsListCollection.items.map((p) => (
+              {orderByCollection.items.map((p) => (
                 <Select.Item item={p} key={p.value}>
                   {p.label}
                   <Select.ItemIndicator />
@@ -71,4 +64,4 @@ const PlatformSelector = ({ selectedPlatformIds, onPlatformSelect }: Props) => {
   );
 };
 
-export default PlatformSelector;
+export default SortBySelector;

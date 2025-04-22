@@ -9,10 +9,11 @@ interface Props {
   game: Game;
 }
 const GameCard = ({ game }: Props) => {
+  const imageUri = getGameBackgroundImage(game.background_image);
   return (
     <GameCardContainer>
       <Card.Root>
-        <Image src={getGameBackgroundImage(game.background_image)} />
+        {imageUri && <Image src={imageUri} />}
         <Card.Body>
           <Heading fontSize="2xl">{game.name}</Heading>
           <Stack direction="row" justify="space-between">

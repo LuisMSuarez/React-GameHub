@@ -8,18 +8,21 @@ interface Props {
   onClick: (selectedGenre: string) => void;
 }
 const GenreItem = ({ genre, isSelected, onClick }: Props) => {
+  const imageUri = getOptimizedImage(genre.image_background);
   return (
     <HStack
       justifyContent="left"
       width="80%"
       onClick={() => onClick(genre.slug)}
     >
-      <Image
-        boxSize="50px"
-        borderRadius={5}
-        overflow="hidden"
-        src={getOptimizedImage(genre.image_background)}
-      />
+      {imageUri && (
+        <Image
+          boxSize="50px"
+          borderRadius={5}
+          overflow="hidden"
+          src={imageUri}
+        />
+      )}
       <Link fontWeight={isSelected ? "bold" : "normal"}>{genre.name}</Link>
     </HStack>
   );

@@ -11,16 +11,22 @@ export interface Game {
   background_image: string;
   rating: number;
   parent_platforms: { platform: Platform} []
-  metacritic: number;
+  metacritic: number | null;
 }
 
-interface Props {
-  selectedGenre: string;
-}
+const useGames = (selectedGenre: string, selectedPlatform: string) => {
+  let params: { genres?: string; parent_platforms?: string } = {};
+  
+  if (selectedGenre !== '' )
+  {
+    params.genres = selectedGenre;
+  }
+  if (selectedPlatform !== '' )
+  {
+    params.parent_platforms = selectedPlatform;
+  }
 
-const useGames = ({selectedGenre}: Props) => {
-  const params = selectedGenre === '' ? {} : { genres: selectedGenre };
-  return useData<Game>("/games", params, [selectedGenre]);
+  return useData<Game>("/games", params, [selectedGenre, selectedPlatform]);
 }
 
 export default useGames;

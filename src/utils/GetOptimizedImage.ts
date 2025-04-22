@@ -1,6 +1,11 @@
 import { useBreakpointValue } from "@chakra-ui/react";
 
 const getOptimizedImage = (image_uri: string) => {
+  if (image_uri === null)
+  {
+    return null;
+  }
+  
   let rootIndex = image_uri.indexOf("/games/");
   // most images have a path like: https://media.rawg.io/media/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg
   // and crop as: https://media.rawg.io/media/crop/600/400/games/618/618c2031a07bbff6b4f611f10b6bcdbc.jpg

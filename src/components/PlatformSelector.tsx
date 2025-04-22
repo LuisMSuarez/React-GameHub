@@ -40,6 +40,7 @@ const PlatformSelector = ({ selectedPlatformId, onPlatformSelect }: Props) => {
   return (
     <>
       <Select.Root
+        multiple
         collection={platformsListCollection}
         size="sm"
         width="300px"

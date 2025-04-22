@@ -13,6 +13,7 @@ import { Platform } from "@/hooks/useGames";
 import { HStack, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { Tooltip } from "@/components/ui/tooltip";
+import { TbSquareRoundedLetterNFilled } from "react-icons/tb";
 
 interface Props {
   platforms: Platform[];
@@ -30,6 +31,7 @@ const PlatformIconList = ({ platforms }: Props) => {
     android: FaAndroid,
     sega: SiSega,
     atari: SiAtari,
+    "neo-geo": TbSquareRoundedLetterNFilled,
     "commodore-amiga": SiCommodore,
   };
 

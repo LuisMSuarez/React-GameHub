@@ -5,9 +5,16 @@ import GenreList from "./components/GenreList";
 import { useState } from "react";
 import PlatformSelector from "./components/PlatformSelector";
 
+export interface GameQuery {
+  genre: string;
+  platforms: string[];
+}
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState("");
-  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [gameQuery, setGameQuery] = useState<GameQuery>({
+    genre: "",
+    platforms: [],
+  });
 
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
@@ -31,19 +38,20 @@ function App() {
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList
-          selectedGenre={selectedGenre}
-          onGenreSelect={(genre) => setSelectedGenre(genre)}
+          selectedGenre={gameQuery.genre}
+          onGenreSelect={(genre) =>
+            setGameQuery({ ...gameQuery, genre: genre })
+          }
         />
       </GridItem>
       <GridItem area="main">
         <PlatformSelector
-          selectedPlatformIds={selectedPlatforms}
-          onPlatformSelect={(platforms) => setSelectedPlatforms(platforms)}
+          selectedPlatformIds={gameQuery.platforms}
+          onPlatformSelect={(platforms) =>
+            setGameQuery({ ...gameQuery, platforms: platforms })
+          }
         />
-        <GameGrid
-          selectedGenre={selectedGenre}
-          selectedPlatforms={selectedPlatforms}
-        />
+        <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
   );

@@ -34,8 +34,7 @@ const SortBySelector = () => {
       <Select.Root
         collection={orderByCollection}
         size="sm"
-        width="300px"
-        padding="20px"
+        width="200px"
         onValueChange={handleChange}
       >
         <Select.HiddenSelect />

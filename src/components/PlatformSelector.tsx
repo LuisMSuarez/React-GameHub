@@ -41,8 +41,7 @@ const PlatformSelector = ({ selectedPlatformIds, onPlatformSelect }: Props) => {
         multiple
         collection={platformsListCollection}
         size="sm"
-        width="300px"
-        padding="20px"
+        width="200px"
         onValueChange={handleChange}
       >
         <Select.HiddenSelect />

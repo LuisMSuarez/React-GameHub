@@ -2,18 +2,14 @@ import useGames from "@/hooks/useGames";
 import { SimpleGrid, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
+import { GameQuery } from "@/App";
 
 interface Props {
-  selectedGenre: string;
-  selectedPlatforms: string[];
+  gameQuery: GameQuery;
 }
 
-const GameGrid = ({ selectedGenre, selectedPlatforms }: Props) => {
-  const {
-    data: games,
-    error,
-    isLoading,
-  } = useGames(selectedGenre, selectedPlatforms);
+const GameGrid = ({ gameQuery }: Props) => {
+  const { data: games, error, isLoading } = useGames(gameQuery);
   const skeletons = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]; // rawg page size is 20

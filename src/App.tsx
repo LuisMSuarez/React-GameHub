@@ -5,7 +5,7 @@ import GenreList from "./components/GenreList";
 import { useState } from "react";
 import PlatformSelector from "./components/PlatformSelector";
 
-interface GameQuery {
+export interface GameQuery {
   genre: string;
   platforms: string[];
 }
@@ -51,10 +51,7 @@ function App() {
             setGameQuery({ ...gameQuery, platforms: platforms })
           }
         />
-        <GameGrid
-          selectedGenre={gameQuery.genre}
-          selectedPlatforms={gameQuery.platforms}
-        />
+        <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
   );

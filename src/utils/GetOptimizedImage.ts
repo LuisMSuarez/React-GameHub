@@ -1,9 +1,10 @@
 import { useBreakpointValue } from "@chakra-ui/react";
+import noImage from "../assets/no-image-placeholder.webp"
 
 const getOptimizedImage = (image_uri: string) => {
-  if (image_uri === null)
+  if (!image_uri )
   {
-    return null;
+    return noImage;
   }
   
   let rootIndex = image_uri.indexOf("/games/");

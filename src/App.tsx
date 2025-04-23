@@ -9,6 +9,7 @@ import SortBySelector from "./components/SortBySelector";
 export interface GameQuery {
   genre: string;
   ordering: string;
+  search: string;
   platforms: string[];
 }
 
@@ -16,6 +17,7 @@ function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({
     genre: "",
     ordering: "",
+    search: "",
     platforms: [],
   });
 
@@ -28,7 +30,7 @@ function App() {
   return (
     <Grid
       templateAreas={{
-        base: `"nav " "main"`,
+        base: `"nav " "main"`, // imagine each string in double quotes stacked ontop of eachother
         lg: `"nav nav" "aside main"`, // 1024px or more
       }}
       templateColumns={{
@@ -37,7 +39,10 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar
+          searchString={gameQuery.search}
+          onSearch={(query) => setGameQuery({ ...gameQuery, search: query })}
+        />
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList

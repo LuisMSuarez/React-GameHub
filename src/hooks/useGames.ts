@@ -16,7 +16,7 @@ export interface Game {
 }
 
 const useGames = (gameQuery: GameQuery) => {
-  let params: { genres?: string; parent_platforms?: string, ordering?: string } = {};
+  let params: { genres?: string; parent_platforms?: string, ordering?: string, search?: string } = {};
   
   if (gameQuery.genre !== '' )
   {
@@ -29,6 +29,10 @@ const useGames = (gameQuery: GameQuery) => {
   if (gameQuery.platforms.length > 0 )
   {
     params.parent_platforms = gameQuery.platforms.join(",");
+  }
+  if (gameQuery.search !== '' )
+  {
+    params.search = gameQuery.search;
   }
 
   return useData<Game>("/games", params, [gameQuery]);

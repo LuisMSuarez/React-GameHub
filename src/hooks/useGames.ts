@@ -16,7 +16,7 @@ export interface Game {
 }
 
 const useGames = (gameQuery: GameQuery) => {
-  let params: { genres?: string; parent_platforms?: string, ordering: string } = {};
+  let params: { genres?: string; parent_platforms?: string, ordering?: string } = {};
   
   if (gameQuery.genre !== '' )
   {

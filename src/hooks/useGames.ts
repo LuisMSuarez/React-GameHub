@@ -16,11 +16,15 @@ export interface Game {
 }
 
 const useGames = (gameQuery: GameQuery) => {
-  let params: { genres?: string; parent_platforms?: string } = {};
+  let params: { genres?: string; parent_platforms?: string, ordering: string } = {};
   
   if (gameQuery.genre !== '' )
   {
     params.genres = gameQuery.genre;
+  }
+  if (gameQuery.ordering !== '' )
+  {
+    params.ordering = gameQuery.ordering;
   }
   if (gameQuery.platforms.length > 0 )
   {

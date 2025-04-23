@@ -56,8 +56,8 @@ function App() {
             }
           />
           <SortBySelector
-            onOrderBySelect={(genre) =>
-              setGameQuery({ ...gameQuery, genre: genre })
+            onOrderBySelect={(orderBy) =>
+              setGameQuery({ ...gameQuery, ordering: orderBy })
             }
           />
         </HStack>

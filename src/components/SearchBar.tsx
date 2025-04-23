@@ -1,37 +1,45 @@
 import { CloseButton, Input, InputGroup } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { MdSearch } from "react-icons/md";
 
-const SearchBar = () => {
-  const [value, setValue] = useState("");
+interface Props {
+  searchString: string;
+  onSearch: (query: string) => void;
+}
+
+const SearchBar = ({ searchString, onSearch }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const clearSearchButton = value ? (
+  const clearSearchButton = searchString ? (
     <CloseButton
       size="xs"
       onClick={() => {
-        setValue("");
-        inputRef.current?.focus();
+        if (inputRef.current) {
+          inputRef.current.value = "";
+          inputRef.current.focus();
+          onSearch("");
+        }
       }}
       me="-2"
     />
   ) : undefined;
 
   return (
-    <InputGroup
-      startElement={<MdSearch size={20} />}
-      endElement={clearSearchButton}
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (inputRef.current) {
+          onSearch(inputRef.current.value);
+        }
+      }}
     >
-      <Input
-        ref={inputRef}
-        placeholder="Search games"
-        value={value}
-        borderRadius={10}
-        onChange={(e) => {
-          setValue(e.currentTarget.value);
-        }}
-      />
-    </InputGroup>
+      <InputGroup
+        startElement={<MdSearch size={20} />}
+        endElement={clearSearchButton}
+      >
+        <Input ref={inputRef} placeholder="Search games" borderRadius={10} />
+      </InputGroup>
+    </form>
   );
 };
 

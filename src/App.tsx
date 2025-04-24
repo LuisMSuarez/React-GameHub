@@ -60,7 +60,6 @@ function App() {
           <GameHeading gameQuery={gameQuery} />
           <HStack>
             <PlatformSelector
-              selectedPlatforms={gameQuery.platforms}
               onPlatformSelect={(platforms) =>
                 setGameQuery({ ...gameQuery, platforms: platforms })
               }

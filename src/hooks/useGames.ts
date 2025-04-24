@@ -16,25 +16,14 @@ export interface Game {
 }
 
 const useGames = (gameQuery: GameQuery) => {
-  let params: { genres?: string; parent_platforms?: string, ordering?: string, search?: string } = {};
+  // let params: { genres?: string; parent_platforms?: string, ordering?: string, search?: string } = {};
+  const params = {
+    genres: (gameQuery.genre) ? gameQuery.genre.slug : undefined,
+    parent_platforms: (gameQuery.platforms.length > 0 ) ? gameQuery.platforms.map(p => p.id).join(",") : undefined,
+    ordering: (gameQuery.ordering !== '' ) ? gameQuery.ordering : undefined,
+    search: (gameQuery.search !== '' ) ? gameQuery.search : undefined
+  };
   
-  if (gameQuery.genre)
-  {
-    params.genres = gameQuery.genre.slug;
-  }
-  if (gameQuery.ordering !== '' )
-  {
-    params.ordering = gameQuery.ordering;
-  }
-  if (gameQuery.platforms.length > 0 )
-  {
-    params.parent_platforms = gameQuery.platforms.map(p => p.id).join(",");
-  }
-  if (gameQuery.search !== '' )
-  {
-    params.search = gameQuery.search;
-  }
-
   return useData<Game>("/games", params, [gameQuery]);
 }
 

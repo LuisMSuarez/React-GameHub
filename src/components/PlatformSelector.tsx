@@ -8,11 +8,10 @@ import {
 } from "@chakra-ui/react";
 
 interface Props {
-  selectedPlatforms: Platform[];
   onPlatformSelect: (platforms: Platform[]) => void;
 }
 
-const PlatformSelector = ({ selectedPlatforms, onPlatformSelect }: Props) => {
+const PlatformSelector = ({ onPlatformSelect }: Props) => {
   const { data: platforms, error, isLoading } = usePlatforms();
 
   if (error) {

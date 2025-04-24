@@ -1,10 +1,15 @@
+import { GameQuery } from "@/App";
 import { Heading } from "@chakra-ui/react";
 
 interface Props {
-  attributes: string[];
+  gameQuery: GameQuery;
 }
-const GameHeading = ({ attributes }: Props) => {
-  return <Heading size="3xl">{attributes.join(",")} Games</Heading>;
+const GameHeading = ({ gameQuery }: Props) => {
+  return (
+    <Heading size="3xl" marginBottom={5}>
+      {gameQuery.genre ? gameQuery.genre.name : "All"} Games
+    </Heading>
+  );
 };
 
 export default GameHeading;

@@ -16,7 +16,6 @@ export interface Game {
 }
 
 const useGames = (gameQuery: GameQuery) => {
-  // let params: { genres?: string; parent_platforms?: string, ordering?: string, search?: string } = {};
   const params = {
     genres: (gameQuery.genre) ? gameQuery.genre.slug : undefined,
     parent_platforms: (gameQuery.platforms.length > 0 ) ? gameQuery.platforms.map(p => p.id).join(",") : undefined,

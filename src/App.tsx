@@ -57,9 +57,7 @@ function App() {
       </GridItem>
       <GridItem area="main">
         <VStack align="start" padding="5">
-          <GameHeading
-            attributes={[gameQuery.genre ? gameQuery.genre.name : "All"]}
-          />
+          <GameHeading gameQuery={gameQuery} />
           <HStack>
             <PlatformSelector
               selectedPlatforms={gameQuery.platforms}

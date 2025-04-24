@@ -1,4 +1,4 @@
-import usePlatforms from "@/hooks/usePlatforms";
+import usePlatforms, { Platform } from "@/hooks/usePlatforms";
 import {
   createListCollection,
   Portal,
@@ -8,31 +8,31 @@ import {
 } from "@chakra-ui/react";
 
 interface Props {
-  selectedPlatformIds: string[];
-  onPlatformSelect: (platforms: string[]) => void;
+  selectedPlatforms: Platform[];
+  onPlatformSelect: (platforms: Platform[]) => void;
 }
 
-const PlatformSelector = ({ selectedPlatformIds, onPlatformSelect }: Props) => {
+const PlatformSelector = ({ selectedPlatforms, onPlatformSelect }: Props) => {
   const { data: platforms, error, isLoading } = usePlatforms();
 
   if (error) {
     return null;
   }
   const platformsListCollection = createListCollection({
-    items: platforms.map((p) => ({ label: p.name, value: p.id })),
+    items: platforms.map((p) => ({ ...p, label: p.name, value: p.id })),
   });
 
   if (isLoading) {
     return <Spinner size="md" padding="20px" />;
   }
 
-  const handleChange = (details: SelectValueChangeDetails) => {
+  const handleChange = (details: SelectValueChangeDetails<Platform>) => {
     if (details.value.length === 0) {
       // user selected to clear the filter
       onPlatformSelect([]);
     }
     // 1 or more items are selected
-    onPlatformSelect(details.value);
+    onPlatformSelect(details.items);
   };
 
   return (

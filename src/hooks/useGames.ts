@@ -28,7 +28,7 @@ const useGames = (gameQuery: GameQuery) => {
   }
   if (gameQuery.platforms.length > 0 )
   {
-    params.parent_platforms = gameQuery.platforms.join(",");
+    params.parent_platforms = gameQuery.platforms.map(p => p.id).join(",");
   }
   if (gameQuery.search !== '' )
   {

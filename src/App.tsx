@@ -7,12 +7,13 @@ import PlatformSelector from "./components/PlatformSelector";
 import SortBySelector from "./components/SortBySelector";
 import GameHeading from "./components/GameHeading";
 import { Genre } from "./hooks/useGenres";
+import { Platform } from "./hooks/usePlatforms";
 
 export interface GameQuery {
   genre: Genre | null;
   ordering: string;
   search: string;
-  platforms: string[];
+  platforms: Platform[];
 }
 
 function App() {
@@ -57,11 +58,11 @@ function App() {
       <GridItem area="main">
         <VStack align="start" padding="5">
           <GameHeading
-            attributes={[gameQuery.genre ? gameQuery.genre.name : ""]}
+            attributes={[gameQuery.genre ? gameQuery.genre.name : "All"]}
           />
           <HStack>
             <PlatformSelector
-              selectedPlatformIds={gameQuery.platforms}
+              selectedPlatforms={gameQuery.platforms}
               onPlatformSelect={(platforms) =>
                 setGameQuery({ ...gameQuery, platforms: platforms })
               }

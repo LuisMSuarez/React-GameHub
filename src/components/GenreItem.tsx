@@ -5,16 +5,12 @@ import getOptimizedImage from "@/utils/GetOptimizedImage";
 interface Props {
   genre: Genre;
   isSelected: boolean;
-  onClick: (selectedGenre: string) => void;
+  onClick: (selectedGenre: Genre) => void;
 }
 const GenreItem = ({ genre, isSelected, onClick }: Props) => {
   const imageUri = getOptimizedImage(genre.image_background);
   return (
-    <HStack
-      justifyContent="left"
-      width="80%"
-      onClick={() => onClick(genre.slug)}
-    >
+    <HStack justifyContent="left" width="80%" onClick={() => onClick(genre)}>
       {imageUri && (
         <Image
           boxSize="50px"

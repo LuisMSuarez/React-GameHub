@@ -6,9 +6,10 @@ import { useState } from "react";
 import PlatformSelector from "./components/PlatformSelector";
 import SortBySelector from "./components/SortBySelector";
 import GameHeading from "./components/GameHeading";
+import { Genre } from "./hooks/useGenres";
 
 export interface GameQuery {
-  genre: string;
+  genre: Genre | null;
   ordering: string;
   search: string;
   platforms: string[];
@@ -16,7 +17,7 @@ export interface GameQuery {
 
 function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({
-    genre: "",
+    genre: null,
     ordering: "",
     search: "",
     platforms: [],
@@ -55,7 +56,9 @@ function App() {
       </GridItem>
       <GridItem area="main">
         <VStack align="start" padding="5">
-          <GameHeading />
+          <GameHeading
+            attributes={[gameQuery.genre ? gameQuery.genre.name : ""]}
+          />
           <HStack>
             <PlatformSelector
               selectedPlatformIds={gameQuery.platforms}

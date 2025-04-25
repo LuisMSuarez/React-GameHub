@@ -9,6 +9,11 @@ on:
       - main
   workflow_dispatch:
 
+# Optional: environment variables can be injected here
+# You can add these variables in your repository Settings - Secrets and variables - Actions - variables
+env:
+  VITE_RAWG_API_KEY: ${{ secrets.RAWGAPIKEY }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,14 +34,11 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./dist/* -r -j
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: release.zip
+          path: dist
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,10 +55,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: node-app
-
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-      
+  
       - name: Login to Azure
         uses: azure/login@v2
         with:

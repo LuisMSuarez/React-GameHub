@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, VStack } from "@chakra-ui/react";
+import { Grid, GridItem, HStack, Link, VStack, Text } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
@@ -56,7 +56,7 @@ function App() {
         />
       </GridItem>
       <GridItem area="main">
-        <VStack align="start" padding="5">
+        <VStack align="start" margin="5">
           <GameHeading gameQuery={gameQuery} />
           <HStack>
             <PlatformSelector
@@ -72,6 +72,12 @@ function App() {
           </HStack>
         </VStack>
         <GameGrid gameQuery={gameQuery} />
+        <Text margin="5">
+          Results powered by{" "}
+          <Link href="https://rawg.io" target="_blank">
+            RAWG Api
+          </Link>
+        </Text>
       </GridItem>
     </Grid>
   );

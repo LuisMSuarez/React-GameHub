@@ -3,16 +3,7 @@ import GameCard from "./GameCard";
 import { Game } from "@/hooks/useGames";
 import { Provider } from "./ui/provider";
 import "@testing-library/jest-dom";
-import { describe, expect, it, vi } from "vitest";
-
-window.matchMedia = vi.fn().mockImplementation((query) => ({
-  matches: false,
-  media: query,
-  addEventListener: vi.fn(),
-  removeEventListener: vi.fn(),
-  addListener: vi.fn(),
-  removeListener: vi.fn(),
-}));
+import { describe, expect, it } from "vitest";
 
 const mockGame: Game = {
   id: 1,

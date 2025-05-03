@@ -1,6 +1,6 @@
 import { Game } from "@/hooks/useGames";
 import { Badge } from "@chakra-ui/react";
-import { Tooltip } from "../components/ui/tooltip";
+import { Tooltip } from "@/components/ui/tooltip";
 
 interface Props {
   game: Game;

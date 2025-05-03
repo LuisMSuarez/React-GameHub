@@ -2,7 +2,7 @@ import bullsEye from "../assets/bulls-eye.webp";
 import thumbsUp from "../assets/thumbs-up.webp";
 import meh from "../assets/meh.webp";
 import { Image, ImageProps } from "@chakra-ui/react";
-import { Tooltip } from "@/components/ui/tooltip";
+import { Tooltip } from "../components/ui/tooltip";
 
 interface Props {
   rating: number;

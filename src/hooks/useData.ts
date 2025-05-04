@@ -9,6 +9,7 @@ interface FetchDataResponse<T> {
 
 const useData = <T>(resource: string, params: any, deps?: any) => {
       const [data, setData] = useState<T[]>([]);
+      const [count, setCount] = useState(0);
       const [error, setError] = useState("");
       const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +20,8 @@ const useData = <T>(resource: string, params: any, deps?: any) => {
         apiClient
           .get<FetchDataResponse<T>>(resource, { signal: controller.signal, params: params })
           .then((res) => {
-            setData(res.data.results); 
+            setData(res.data.results);
+            setCount(res.data.count);
             setIsLoading(false);
           })
           .catch((err) => {             
@@ -41,7 +43,7 @@ const useData = <T>(resource: string, params: any, deps?: any) => {
         return () => controller.abort();
       }, deps);
 
-      return { data, error, isLoading};
+      return { data, count, error, isLoading};
 }
 
 export default useData;

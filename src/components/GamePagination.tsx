@@ -1,16 +1,20 @@
+import { GameQuery } from "@/App";
 import { ButtonGroup, IconButton, Pagination } from "@chakra-ui/react";
-import { useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
-const GamePagination = () => {
-  const [page, setPage] = useState(1);
+interface Props {
+  gameQuery: GameQuery;
+  gameCount: number;
+  onPageChange: (page: number) => void;
+}
 
+const GamePagination = ({ gameQuery, gameCount, onPageChange }: Props) => {
   return (
     <Pagination.Root
-      count={20}
-      pageSize={2}
-      page={page}
-      onPageChange={(e) => setPage(e.page)}
+      count={gameCount}
+      pageSize={gameQuery.pageSize}
+      page={gameQuery.pageNumber}
+      onPageChange={(e) => onPageChange(e.page)}
     >
       <ButtonGroup variant="ghost" size="sm">
         <Pagination.PrevTrigger asChild>

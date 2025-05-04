@@ -8,12 +8,15 @@ import SortBySelector from "./components/SortBySelector";
 import GameHeading from "./components/GameHeading";
 import { Genre } from "./hooks/useGenres";
 import { Platform } from "./hooks/usePlatforms";
+import GamePagination from "./components/GamePagination";
 
 export interface GameQuery {
   genre: Genre | null;
   ordering: string;
   search: string;
   platforms: Platform[];
+  pageNumber: number;
+  pageSize: number;
 }
 
 function App() {
@@ -22,7 +25,11 @@ function App() {
     ordering: "",
     search: "",
     platforms: [],
+    pageNumber: 1,
+    pageSize: 20,
   });
+
+  const [gameCount, setGameCount] = useState(0);
 
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
@@ -71,7 +78,17 @@ function App() {
             />
           </HStack>
         </VStack>
-        <GameGrid gameQuery={gameQuery} />
+        <GameGrid
+          gameQuery={gameQuery}
+          onGameCount={(count) => setGameCount(count)}
+        />
+        <GamePagination
+          gameQuery={gameQuery}
+          gameCount={gameCount}
+          onPageChange={(page) =>
+            setGameQuery({ ...gameQuery, pageNumber: page })
+          }
+        />
         <Text margin="5">
           Results powered by{" "}
           <Link href="https://rawg.io" target="_blank">

@@ -14,6 +14,7 @@ const GamePagination = ({ gameQuery, gameCount, onPageChange }: Props) => {
       count={gameCount}
       pageSize={gameQuery.pageSize}
       page={gameQuery.pageNumber}
+      siblingCount={2}
       onPageChange={(e) => onPageChange(e.page)}
     >
       <ButtonGroup variant="ghost" size="sm">

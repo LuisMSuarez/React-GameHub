@@ -3,43 +3,17 @@ import { SimpleGrid, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import { GameQuery } from "@/App";
-import { useEffect } from "react";
+import GamePagination from "./GamePagination";
 
 interface Props {
   gameQuery: GameQuery;
-  onGameCount: (count: number) => void;
+  onPageChange: (page: number) => void;
 }
 
-const GameGrid = ({ gameQuery, onGameCount }: Props) => {
+const GameGrid = ({ gameQuery, onPageChange }: Props) => {
   const { data: games, count, error, isLoading } = useGames(gameQuery);
-  useEffect(() => {
-    if (!isLoading) {
-      onGameCount(count); // Invoke callback when data is available
-    }
-  }, [isLoading]); // Runs again when `data` updates
-
   const skeletons = [
-    1,
-    2,
-    3,
-    ,
-    ,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]; // rawg page size is 20
 
   if (error) {
@@ -54,6 +28,11 @@ const GameGrid = ({ gameQuery, onGameCount }: Props) => {
         {!isLoading &&
           games.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
+      <GamePagination
+        gameQuery={gameQuery}
+        gameCount={count}
+        onPageChange={onPageChange}
+      />
     </>
   );
 };

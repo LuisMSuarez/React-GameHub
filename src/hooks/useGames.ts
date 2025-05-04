@@ -21,7 +21,9 @@ const useGames = (gameQuery: GameQuery) => {
     genres: (gameQuery.genre) ? gameQuery.genre.slug : undefined,
     parent_platforms: (gameQuery.platforms.length > 0 ) ? gameQuery.platforms.map(p => p.id).join(",") : undefined,
     ordering: (gameQuery.ordering !== '' ) ? gameQuery.ordering : undefined,
-    search: (gameQuery.search !== '' ) ? gameQuery.search : undefined
+    search: (gameQuery.search !== '' ) ? gameQuery.search : undefined,
+    page: gameQuery.pageNumber,
+    page_size: gameQuery.pageSize
   };
   
   return useData<Game>("/games", params, [gameQuery]);

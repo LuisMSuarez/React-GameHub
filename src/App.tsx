@@ -14,6 +14,8 @@ export interface GameQuery {
   ordering: string;
   search: string;
   platforms: Platform[];
+  pageNumber: number;
+  pageSize: number;
 }
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
     ordering: "",
     search: "",
     platforms: [],
+    pageNumber: 1,
+    pageSize: 20,
   });
 
   /* In Chakra UI v3, the 'none' value for the display property is used to
@@ -71,7 +75,12 @@ function App() {
             />
           </HStack>
         </VStack>
-        <GameGrid gameQuery={gameQuery} />
+        <GameGrid
+          gameQuery={gameQuery}
+          onPageChange={(page) =>
+            setGameQuery({ ...gameQuery, pageNumber: page })
+          }
+        />
         <Text margin="5">
           Results powered by{" "}
           <Link href="https://rawg.io" target="_blank">

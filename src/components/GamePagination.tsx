@@ -18,7 +18,7 @@ const GamePagination = ({ gameQuery, gameCount, onPageChange }: Props) => {
     return null;
   }
 
-  const siblingCount = useBreakpointValue({ base: 0, md: 1, lg: 2 });
+  const siblingCount = useBreakpointValue({ base: 0, md: 3, lg: 4, xl: 5 });
 
   return (
     <Pagination.Root

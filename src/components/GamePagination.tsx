@@ -26,7 +26,7 @@ const GamePagination = ({ gameQuery, gameCount, onPageChange }: Props) => {
 
         <Pagination.Items
           render={(page) => (
-            <IconButton variant={{ base: "ghost", _selected: "outline" }}>
+            <IconButton variant={{ base: "ghost", _selected: "solid" }}>
               {page.value}
             </IconButton>
           )}

@@ -18,6 +18,14 @@ const GamePagination = ({ gameQuery, gameCount, onPageChange }: Props) => {
     return null;
   }
 
+  /* The default breakpoints are:
+     base – applies to all screen sizes by default.
+     sm – 30em (480px).
+     md – 48em (768px).
+     lg – 62em (992px).
+     xl – 80em (1280px).
+     2xl – 96em (1536px).
+  */
   const siblingCount = useBreakpointValue({ base: 0, md: 3, lg: 4, xl: 5 });
 
   return (

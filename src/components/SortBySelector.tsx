@@ -39,7 +39,6 @@ const SortBySelector = ({ onOrderBySelect }: Props) => {
       <Select.Root
         collection={orderByCollection}
         size="sm"
-        width="200px"
         onValueChange={handleChange}
       >
         <Select.HiddenSelect />

@@ -1,5 +1,10 @@
 import { GameQuery } from "@/App";
-import { ButtonGroup, IconButton, Pagination } from "@chakra-ui/react";
+import {
+  ButtonGroup,
+  IconButton,
+  Pagination,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 
 interface Props {
@@ -13,12 +18,14 @@ const GamePagination = ({ gameQuery, gameCount, onPageChange }: Props) => {
     return null;
   }
 
+  const siblingCount = useBreakpointValue({ base: 0, md: 1, lg: 2 });
+
   return (
     <Pagination.Root
       count={gameCount}
       pageSize={gameQuery.pageSize}
       page={gameQuery.pageNumber}
-      siblingCount={2}
+      siblingCount={siblingCount}
       onPageChange={(e) => onPageChange(e.page)}
     >
       <ButtonGroup variant="ghost" size="sm">

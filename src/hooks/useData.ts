@@ -16,6 +16,7 @@ const useData = <T>(resource: string, params: any, deps?: any) => {
       useEffect(() => {
         const controller = new AbortController();
         setIsLoading(true);
+        setError(""); // reset any previous error or else the app will never be able to recover from one
 
         apiClient
           .get<FetchDataResponse<T>>(resource, { signal: controller.signal, params: params })

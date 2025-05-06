@@ -64,7 +64,7 @@ function App() {
       <GridItem area="main">
         <VStack align="start" margin="5">
           <GameHeading gameQuery={gameQuery} />
-          <HStack>
+          <HStack width="100%">
             <PlatformSelector
               onPlatformSelect={(platforms) =>
                 setGameQuery({

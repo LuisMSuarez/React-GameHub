@@ -48,14 +48,16 @@ function App() {
       <GridItem area="nav">
         <NavBar
           searchString={gameQuery.search}
-          onSearch={(query) => setGameQuery({ ...gameQuery, search: query })}
+          onSearch={(query) =>
+            setGameQuery({ ...gameQuery, search: query, pageNumber: 1 })
+          }
         />
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList
           selectedGenre={gameQuery.genre}
           onGenreSelect={(genre) =>
-            setGameQuery({ ...gameQuery, genre: genre })
+            setGameQuery({ ...gameQuery, genre: genre, pageNumber: 1 })
           }
         />
       </GridItem>
@@ -65,12 +67,16 @@ function App() {
           <HStack>
             <PlatformSelector
               onPlatformSelect={(platforms) =>
-                setGameQuery({ ...gameQuery, platforms: platforms })
+                setGameQuery({
+                  ...gameQuery,
+                  platforms: platforms,
+                  pageNumber: 1,
+                })
               }
             />
             <SortBySelector
               onOrderBySelect={(orderBy) =>
-                setGameQuery({ ...gameQuery, ordering: orderBy })
+                setGameQuery({ ...gameQuery, ordering: orderBy, pageNumber: 1 })
               }
             />
           </HStack>

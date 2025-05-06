@@ -9,6 +9,10 @@ interface Props {
 }
 
 const GamePagination = ({ gameQuery, gameCount, onPageChange }: Props) => {
+  if (gameCount <= 0) {
+    return null;
+  }
+
   return (
     <Pagination.Root
       count={gameCount}

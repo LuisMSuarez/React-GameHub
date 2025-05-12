@@ -1,4 +1,4 @@
-import genres from "@/data/genres";
+//import genres from "@/data/genres";
 
 export interface Genre {
   id: number;
@@ -8,8 +8,8 @@ export interface Genre {
 }
 
 // uncomment these lines to fall back to server call instead of cached data
-//import useData from "./useData";
-//const useGenres = () => useData<Genre>("/genres", {}, []);
-const useGenres = () => ({ data : genres, error: "", isLoading: false });
+import useData from "./useData";
+const useGenres = () => useData<Genre>("/genres", {}, []);
+// const useGenres = () => ({ data : genres, error: "", isLoading: false });
 
 export default useGenres;

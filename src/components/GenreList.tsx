@@ -18,7 +18,7 @@ const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
     <VStack align="start" margin={3}>
       {isLoading && <Spinner size="xl" />}
       <Heading marginBottom={3}>Genres</Heading>
-      {genres.map((genre) => (
+      {genres?.map((genre) => (
         <GenreItem
           key={genre.slug}
           genre={genre}

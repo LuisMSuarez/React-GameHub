@@ -1,5 +1,7 @@
 import { GameQuery } from "@/App";
-import useData from "./useData";
+import { FetchDataResponse } from "./useData";import apiClient from "@/services/api-client";
+import { useQuery } from "@tanstack/react-query";
+
 
 export interface Platform {
     id: number;
@@ -25,8 +27,17 @@ const useGames = (gameQuery: GameQuery) => {
     page: gameQuery.pageNumber,
     page_size: gameQuery.pageSize
   };
-  
-  return useData<Game>("/games", params, [gameQuery]);
+
+  return useQuery<Game[], Error>({
+        queryKey: ["games", params.genres, params.parent_platforms, params.ordering, params.search, params.page, params.page_size],
+        queryFn: () => 
+          apiClient
+            .get<FetchDataResponse<Game>>("/games", {
+              params: params
+            })
+            .then((res) => res.data.results),
+        staleTime: 1000 * 60 * 60 * 1 // 1 hour
+    })
 }
 
 export default useGames;

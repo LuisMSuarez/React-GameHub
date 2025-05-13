@@ -1,10 +1,7 @@
-//import genres from "@/data/genres";
-import { useQuery } from "@tanstack/react-query";
+import genres from "@/data/genres";
 import apiClient from "@/services/api-client";
+import { useQuery } from "@tanstack/react-query";
 import { FetchDataResponse } from "./useData";
-// uncomment these lines to fall back to server call instead of cached data
-// const useGenres = () => ({ data : genres, error: "", isLoading: false });
-// import useData from "./useData";
 
 export interface Genre {
   id: number;
@@ -20,7 +17,8 @@ const useGenres = () =>
         apiClient
           .get<FetchDataResponse<Genre>>("/genres")
           .then((res) => res.data.results),
-      staleTime: 10* 1000
+      staleTime: 24 * 60 * 60 * 1000, // 24 hours
+      initialData: genres // initialize cache with static data to show results to the user immediately
   })
 
 export default useGenres;

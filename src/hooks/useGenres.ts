@@ -1,4 +1,10 @@
 //import genres from "@/data/genres";
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "@/services/api-client";
+import { FetchDataResponse } from "./useData";
+// uncomment these lines to fall back to server call instead of cached data
+// const useGenres = () => ({ data : genres, error: "", isLoading: false });
+// import useData from "./useData";
 
 export interface Genre {
   id: number;
@@ -7,34 +13,14 @@ export interface Genre {
   image_background: string;
 }
 
-import { useQuery } from "@tanstack/react-query";
-// uncomment these lines to fall back to server call instead of cached data
-// const useGenres = () => ({ data : genres, error: "", isLoading: false });
-
-// import useData from "./useData";
-import axios from "axios";
-
-interface FetchDataResponse<T> {
-  count: number;
-  results: T[];
-}
-
-const axiosInstance = axios.create({
-  baseURL: "https://gamers-hub-api.azurewebsites.net/v1"
-});
-
 const useGenres = () => 
-{  
-  return useQuery<Genre[], Error>({
-    queryKey: ["genres"],
-    queryFn: () => 
-      {
-        return axiosInstance
-        .get<FetchDataResponse<Genre>>("/genres")
-        .then((res) => res.data.results);
-      },
-    staleTime: 10* 1000
-  });
-}
+  useQuery<Genre[], Error>({
+      queryKey: ["genres"],
+      queryFn: () => 
+        apiClient
+          .get<FetchDataResponse<Genre>>("/genres")
+          .then((res) => res.data.results),
+      staleTime: 10* 1000
+  })
 
 export default useGenres;

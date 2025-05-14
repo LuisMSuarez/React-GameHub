@@ -20,10 +20,10 @@ export interface Game {
 
 const useGames = (gameQuery: GameQuery) => {
   const params = {
-    genres: gameQuery.genre?.slug,
-    parent_platforms: gameQuery.platforms?.map(p => p.id).join(","),
-    ordering: gameQuery.ordering,
-    search: gameQuery.search,
+    genres: (gameQuery.genre) ? gameQuery.genre.slug : undefined,
+    parent_platforms: (gameQuery.platforms.length > 0 ) ? gameQuery.platforms.map(p => p.id).join(",") : undefined,
+    ordering: (gameQuery.ordering !== '' ) ? gameQuery.ordering : undefined,
+    search: (gameQuery.search !== '' ) ? gameQuery.search : undefined,
     page: gameQuery.pageNumber,
     page_size: gameQuery.pageSize
   };

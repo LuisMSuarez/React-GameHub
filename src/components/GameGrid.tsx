@@ -19,7 +19,7 @@ const GameGrid = ({ gameQuery, onPageChange }: Props) => {
   }
 
   if (error) {
-    return <Text>{error}</Text>;
+    return <Text>{error.message}</Text>;
   }
 
   return (
@@ -28,11 +28,11 @@ const GameGrid = ({ gameQuery, onPageChange }: Props) => {
         {isLoading &&
           skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
         {!isLoading &&
-          games.map((game) => <GameCard key={game.id} game={game} />)}
+          games?.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
       <GamePagination
         gameQuery={gameQuery}
-        gameCount={count}
+        gameCount={count ?? 0}
         onPageChange={onPageChange}
       />
     </>

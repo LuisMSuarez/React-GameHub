@@ -2,7 +2,7 @@ import useGenres, { Genre } from "@/hooks/useGenres";
 import { VStack, Spinner, Heading, HStack } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip";
 import GenreItem from "./GenreItem";
-import { MdClose } from "react-icons/md";
+import { IoMdCloseCircle } from "react-icons/io";
 
 interface Props {
   selectedGenre: Genre | null;
@@ -23,7 +23,7 @@ const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
         <Heading>Genres</Heading>
         {selectedGenre && (
           <Tooltip content="Clear genre filter">
-            <MdClose onClick={() => onGenreSelect(null)} />
+            <IoMdCloseCircle size={20} onClick={() => onGenreSelect(null)} />
           </Tooltip>
         )}
       </HStack>

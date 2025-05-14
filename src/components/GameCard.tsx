@@ -1,10 +1,10 @@
-import { Game } from "@/hooks/useGames";
-import PlatformIconList from "./PlatformIconList";
-import { Image, Card, Heading, HStack } from "@chakra-ui/react";
-import CriticScore from "./CriticScore";
+import { Game } from "@/services/gamesService";
+import { Card, Heading, HStack, Image } from "@chakra-ui/react";
 import getGameBackgroundImage from "../utils/GetOptimizedImage";
-import GameCardContainer from "./GameCardContainer";
+import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
+import GameCardContainer from "./GameCardContainer";
+import PlatformIconList from "./PlatformIconList";
 
 interface Props {
   game: Game;

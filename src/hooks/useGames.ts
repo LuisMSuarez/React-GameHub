@@ -1,17 +1,7 @@
 import { GameQuery } from "@/App";
-import apiClient, { FetchDataResponse } from "@/services/api-client";
+import { FetchDataResponse } from "@/services/api-client";
 import { useQuery } from "@tanstack/react-query";
-import { Platform } from "./usePlatforms";
-
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  rating: number;
-  parent_platforms: { platform: Platform} []
-  metacritic: number | null;
-  rating_top: number; // 1, 2, 3, 4, or 5
-}
+import gamesService, { Game } from "@/services/gamesService";
 
 const useGames = (gameQuery: GameQuery) => {
   const params = {
@@ -25,12 +15,7 @@ const useGames = (gameQuery: GameQuery) => {
 
   const response = useQuery<FetchDataResponse<Game>, Error>({
         queryKey: ["games", params],
-        queryFn: () => 
-          apiClient
-            .get<FetchDataResponse<Game>>("/games", {
-              params: params
-            })
-            .then((res) => res.data),
+        queryFn: () => gamesService.get(params),
         staleTime: 1000 * 60 * 60 * 1 // 1 hour
     })
 

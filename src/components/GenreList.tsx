@@ -23,7 +23,11 @@ const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
         <Heading>Genres</Heading>
         {selectedGenre && (
           <Tooltip content="Clear genre filter">
-            <IoMdCloseCircle size={20} onClick={() => onGenreSelect(null)} />
+            <IoMdCloseCircle
+              className="clickable-icon"
+              size={20}
+              onClick={() => onGenreSelect(null)}
+            />
           </Tooltip>
         )}
       </HStack>

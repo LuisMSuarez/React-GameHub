@@ -15,7 +15,20 @@ const useGames = (gameQuery: GameQuery) => {
 
   const response = useQuery<FetchDataResponse<Game>, Error>({
         queryKey: ["games", params],
-        queryFn: () => gamesService.get(params),
+        queryFn: async () => {
+          try {
+            return await gamesService.get(params);
+          } catch (error: any) {
+            if (error.response?.status === 404) {
+              // Return a canned response if the API returns a 404
+              return {
+                count: gameQuery.pageSize * gameQuery.pageNumber,
+                results: [],
+              } as FetchDataResponse<Game>;
+            }
+            throw error; // Re-throw other errors
+          }
+        },
         staleTime: 1000 * 60 * 60 * 1 // 1 hour
     })
 

@@ -1,3 +1,7 @@
 form {
   width: 50%
 }
+
+.clickable-icon {
+  cursor: pointer; /* provide visual feedback to the user that an icon is clickable */
+}

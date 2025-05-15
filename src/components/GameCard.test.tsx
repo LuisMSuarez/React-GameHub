@@ -1,9 +1,9 @@
-import { render, screen } from "@testing-library/react";
-import GameCard from "./GameCard";
-import { Game } from "@/hooks/useGames";
-import { Provider } from "./ui/provider";
+import { Game } from "@/services/gamesService";
 import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import GameCard from "./GameCard";
+import { Provider } from "./ui/provider";
 
 const mockGame: Game = {
   id: 1,

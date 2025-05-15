@@ -1,18 +1,18 @@
-import {
-  FaWindows,
-  FaPlaystation,
-  FaXbox,
-  FaApple,
-  FaLinux,
-  FaAndroid,
-} from "react-icons/fa";
-import { MdPhoneIphone, MdOutlineDeviceUnknown } from "react-icons/md";
-import { SiNintendo, SiSega, SiAtari, SiCommodore } from "react-icons/si";
-import { BsGlobe } from "react-icons/bs"; // for "web" games
-import { Platform } from "@/hooks/useGames";
+import { Tooltip } from "@/components/ui/tooltip";
+import { Platform } from "@/hooks/usePlatforms";
 import { HStack, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
-import { Tooltip } from "@/components/ui/tooltip";
+import { BsGlobe } from "react-icons/bs"; // for "web" games
+import {
+  FaAndroid,
+  FaApple,
+  FaLinux,
+  FaPlaystation,
+  FaWindows,
+  FaXbox,
+} from "react-icons/fa";
+import { MdOutlineDeviceUnknown, MdPhoneIphone } from "react-icons/md";
+import { SiAtari, SiCommodore, SiNintendo, SiSega } from "react-icons/si";
 import { TbSquareRoundedLetterNFilled } from "react-icons/tb";
 
 interface Props {

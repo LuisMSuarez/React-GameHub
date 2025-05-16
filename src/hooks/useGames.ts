@@ -1,6 +1,6 @@
 import { GameQuery } from "@/App";
 import { FetchDataResponse } from "@/services/api-client";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import gamesService, { Game } from "@/services/gamesService";
 
 const useGames = (gameQuery: GameQuery) => {
@@ -13,26 +13,42 @@ const useGames = (gameQuery: GameQuery) => {
     page_size: gameQuery.pageSize
   };
 
-  const response = useQuery<FetchDataResponse<Game>, Error>({
+  const response = useInfiniteQuery<FetchDataResponse<Game>, Error>({
         queryKey: ["games", params],
-        queryFn: async () => {
+        queryFn: async () => { // async ({ pageParam = 1 }) => {
           try {
-            return await gamesService.get(params);
+            return await gamesService.get({...params});
           } catch (error: any) {
+            console.log(error);            
             if (error.response?.status === 404) {
               // Return a canned response if the API returns a 404
               return {
                 count: gameQuery.pageSize * gameQuery.pageNumber,
                 results: [],
+                isLastPage: true, // sentinel to mark this as the last page of data
               } as FetchDataResponse<Game>;
             }
             throw error; // Re-throw other errors
           }
         },
-        staleTime: 1000 * 60 * 60 * 1 // 1 hour
+        staleTime: 1000 * 60 * 60 * 1, // 1 hour
+        initialPageParam: 1,
+        getNextPageParam: (lastPage, allPages) => {
+          return lastPage.isLastPage
+            ? undefined 
+            : allPages.length + 1;
+        }
     })
 
-    return { data: response.data?.results, error: response.error, isLoading: response.isLoading, count: response.data?.count }
+    return {
+      data: response.data?.pages.flatMap(page => page.results) || [],
+      error: response.error,
+      isLoading: response.isLoading,
+      count: response.data?.pages[0]?.count || 0,
+      fetchNextPage: response.fetchNextPage,
+      hasNextPage: response.hasNextPage,
+    };
+  
 
 }
 

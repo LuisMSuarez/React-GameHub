@@ -1,6 +1,6 @@
 import { GameQuery } from "@/App";
 import useGames from "@/hooks/useGames";
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Button, SimpleGrid, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GamePagination from "./GamePagination";
@@ -11,7 +11,13 @@ interface Props {
 }
 
 const GameGrid = ({ gameQuery, onPageChange }: Props) => {
-  const { data: games, count, error, isLoading } = useGames(gameQuery);
+  const {
+    data: games,
+    count,
+    error,
+    isLoading,
+    fetchNextPage,
+  } = useGames(gameQuery);
 
   let skeletons: number[] = [];
   for (let i = 1; i <= gameQuery.pageSize; i++) {
@@ -30,6 +36,11 @@ const GameGrid = ({ gameQuery, onPageChange }: Props) => {
         {!isLoading &&
           games?.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
+      {process.env.NODE_ENV !== "production" && (
+        <Button margin={5} onClick={() => fetchNextPage()}>
+          Load next page
+        </Button>
+      )}
       <GamePagination
         gameQuery={gameQuery}
         gameCount={count ?? 0}

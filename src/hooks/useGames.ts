@@ -15,9 +15,9 @@ const useGames = (gameQuery: GameQuery) => {
 
   const response = useInfiniteQuery<FetchDataResponse<Game>, Error>({
         queryKey: ["games", params],
-        queryFn: async () => { // async ({ pageParam = 1 }) => {
+        queryFn: async ({ pageParam }) => {
           try {
-            return await gamesService.get({...params});
+            return await gamesService.get({...params, page: pageParam === 1 ? params.page : pageParam });
           } catch (error: any) {
             console.log(error);            
             if (error.response?.status === 404) {

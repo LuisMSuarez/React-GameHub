@@ -25,6 +25,7 @@ const useGames = (gameQuery: GameQuery) => {
               return {
                 count: gameQuery.pageSize * gameQuery.pageNumber,
                 results: [],
+                next: null,
                 isLastPage: true, // sentinel to mark this as the last page of data
               } as FetchDataResponse<Game>;
             }
@@ -34,9 +35,14 @@ const useGames = (gameQuery: GameQuery) => {
         staleTime: 1000 * 60 * 60 * 1, // 1 hour
         initialPageParam: 1,
         getNextPageParam: (lastPage, allPages) => {
-          return lastPage.isLastPage
-            ? undefined 
-            : allPages.length + 1;
+          if (lastPage.isLastPage || lastPage.next === null)
+          {
+            return undefined;
+          }
+          else
+          {
+            return allPages.length + 1;
+          }
         }
     })
 

@@ -17,6 +17,7 @@ const GameGrid = ({ gameQuery, onPageChange }: Props) => {
     error,
     isLoading,
     fetchNextPage,
+    hasNextPage,
   } = useGames(gameQuery);
 
   let skeletons: number[] = [];
@@ -36,7 +37,7 @@ const GameGrid = ({ gameQuery, onPageChange }: Props) => {
         {!isLoading &&
           games?.map((game) => <GameCard key={game.id} game={game} />)}
       </SimpleGrid>
-      {process.env.NODE_ENV !== "production" && (
+      {process.env.NODE_ENV !== "production" && hasNextPage && (
         <Button margin={5} onClick={() => fetchNextPage()}>
           Load next page
         </Button>

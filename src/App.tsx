@@ -14,7 +14,6 @@ export interface GameQuery {
   ordering: string;
   search: string;
   platforms: Platform[];
-  pageNumber: number;
   pageSize: number;
 }
 
@@ -24,7 +23,6 @@ function App() {
     ordering: "",
     search: "",
     platforms: [],
-    pageNumber: 1,
     pageSize: 20,
   });
 
@@ -48,16 +46,14 @@ function App() {
       <GridItem area="nav">
         <NavBar
           searchString={gameQuery.search}
-          onSearch={(query) =>
-            setGameQuery({ ...gameQuery, search: query, pageNumber: 1 })
-          }
+          onSearch={(query) => setGameQuery({ ...gameQuery, search: query })}
         />
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList
           selectedGenre={gameQuery.genre}
           onGenreSelect={(genre) =>
-            setGameQuery({ ...gameQuery, genre: genre, pageNumber: 1 })
+            setGameQuery({ ...gameQuery, genre: genre })
           }
         />
       </GridItem>
@@ -70,23 +66,17 @@ function App() {
                 setGameQuery({
                   ...gameQuery,
                   platforms: platforms,
-                  pageNumber: 1,
                 })
               }
             />
             <SortBySelector
               onOrderBySelect={(orderBy) =>
-                setGameQuery({ ...gameQuery, ordering: orderBy, pageNumber: 1 })
+                setGameQuery({ ...gameQuery, ordering: orderBy })
               }
             />
           </HStack>
         </VStack>
-        <GameGrid
-          gameQuery={gameQuery}
-          onPageChange={(page) =>
-            setGameQuery({ ...gameQuery, pageNumber: page })
-          }
-        />
+        <GameGrid gameQuery={gameQuery} />
         <Text margin="5">
           Results powered by{" "}
           <Link href="https://rawg.io" target="_blank">

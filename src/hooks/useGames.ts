@@ -9,7 +9,6 @@ const useGames = (gameQuery: GameQuery) => {
     parent_platforms: (gameQuery.platforms.length > 0 ) ? gameQuery.platforms.map(p => p.id).join(",") : undefined,
     ordering: (gameQuery.ordering !== '' ) ? gameQuery.ordering : undefined,
     search: (gameQuery.search !== '' ) ? gameQuery.search : undefined,
-    page: gameQuery.pageNumber,
     page_size: gameQuery.pageSize
   };
 
@@ -17,13 +16,13 @@ const useGames = (gameQuery: GameQuery) => {
         queryKey: ["games", params],
         queryFn: async ({ pageParam }) => {
           try {
-            return await gamesService.get({...params, page: pageParam === 1 ? params.page : pageParam });
+            return await gamesService.get({...params, page: pageParam });
           } catch (error: any) {
             console.log(error);            
             if (error.response?.status === 404) {
               // Return a canned response if the API returns a 404
               return {
-                count: gameQuery.pageSize * gameQuery.pageNumber,
+                count: 0,
                 results: [],
                 next: null,
                 isLastPage: true, // sentinel to mark this as the last page of data

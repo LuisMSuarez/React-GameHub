@@ -2,11 +2,11 @@ import useGameQueryStore from "@/store";
 import { Heading } from "@chakra-ui/react";
 
 const GameHeading = () => {
-  const { gameQuery } = useGameQueryStore();
+  const selectedGenre = useGameQueryStore((s) => s.gameQuery.genre);
 
   return (
     <Heading size="3xl" marginBottom={5}>
-      {gameQuery.genre ? gameQuery.genre.name : "All"} Games
+      {selectedGenre ? selectedGenre.name : "All"} Games
     </Heading>
   );
 };

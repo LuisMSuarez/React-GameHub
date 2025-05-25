@@ -1,4 +1,5 @@
 import usePlatforms, { Platform } from "@/hooks/usePlatforms";
+import useGameQueryStore from "@/store";
 import {
   createListCollection,
   Portal,
@@ -7,11 +8,8 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-interface Props {
-  onPlatformSelect: (platforms: Platform[]) => void;
-}
-
-const PlatformSelector = ({ onPlatformSelect }: Props) => {
+const PlatformSelector = () => {
+  const setPlatforms = useGameQueryStore((s) => s.setPlatforms);
   const { data: platforms, error, isLoading } = usePlatforms();
 
   if (error) {
@@ -28,10 +26,10 @@ const PlatformSelector = ({ onPlatformSelect }: Props) => {
   const handleChange = (details: SelectValueChangeDetails<Platform>) => {
     if (details.value.length === 0) {
       // user selected to clear the filter
-      onPlatformSelect([]);
+      setPlatforms([]);
     }
     // 1 or more items are selected
-    onPlatformSelect(details.items);
+    setPlatforms(details.items);
   };
 
   return (

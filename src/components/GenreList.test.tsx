@@ -1,7 +1,7 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import GenreList from "./GenreList";
 import { Genre } from "@/hooks/useGenres";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "./ui/provider";
 

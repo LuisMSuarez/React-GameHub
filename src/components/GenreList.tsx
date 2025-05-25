@@ -6,7 +6,8 @@ import { IoMdCloseCircle } from "react-icons/io";
 import useGameQueryStore from "@/store";
 
 const GenreList = () => {
-  const { gameQuery, setGenre } = useGameQueryStore();
+  const selectedGenre = useGameQueryStore((s) => s.gameQuery.genre);
+  const setGenre = useGameQueryStore((s) => s.setGenre);
   const { data: genres, error, isLoading } = useGenres();
 
   if (error) {
@@ -18,7 +19,7 @@ const GenreList = () => {
       {isLoading && <Spinner size="xl" />}
       <HStack marginBottom={3}>
         <Heading>Genres</Heading>
-        {gameQuery.genre && (
+        {selectedGenre && (
           <Tooltip content="Clear genre filter">
             <IoMdCloseCircle
               className="clickable-icon"
@@ -32,7 +33,7 @@ const GenreList = () => {
         <GenreItem
           key={genre.slug}
           genre={genre}
-          isSelected={gameQuery.genre === genre}
+          isSelected={selectedGenre === genre}
           onClick={setGenre}
         />
       ))}

@@ -4,10 +4,11 @@ import { useRef } from "react";
 import { MdSearch } from "react-icons/md";
 
 const SearchBar = () => {
-  const { gameQuery, setSearch } = useGameQueryStore();
+  const currentSearch = useGameQueryStore((s) => s.gameQuery.search);
+  const setSearch = useGameQueryStore((s) => s.setSearch);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const clearSearchButton = gameQuery.search ? (
+  const clearSearchButton = currentSearch ? (
     <CloseButton
       size="xs"
       onClick={() => {

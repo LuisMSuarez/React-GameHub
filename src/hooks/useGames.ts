@@ -4,7 +4,7 @@ import gamesService, { Game } from "@/services/gamesService";
 import useGameQueryStore from "@/store";
 
 const useGames = () => {
-  const { gameQuery } = useGameQueryStore();
+  const gameQuery = useGameQueryStore(s=> s.gameQuery);
   const params = {
     genres: (gameQuery.genre) ? gameQuery.genre.slug : undefined,
     parent_platforms: (gameQuery.platforms.length > 0 ) ? gameQuery.platforms.map(p => p.id).join(",") : undefined,

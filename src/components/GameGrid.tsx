@@ -6,7 +6,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import useGameQueryStore from "@/store";
 
 const GameGrid = () => {
-  const { gameQuery } = useGameQueryStore();
+  const pageSize = useGameQueryStore((s) => s.gameQuery.pageSize);
   const {
     data: games,
     error,
@@ -16,7 +16,7 @@ const GameGrid = () => {
   } = useGames();
 
   let skeletons: number[] = [];
-  for (let i = 1; i <= gameQuery.pageSize; i++) {
+  for (let i = 1; i <= pageSize; i++) {
     skeletons.push(i);
   }
 

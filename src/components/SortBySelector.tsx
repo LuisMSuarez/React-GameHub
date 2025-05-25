@@ -1,3 +1,4 @@
+import useGameQueryStore from "@/store";
 import {
   createListCollection,
   Portal,
@@ -5,11 +6,8 @@ import {
   SelectValueChangeDetails,
 } from "@chakra-ui/react";
 
-interface Props {
-  onOrderBySelect: (orderByField: string) => void;
-}
-
-const SortBySelector = ({ onOrderBySelect }: Props) => {
+const SortBySelector = () => {
+  const setOrdering = useGameQueryStore((s) => s.setOrdering);
   const orderByCollection = createListCollection({
     items: [
       { value: "name", label: "Name" },
@@ -25,11 +23,11 @@ const SortBySelector = ({ onOrderBySelect }: Props) => {
   const handleChange = (details: SelectValueChangeDetails) => {
     if (details.value.length === 0) {
       // user selected to clear the filter
-      onOrderBySelect("");
+      setOrdering("");
     }
     if (details.value.length === 1) {
       // user selected to clear the filter
-      onOrderBySelect(details.value[0]);
+      setOrdering(details.value[0]);
     }
     // multiselect for this field is not supported
   };

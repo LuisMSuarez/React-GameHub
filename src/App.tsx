@@ -5,11 +5,8 @@ import GenreList from "./components/GenreList";
 import PlatformSelector from "./components/PlatformSelector";
 import SortBySelector from "./components/SortBySelector";
 import GameHeading from "./components/GameHeading";
-import useGameQueryStore from "./store";
 
 function App() {
-  const { setOrdering } = useGameQueryStore();
-
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
     display property is used to make an element behave as a block-level
@@ -38,9 +35,7 @@ function App() {
           <GameHeading />
           <HStack width="100%">
             <PlatformSelector />
-            <SortBySelector
-              onOrderBySelect={(orderBy) => setOrdering(orderBy)}
-            />
+            <SortBySelector />
           </HStack>
         </VStack>
         <GameGrid />

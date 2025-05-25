@@ -1,9 +1,10 @@
 import { FetchDataResponse } from "@/services/api-client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import gamesService, { Game } from "@/services/gamesService";
-import { GameQuery } from "@/store";
+import useGameQueryStore from "@/store";
 
-const useGames = (gameQuery: GameQuery) => {
+const useGames = () => {
+  const { gameQuery } = useGameQueryStore();
   const params = {
     genres: (gameQuery.genre) ? gameQuery.genre.slug : undefined,
     parent_platforms: (gameQuery.platforms.length > 0 ) ? gameQuery.platforms.map(p => p.id).join(",") : undefined,

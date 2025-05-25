@@ -2,7 +2,7 @@ import { Genre } from "@/hooks/useGenres";
 import { Platform } from "@/hooks/usePlatforms";
 import { create } from "zustand";
 
-export interface GameQuery {
+interface GameQuery {
   genre: Genre | null;
   ordering: string;
   search: string;
@@ -12,7 +12,7 @@ export interface GameQuery {
 
 interface GameQueryStore {
     gameQuery: GameQuery;
-    setGenre: (genre: Genre) => void;
+    setGenre: (genre: Genre | null) => void;
     setOrdering: (ordering: string) => void;
     setSearch: (search: string) => void;
     setPlatforms: (platforms: Platform[]) => void;
@@ -27,7 +27,7 @@ const useGameQueryStore = create<GameQueryStore>( set => ({
         platforms: [],
         pageSize: 20
     },
-    setGenre: (genre: Genre) => set(state => ({ gameQuery: { ...state.gameQuery, genre: genre }})),
+    setGenre: (genre: Genre | null) => set(state => ({ gameQuery: { ...state.gameQuery, genre: genre }})),
     setOrdering: (ordering: string) => set(state => ({ gameQuery: { ...state.gameQuery, ordering: ordering }})),
     setSearch: (search: string) => set(state => ({ gameQuery: { ...state.gameQuery, search: search }})),
     setPlatforms: (platforms: Platform[]) => set(state => ({ gameQuery: { ...state.gameQuery, platforms: platforms }})),

@@ -2,20 +2,14 @@ import { Grid, GridItem, HStack, Link, VStack, Text } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import GameGrid from "./components/GameGrid";
 import GenreList from "./components/GenreList";
-import { useState } from "react";
 import PlatformSelector from "./components/PlatformSelector";
 import SortBySelector from "./components/SortBySelector";
 import GameHeading from "./components/GameHeading";
-import { GameQuery } from "./store";
+import useGameQueryStore from "./store";
 
 function App() {
-  const [gameQuery, setGameQuery] = useState<GameQuery>({
-    genre: null,
-    ordering: "",
-    search: "",
-    platforms: [],
-    pageSize: 20,
-  });
+  const { gameQuery, setSearch, setGenre, setPlatforms, setOrdering } =
+    useGameQueryStore();
 
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
@@ -37,37 +31,28 @@ function App() {
       <GridItem area="nav">
         <NavBar
           searchString={gameQuery.search}
-          onSearch={(query) => setGameQuery({ ...gameQuery, search: query })}
+          onSearch={(query) => setSearch(query)}
         />
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList
           selectedGenre={gameQuery.genre}
-          onGenreSelect={(genre) =>
-            setGameQuery({ ...gameQuery, genre: genre })
-          }
+          onGenreSelect={(genre) => setGenre(genre)}
         />
       </GridItem>
       <GridItem area="main">
         <VStack align="start" margin="5">
-          <GameHeading gameQuery={gameQuery} />
+          <GameHeading />
           <HStack width="100%">
             <PlatformSelector
-              onPlatformSelect={(platforms) =>
-                setGameQuery({
-                  ...gameQuery,
-                  platforms: platforms,
-                })
-              }
+              onPlatformSelect={(platforms) => setPlatforms(platforms)}
             />
             <SortBySelector
-              onOrderBySelect={(orderBy) =>
-                setGameQuery({ ...gameQuery, ordering: orderBy })
-              }
+              onOrderBySelect={(orderBy) => setOrdering(orderBy)}
             />
           </HStack>
         </VStack>
-        <GameGrid gameQuery={gameQuery} />
+        <GameGrid />
         <Text margin="5">
           Results powered by{" "}
           <Link href="https://rawg.io" target="_blank">

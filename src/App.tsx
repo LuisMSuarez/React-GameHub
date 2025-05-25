@@ -8,8 +8,7 @@ import GameHeading from "./components/GameHeading";
 import useGameQueryStore from "./store";
 
 function App() {
-  const { gameQuery, setSearch, setGenre, setPlatforms, setOrdering } =
-    useGameQueryStore();
+  const { setPlatforms, setOrdering } = useGameQueryStore();
 
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
@@ -29,16 +28,10 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar
-          searchString={gameQuery.search}
-          onSearch={(query) => setSearch(query)}
-        />
+        <NavBar />
       </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
-        <GenreList
-          selectedGenre={gameQuery.genre}
-          onGenreSelect={(genre) => setGenre(genre)}
-        />
+        <GenreList />
       </GridItem>
       <GridItem area="main">
         <VStack align="start" margin="5">

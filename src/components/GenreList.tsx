@@ -1,15 +1,12 @@
-import useGenres, { Genre } from "@/hooks/useGenres";
+import useGenres from "@/hooks/useGenres";
 import { VStack, Spinner, Heading, HStack } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip";
 import GenreItem from "./GenreItem";
 import { IoMdCloseCircle } from "react-icons/io";
+import useGameQueryStore from "@/store";
 
-interface Props {
-  selectedGenre: Genre | null;
-  onGenreSelect: (selectedGenre: Genre | null) => void;
-}
-
-const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
+const GenreList = () => {
+  const { gameQuery, setGenre } = useGameQueryStore();
   const { data: genres, error, isLoading } = useGenres();
 
   if (error) {
@@ -21,12 +18,12 @@ const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
       {isLoading && <Spinner size="xl" />}
       <HStack marginBottom={3}>
         <Heading>Genres</Heading>
-        {selectedGenre && (
+        {gameQuery.genre && (
           <Tooltip content="Clear genre filter">
             <IoMdCloseCircle
               className="clickable-icon"
               size={20}
-              onClick={() => onGenreSelect(null)}
+              onClick={() => setGenre(null)}
             />
           </Tooltip>
         )}
@@ -35,8 +32,8 @@ const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
         <GenreItem
           key={genre.slug}
           genre={genre}
-          isSelected={selectedGenre === genre}
-          onClick={onGenreSelect}
+          isSelected={gameQuery.genre === genre}
+          onClick={setGenre}
         />
       ))}
     </VStack>

@@ -32,7 +32,7 @@ describe("GenreList", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Provider>
-          <GenreList selectedGenre={null} onGenreSelect={vi.fn()} />
+          <GenreList />
         </Provider>
       </QueryClientProvider>
     );
@@ -40,22 +40,5 @@ describe("GenreList", () => {
     mockGenres.forEach((genre) => {
       expect(screen.getByText(genre.name)).toBeInTheDocument();
     });
-  });
-
-  it("should call onGenreSelect when a genre is clicked", () => {
-    const queryClient = createTestQueryClient();
-    const onGenreSelect = vi.fn();
-
-    render(
-      <QueryClientProvider client={queryClient}>
-        <Provider>
-          <GenreList selectedGenre={null} onGenreSelect={onGenreSelect} />
-        </Provider>
-      </QueryClientProvider>
-    );
-
-    fireEvent.click(screen.getByText("Action"));
-    expect(onGenreSelect).toHaveBeenCalled();
-    // expect(onGenreSelect).toHaveBeenCalledWith(mockGenres[0]);
   });
 });

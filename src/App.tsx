@@ -6,16 +6,7 @@ import { useState } from "react";
 import PlatformSelector from "./components/PlatformSelector";
 import SortBySelector from "./components/SortBySelector";
 import GameHeading from "./components/GameHeading";
-import { Genre } from "./hooks/useGenres";
-import { Platform } from "./hooks/usePlatforms";
-
-export interface GameQuery {
-  genre: Genre | null;
-  ordering: string;
-  search: string;
-  platforms: Platform[];
-  pageSize: number;
-}
+import { GameQuery } from "./store";
 
 function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({

@@ -1,7 +1,7 @@
-import { GameQuery } from "@/App";
 import { FetchDataResponse } from "@/services/api-client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import gamesService, { Game } from "@/services/gamesService";
+import { GameQuery } from "@/store";
 
 const useGames = (gameQuery: GameQuery) => {
   const params = {

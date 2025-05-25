@@ -46,6 +46,7 @@ const useGames = () => {
         }
     })
 
+    // hide the complexity of pages of data from the caller by flattening out the response
     return {
       data: response.data?.pages.flatMap(page => page.results) || [],
       error: response.error,
@@ -54,8 +55,6 @@ const useGames = () => {
       fetchNextPage: response.fetchNextPage,
       hasNextPage: response.hasNextPage,
     };
-  
-
 }
 
 export default useGames;

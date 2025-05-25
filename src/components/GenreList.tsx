@@ -1,15 +1,13 @@
-import useGenres, { Genre } from "@/hooks/useGenres";
+import useGenres from "@/hooks/useGenres";
 import { VStack, Spinner, Heading, HStack } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip";
 import GenreItem from "./GenreItem";
 import { IoMdCloseCircle } from "react-icons/io";
+import useGameQueryStore from "@/store";
 
-interface Props {
-  selectedGenre: Genre | null;
-  onGenreSelect: (selectedGenre: Genre | null) => void;
-}
-
-const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
+const GenreList = () => {
+  const selectedGenre = useGameQueryStore((s) => s.gameQuery.genre);
+  const setGenre = useGameQueryStore((s) => s.setGenre);
   const { data: genres, error, isLoading } = useGenres();
 
   if (error) {
@@ -26,7 +24,7 @@ const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
             <IoMdCloseCircle
               className="clickable-icon"
               size={20}
-              onClick={() => onGenreSelect(null)}
+              onClick={() => setGenre(null)}
             />
           </Tooltip>
         )}
@@ -36,7 +34,7 @@ const GenreList = ({ selectedGenre, onGenreSelect }: Props) => {
           key={genre.slug}
           genre={genre}
           isSelected={selectedGenre === genre}
-          onClick={onGenreSelect}
+          onClick={setGenre}
         />
       ))}
     </VStack>

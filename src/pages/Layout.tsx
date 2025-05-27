@@ -1,5 +1,4 @@
 import NavBar from "@/components/NavBar";
-import { Grid, GridItem } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 
 function Layout() {
@@ -10,21 +9,10 @@ function Layout() {
     stack vertically with other elements.
   */
   return (
-    <Grid
-      templateAreas={{
-        base: `"nav " "main"`, // imagine each string in double quotes stacked ontop of eachother
-        lg: `"nav nav" "aside main"`, // 1024px or more
-      }}
-      templateColumns={{
-        base: "1fr",
-        lg: "200px 1fr",
-      }}
-    >
-      <GridItem area="nav">
-        <NavBar />
-      </GridItem>
+    <>
+      <NavBar />
       <Outlet />
-    </Grid>
+    </>
   );
 }
 

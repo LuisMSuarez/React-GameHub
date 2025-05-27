@@ -1,12 +1,11 @@
-import { Grid, GridItem, HStack, Link, VStack, Text } from "@chakra-ui/react";
-import NavBar from "./components/NavBar";
-import GameGrid from "./components/GameGrid";
-import GenreList from "./components/GenreList";
-import PlatformSelector from "./components/PlatformSelector";
-import SortBySelector from "./components/SortBySelector";
-import GameHeading from "./components/GameHeading";
+import GameGrid from "@/components/GameGrid";
+import GameHeading from "@/components/GameHeading";
+import GenreList from "@/components/GenreList";
+import PlatformSelector from "@/components/PlatformSelector";
+import SortBySelector from "@/components/SortBySelector";
+import { GridItem, HStack, Link, VStack, Text, Grid } from "@chakra-ui/react";
 
-function App() {
+function HomePage() {
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
     display property is used to make an element behave as a block-level
@@ -16,17 +15,16 @@ function App() {
   return (
     <Grid
       templateAreas={{
-        base: `"nav " "main"`, // imagine each string in double quotes stacked ontop of eachother
-        lg: `"nav nav" "aside main"`, // 1024px or more
+        // Between the tick marks you can specify various strings in double quotes, you imagine each string in double quotes stacked ontop of eachother.
+        // Here the nav bar has been factored out into the layout
+        base: `"main"`,
+        lg: `"aside main"`, // 1024px or more
       }}
       templateColumns={{
         base: "1fr",
         lg: "200px 1fr",
       }}
     >
-      <GridItem area="nav">
-        <NavBar />
-      </GridItem>
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         <GenreList />
       </GridItem>
@@ -40,7 +38,7 @@ function App() {
         </VStack>
         <GameGrid />
         <Text margin="5">
-          Results powered by{" "}
+          at layout! Results powered by{" "}
           <Link href="https://rawg.io" target="_blank">
             RAWG Api
           </Link>
@@ -50,4 +48,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

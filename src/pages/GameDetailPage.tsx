@@ -5,11 +5,7 @@ import { useParams } from "react-router-dom";
 const GameDetailPage = () => {
   const params = useParams();
 
-  if (!params.id) {
-    return <div>Game not found.</div>;
-  }
-
-  const { data, error, isLoading } = useGameDetails(params.id);
+  const { data, error, isLoading } = useGameDetails(params.id!);
 
   return (
     <Box margin={5}>

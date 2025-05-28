@@ -38,7 +38,7 @@ function HomePage() {
         </VStack>
         <GameGrid />
         <Text margin="5">
-          at layout! Results powered by{" "}
+          Results powered by{" "}
           <Link href="https://rawg.io" target="_blank">
             RAWG Api
           </Link>

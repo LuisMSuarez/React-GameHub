@@ -5,6 +5,7 @@ import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
 import GameCardContainer from "./GameCardContainer";
 import PlatformIconList from "./PlatformIconList";
+import { Link } from "react-router-dom";
 
 interface Props {
   game: Game;
@@ -13,7 +14,9 @@ const GameCard = ({ game }: Props) => {
   const imageUri = getGameBackgroundImage(game.background_image);
   return (
     <GameCardContainer>
-      <Card.Root>
+      <Card.Root
+        _hover={{ transform: "scale(1.05)", transition: "0.3s ease-in-out" }}
+      >
         {imageUri && <Image src={imageUri} />}
         <Card.Body>
           <HStack justify="space-between" marginBottom={3}>
@@ -23,7 +26,7 @@ const GameCard = ({ game }: Props) => {
             <CriticScore game={game} />
           </HStack>
           <Heading fontSize="2xl">
-            {game.name}
+            <Link to={`/games/${game.slug}`}>{game.name}</Link>
             <Emoji rating={game.rating_top} />
           </Heading>
         </Card.Body>

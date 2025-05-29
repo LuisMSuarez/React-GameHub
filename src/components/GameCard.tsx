@@ -15,7 +15,11 @@ const GameCard = ({ game }: Props) => {
   return (
     <GameCardContainer>
       <Card.Root>
-        {imageUri && <Image src={imageUri} />}
+        {imageUri && (
+          <Link to={`/games/${game.slug}`}>
+            <Image src={imageUri} />
+          </Link>
+        )}
         <Card.Body>
           <HStack justify="space-between" marginBottom={3}>
             <PlatformIconList

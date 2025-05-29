@@ -2,11 +2,13 @@ import useGameQueryStore from "@/store";
 import { CloseButton, Input, InputGroup } from "@chakra-ui/react";
 import { useRef } from "react";
 import { MdSearch } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const currentSearch = useGameQueryStore((s) => s.gameQuery.search);
   const setSearch = useGameQueryStore((s) => s.setSearch);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const navigate = useNavigate();
 
   const clearSearchButton = currentSearch ? (
     <CloseButton
@@ -28,6 +30,7 @@ const SearchBar = () => {
         event.preventDefault();
         if (inputRef.current) {
           setSearch(inputRef.current.value);
+          navigate("/");
         }
       }}
     >

@@ -9,25 +9,25 @@ const useGameDetails = (slug: string) => {
     queryKey: ["games", { slug }],
     queryFn: async () => {
         try {
-        return await getGameDetailsSvc.get({});
+            return await getGameDetailsSvc.get({});
         } catch (error: any) {
-        if (error.response?.status === 403) {
-            throw new Error("Access forbidden (403)");
-        }
-        if (error.response?.status === 404) {
-            throw new Error("Game not found (404)");
-        }
-        throw error; // Re-throw other errors
+            if (error.response?.status === 403) {
+                throw new Error("Access forbidden (403)");
+            }
+            if (error.response?.status === 404) {
+                throw new Error("Game not found (404)");
+            }
+            throw error; // Re-throw other errors
         }
     },
     staleTime: 1000 * 60 * 60 * 1, // 1 hour
     retry: (failureCount, error: any) => {
         // Don't retry for 403 or 404 errors
         if (
-        error?.message === "Access forbidden (403)" ||
-        error?.message === "Game not found (404)"
+            error?.message === "Access forbidden (403)" ||
+            error?.message === "Game not found (404)"
         ) {
-        return false;
+            return false;
         }
         return failureCount < 3; // Default: retry up to 3 times for other errors
     },

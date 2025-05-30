@@ -1,4 +1,4 @@
-import { Game } from "@/services/gamesService";
+import { Game } from "@/entities/Game";
 import { Card, Heading, HStack, Image } from "@chakra-ui/react";
 import getGameBackgroundImage from "../utils/GetOptimizedImage";
 import CriticScore from "./CriticScore";

@@ -1,5 +1,5 @@
-import { Genre } from "@/hooks/useGenres";
-import { Platform } from "@/hooks/usePlatforms";
+import { Genre } from "./entities/Genre";
+import { Platform } from "./entities/Platform";
 import { create } from "zustand";
 
 interface GameQuery {

@@ -1,5 +1,5 @@
 import { Tooltip } from "@/components/ui/tooltip";
-import { Platform } from "@/hooks/usePlatforms";
+import { Platform } from "@/entities/Platform";
 import { HStack, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { BsGlobe } from "react-icons/bs"; // for "web" games

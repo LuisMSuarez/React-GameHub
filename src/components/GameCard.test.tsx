@@ -1,4 +1,4 @@
-import { Game } from "@/services/gamesService";
+import { Game } from "@/entities/Game";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";

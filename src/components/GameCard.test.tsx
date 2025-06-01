@@ -16,6 +16,22 @@ const mockGame: Game = {
   metacritic: 85,
   rating_top: 5,
   description_raw: "This is a test game",
+  genres: [
+    {
+      id: 1,
+      name: "action",
+      slug: "action",
+      image_background: "https://image",
+    },
+  ],
+  publishers: [
+    {
+      id: 1,
+      name: "LM soft",
+      slug: "LM-soft",
+      image_background: "https://image",
+    },
+  ],
 };
 
 describe("GameCard", () => {

@@ -28,34 +28,30 @@ const GameDetailPage = () => {
       <ExpandableText text={data.description_raw}></ExpandableText>
       <SimpleGrid columns={{ sm: 1, md: 2 }} gap={5} marginTop={5}>
         <GridItem>
-          <DetailList
-            heading="Platforms"
-            items={data.parent_platforms.map((p) => (
-              <Text>{p.platform.name}</Text>
+          <DetailList heading="Platforms">
+            {data.parent_platforms.map(({ platform }) => (
+              <Text>{platform.name}</Text>
             ))}
-          />
+          </DetailList>
         </GridItem>
         <GridItem>
-          <DetailList
-            heading="Genres"
-            items={data.genres.map((g) => (
+          <DetailList heading="Genres">
+            {data.genres.map((g) => (
               <Text>{g.name}</Text>
             ))}
-          />
+          </DetailList>
         </GridItem>
         <GridItem>
-          <DetailList
-            heading="Critic score"
-            items={[<CriticScore game={data} />]}
-          />
+          <DetailList heading="Critic score">
+            {[<CriticScore game={data} />]}
+          </DetailList>
         </GridItem>
         <GridItem>
-          <DetailList
-            heading="Publishers"
-            items={data.publishers.map((p) => (
+          <DetailList heading="Publishers">
+            {data.publishers.map((p) => (
               <Text>{p.name}</Text>
             ))}
-          />
+          </DetailList>
         </GridItem>
       </SimpleGrid>
     </>

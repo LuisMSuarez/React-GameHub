@@ -9,13 +9,11 @@ interface Props {
 const DetailList = ({ heading, children }: Props) => {
   return (
     <>
-      <Heading size="sm" color="gray.500">
+      <Heading size="md" as="dt" color="gray.500">
         {heading}
       </Heading>
-      <List.Root variant="plain">
-        {children.map((children, index) => (
-          <List.Item key={index}>{children}</List.Item>
-        ))}
+      <List.Root variant="plain" as="dd">
+        {children}
       </List.Root>
     </>
   );

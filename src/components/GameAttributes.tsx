@@ -9,30 +9,30 @@ interface Props {
 
 const GameAttributes = ({ game }: Props) => {
   return (
-    <SimpleGrid columns={{ sm: 1, md: 2 }} gap={5} marginTop={5}>
+    <SimpleGrid as="dl" columns={{ sm: 1, md: 2 }} gap={5} marginTop={5}>
       <GridItem>
         <DetailList heading="Platforms">
           {game.parent_platforms?.map(({ platform }) => (
-            <Text>{platform.name}</Text>
+            <Text key={platform.id}>{platform.name}</Text>
           ))}
         </DetailList>
       </GridItem>
       <GridItem>
         <DetailList heading="Genres">
           {game.genres?.map((g) => (
-            <Text>{g.name}</Text>
+            <Text key={g.id}>{g.name}</Text>
           ))}
         </DetailList>
       </GridItem>
       <GridItem>
         <DetailList heading="Critic score">
-          {[<CriticScore game={game} />]}
+          {[<CriticScore key={game.id} game={game} />]}
         </DetailList>
       </GridItem>
       <GridItem>
         <DetailList heading="Publishers">
           {game.publishers?.map((p) => (
-            <Text>{p.name}</Text>
+            <Text key={p.id}>{p.name}</Text>
           ))}
         </DetailList>
       </GridItem>

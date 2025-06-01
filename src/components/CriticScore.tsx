@@ -1,4 +1,4 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge, Box } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip";
 import { Game } from "@/entities/Game";
 
@@ -13,9 +13,11 @@ const CriticScore = ({ game }: Props) => {
   const color =
     game.metacritic > 75 ? "green" : game.metacritic > 60 ? "yellow" : "";
   return (
-    <Tooltip content="Metacritic score">
-      <Badge colorPalette={color}>{game.metacritic}</Badge>
-    </Tooltip>
+    <Box>
+      <Tooltip content="Metacritic score">
+        <Badge colorPalette={color}>{game.metacritic}</Badge>
+      </Tooltip>
+    </Box>
   );
 };
 

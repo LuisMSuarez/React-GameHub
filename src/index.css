@@ -5,3 +5,14 @@ form {
 .clickable-icon {
   cursor: pointer; /* provide visual feedback to the user that an icon is clickable */
 }
+
+#video-container {
+  width: 100%;
+  position: relative;
+}
+#video-container video
+{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

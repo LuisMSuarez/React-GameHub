@@ -12,7 +12,7 @@ function Layout() {
   return (
     <>
       <NavBar />
-      <Box margin={5}>
+      <Box>
         <Outlet />
       </Box>
     </>

@@ -4,6 +4,7 @@ import { Box, Spinner, Text } from "@chakra-ui/react";
 interface Props {
   gameId: string;
 }
+
 const GameMovies = ({ gameId }: Props) => {
   const { data, error, isLoading } = useGameMovies(gameId);
 

@@ -3,12 +3,12 @@ import { GetGameMoviesService } from "@/services/gamesService";
 import { Movie } from "@/entities/Movie";
 import { FetchDataResponse } from "@/services/api-client";
 
-const useGameMovies = (id: string) => {
+const useGameMovies = (gameId: string) => {
 
-  const getGameMoviesSvc = GetGameMoviesService(id);
+  const getGameMoviesSvc = GetGameMoviesService(gameId);
 
     return useQuery<FetchDataResponse<Movie> | null, Error>({
-    queryKey: ["movies", { id }],
+    queryKey: ["movies", { gameId }],
     queryFn: async () => {
         try {
             return await getGameMoviesSvc.get({});

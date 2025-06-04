@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import GetOptimizedImage from "@/utils/GetOptimizedImage";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
-const settings = {
+const sliderSettings = {
   dots: true,
   arrows: true,
   infinite: true,
@@ -25,7 +25,10 @@ const GameScreenshots = ({ gameId }: Props) => {
   const { data, error, isLoading } = useGameScreenshots(gameId);
 
   // Use Chakra's color mode to set background and dot color
-  const dotColor = useColorModeValue("#2D3748", "#EDF2F7"); // dark for light mode, light for dark mode
+  const dotColor = useColorModeValue(
+    "#2D3748", // light mode color
+    "#EDF2F7" // dark mode color
+  );
 
   // Custom styles for slick dots
   const slickStyles = `
@@ -54,7 +57,7 @@ const GameScreenshots = ({ gameId }: Props) => {
           const cards = data.results.map((r) => GetOptimizedImage(r.image));
           return (
             <Box width="90%">
-              <Slider {...settings}>
+              <Slider {...sliderSettings}>
                 {cards.map((url, index) => (
                   <Image src={url} key={index} />
                 ))}

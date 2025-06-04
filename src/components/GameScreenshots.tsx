@@ -4,12 +4,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import GetOptimizedImage from "@/utils/GetOptimizedImage";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
-// Settings for the slider
 const settings = {
   dots: true,
   arrows: true,
-  fade: true,
   infinite: true,
   autoplay: true,
   speed: 500,
@@ -23,11 +22,29 @@ interface Props {
 }
 
 const GameScreenshots = ({ gameId }: Props) => {
-  // These are the breakpoints which changes the position of the
-  // buttons as the screen size changes
   const { data, error, isLoading } = useGameScreenshots(gameId);
+
+  // Use Chakra's color mode to set background and dot color
+  const dotColor = useColorModeValue("#2D3748", "#EDF2F7"); // dark for light mode, light for dark mode
+
+  // Custom styles for slick dots
+  const slickStyles = `
+    .slick-dots li button:before {
+      color: gray !important;
+      opacity: 1 !important;
+    }
+    .slick-dots li.slick-active button:before {
+      color: ${dotColor} !important;
+      opacity: 1 !important;
+    }
+    .slick-prev:before, .slick-next:before {
+      color:gray !important;
+    }
+  `;
+
   return (
-    <Box marginTop={5}>
+    <Box margin={5}>
+      <style>{slickStyles}</style>
       {isLoading && <Spinner />}
       {error && <Text>{error.message}</Text>}
       {data &&

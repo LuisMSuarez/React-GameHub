@@ -13,7 +13,7 @@ const axiosInstance =  axios.create({
     /* uncomment to invoke local api service from the client
      baseURL: "https://localhost:7285/v1", */
      /* production url */
-    baseURL: "https://gamers-hub-api.azurewebsites.net/v1",
+    baseURL: "https://localhost:7285/v1",
     /*
     uncomment if using rawg api directly
     params: {

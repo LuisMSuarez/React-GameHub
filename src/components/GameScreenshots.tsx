@@ -6,17 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import GetOptimizedImage from "@/utils/GetOptimizedImage";
 import { useColorModeValue } from "@/components/ui/color-mode";
 
-const sliderSettings = {
-  dots: true,
-  arrows: true,
-  infinite: true,
-  autoplay: true,
-  speed: 500,
-  autoplaySpeed: 5000,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-};
-
 interface Props {
   gameId: string;
 }
@@ -32,18 +21,34 @@ const GameScreenshots = ({ gameId }: Props) => {
 
   // Custom styles for slick dots
   const slickStyles = `
+    /* style for the dots that represent images currently not displayed */
     .slick-dots li button:before {
       color: gray !important;
       opacity: 1 !important;
     }
+    /* style for the dot that represents the currently displayed image */
     .slick-dots li.slick-active button:before {
       color: ${dotColor} !important;
       opacity: 1 !important;
     }
+    /* style for arrows to scroll through the slider */
     .slick-prev:before, .slick-next:before {
       color:gray !important;
+      opacity: 1 !important;
+      font-size: 25px;
     }
   `;
+
+  const sliderSettings = {
+    dots: true,
+    arrows: true,
+    infinite: true,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 5000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   return (
     <Box margin={5}>
@@ -54,12 +59,14 @@ const GameScreenshots = ({ gameId }: Props) => {
         data.results &&
         data.results.length > 0 &&
         (() => {
-          const cards = data.results.map((r) => GetOptimizedImage(r.image));
+          const cards = data.results
+            .filter((r) => !r.is_deleted)
+            .map((r) => GetOptimizedImage(r.image));
           return (
             <Box width="90%">
               <Slider {...sliderSettings}>
                 {cards.map((url, index) => (
-                  <Image src={url} key={index} />
+                  <Image src={url} key={index} padding={5} />
                 ))}
               </Slider>
             </Box>

@@ -12,9 +12,7 @@ const GameMedia = ({ gameId }: Props) => {
       <GridItem>
         <GameMovies gameId={gameId} />
       </GridItem>
-      <GridItem>
-        <GameScreenshots gameId={gameId} />
-      </GridItem>
+      <GridItem></GridItem>
     </SimpleGrid>
   );
 };

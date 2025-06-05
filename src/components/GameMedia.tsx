@@ -1,6 +1,5 @@
 import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import GameMovies from "./GameMovies";
-import GameScreenshots from "./GameScreenshots";
 
 interface Props {
   gameId: string;

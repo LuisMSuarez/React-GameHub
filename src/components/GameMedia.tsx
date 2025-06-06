@@ -8,7 +8,7 @@ interface Props {
 
 const GameMedia = ({ gameId }: Props) => {
   return (
-    <SimpleGrid as="dl" columns={{ base: 1, lg: 2 }} gap={5} marginTop={5}>
+    <SimpleGrid as="dl" columns={{ base: 1 }} gap={5}>
       <GridItem>
         <GameMovies gameId={gameId} />
       </GridItem>

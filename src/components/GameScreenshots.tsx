@@ -64,7 +64,7 @@ const GameScreenshots = ({ gameId }: Props) => {
                 <Image
                   src={GetOptimizedImage(r.image)}
                   key={index}
-                  padding={5}
+                  padding={1}
                 />
               ))}
           </Slider>

@@ -1,5 +1,6 @@
 import { GridItem, SimpleGrid } from "@chakra-ui/react";
 import GameMovies from "./GameMovies";
+import GameScreenshots from "./GameScreenshots";
 
 interface Props {
   gameId: string;
@@ -7,11 +8,13 @@ interface Props {
 
 const GameMedia = ({ gameId }: Props) => {
   return (
-    <SimpleGrid as="dl" columns={{ sm: 1, lg: 2 }} gap={5} marginTop={5}>
+    <SimpleGrid as="dl" columns={{ base: 1 }} gap={5}>
       <GridItem>
         <GameMovies gameId={gameId} />
       </GridItem>
-      <GridItem></GridItem>
+      <GridItem>
+        <GameScreenshots gameId={gameId} />
+      </GridItem>
     </SimpleGrid>
   );
 };

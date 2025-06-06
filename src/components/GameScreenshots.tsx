@@ -55,23 +55,21 @@ const GameScreenshots = ({ gameId }: Props) => {
       <style>{slickStyles}</style>
       {isLoading && <Spinner />}
       {error && <Text>{error.message}</Text>}
-      {data &&
-        data.results &&
-        data.results.length > 0 &&
-        (() => {
-          const cards = data.results
-            .filter((r) => !r.is_deleted)
-            .map((r) => GetOptimizedImage(r.image));
-          return (
-            <Box width="90%">
-              <Slider {...sliderSettings}>
-                {cards.map((url, index) => (
-                  <Image src={url} key={index} padding={5} />
-                ))}
-              </Slider>
-            </Box>
-          );
-        })()}
+      {data && data.results && data.results.length > 0 && (
+        <Box width="90%">
+          <Slider {...sliderSettings}>
+            {data.results
+              .filter((r) => !r.is_deleted)
+              .map((r, index) => (
+                <Image
+                  src={GetOptimizedImage(r.image)}
+                  key={index}
+                  padding={1}
+                />
+              ))}
+          </Slider>
+        </Box>
+      )}
     </Box>
   );
 };

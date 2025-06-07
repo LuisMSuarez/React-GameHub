@@ -13,7 +13,7 @@ const NavBack = () => {
 
   return (
     <Tooltip content="Go back">
-      <Button borderRadius={6} onClick={() => navigate(-1)}>
+      <Button borderRadius="full" boxSize="40px" onClick={() => navigate(-1)}>
         <IoMdArrowBack />
       </Button>
     </Tooltip>

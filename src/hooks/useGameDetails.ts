@@ -1,16 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { GetGameDetailService } from "@/services/gamesService";
 import { Game } from "@/entities/Game";
+import useGameQueryStore from "@/store";
 
 const useGameDetails = (slug: string) => {
 
   const getGameDetailsSvc = GetGameDetailService(slug);
+    const gameQuery = useGameQueryStore(s=> s.gameQuery);
+    const params = {
+      language: (gameQuery.language) ? gameQuery.language : undefined,
+    };
 
     return useQuery<Game | null, Error>({
-    queryKey: ["games", { slug }],
+    queryKey: ["games", { slug, ...params }],
     queryFn: async () => {
         try {
-            return await getGameDetailsSvc.get({});
+            return await getGameDetailsSvc.get(params);
         } catch (error: any) {
             if (error.response?.status === 403) {
                 throw new Error("Access forbidden (403)");

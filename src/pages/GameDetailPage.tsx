@@ -7,6 +7,7 @@ import {
   Box,
   GridItem,
   Heading,
+  HStack,
   SimpleGrid,
   Spinner,
   Text,
@@ -24,8 +25,10 @@ const GameDetailPage = () => {
       {!isLoading && !error && data && (
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
           <GridItem>
-            <Heading marginBottom={5}>{data.name}</Heading>
-            <LanguageSelector />
+            <HStack justify="space-between" align="top">
+              <Heading marginBottom={5}>{data.name}</Heading>
+              <LanguageSelector />
+            </HStack>
             <ExpandableText text={data.description_raw}></ExpandableText>
             <GameAttributes game={data} />
           </GridItem>

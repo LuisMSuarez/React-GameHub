@@ -1,9 +1,11 @@
 import { Portal, Select, createListCollection } from "@chakra-ui/react";
 import languages from "@/data/languages";
 import useGameQueryStore from "@/store";
+import { FaLanguage } from "react-icons/fa6";
 
 const LanguageSelector = () => {
   const setLanguage = useGameQueryStore((s) => s.setLanguage);
+  const selectedLanguage = useGameQueryStore((s) => s.gameQuery.language);
 
   const handleChange = (details: any) => {
     if (details.value.length === 0) {
@@ -18,14 +20,17 @@ const LanguageSelector = () => {
     <Select.Root
       collection={languageCollection}
       size="sm"
+      width="200px"
       onValueChange={handleChange}
+      value={[selectedLanguage || "en"]}
     >
       <Select.HiddenSelect />
       <Select.Control>
         <Select.Trigger>
-          <Select.ValueText placeholder="Change language" />
+          <Select.ValueText placeholder="Select language" />
         </Select.Trigger>
         <Select.IndicatorGroup>
+          <Select.ClearTrigger />
           <Select.Indicator />
         </Select.IndicatorGroup>
       </Select.Control>

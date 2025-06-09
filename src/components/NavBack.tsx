@@ -6,7 +6,6 @@ import { Tooltip } from "@/components/ui/tooltip";
 const NavBack = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
   if (location.pathname === "/") {
     return;
   }

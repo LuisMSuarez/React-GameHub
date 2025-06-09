@@ -1,7 +1,6 @@
 import { Portal, Select, createListCollection } from "@chakra-ui/react";
 import languages from "@/data/languages";
 import useGameQueryStore from "@/store";
-import { FaLanguage } from "react-icons/fa6";
 
 const LanguageSelector = () => {
   const setLanguage = useGameQueryStore((s) => s.setLanguage);
@@ -20,7 +19,7 @@ const LanguageSelector = () => {
     <Select.Root
       collection={languageCollection}
       size="sm"
-      width="200px"
+      width="150px"
       onValueChange={handleChange}
       value={[selectedLanguage || "en"]}
     >

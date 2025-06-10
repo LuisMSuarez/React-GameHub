@@ -21,7 +21,7 @@ const LanguageSelector = () => {
       size="sm"
       width="150px"
       onValueChange={handleChange}
-      value={[selectedLanguage || "en"]}
+      value={[selectedLanguage ?? ""]}
     >
       <Select.HiddenSelect />
       <Select.Control>
@@ -29,7 +29,7 @@ const LanguageSelector = () => {
           <Select.ValueText placeholder="Select language" />
         </Select.Trigger>
         <Select.IndicatorGroup>
-          <Select.ClearTrigger />
+          {selectedLanguage && <Select.ClearTrigger />}
           <Select.Indicator />
         </Select.IndicatorGroup>
       </Select.Control>
@@ -51,10 +51,12 @@ const LanguageSelector = () => {
 
 // Convert the languages object to an array suitable for createListCollection
 const languageCollection = createListCollection({
-  items: Object.entries(languages).map(([code, lang]) => ({
-    label: lang.nativeName,
-    value: code,
-  })),
+  items: Object.entries(languages)
+    .map(([code, lang]) => ({
+      label: lang.nativeName,
+      value: code,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label)),
 });
 
 export default LanguageSelector;

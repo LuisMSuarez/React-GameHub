@@ -24,9 +24,7 @@ const SortBySelector = () => {
     if (details.value.length === 0) {
       // user selected to clear the filter
       setOrdering("");
-    }
-    if (details.value.length === 1) {
-      // user selected to clear the filter
+    } else if (details.value.length === 1) {
       setOrdering(details.value[0]);
     }
     // multiselect for this field is not supported

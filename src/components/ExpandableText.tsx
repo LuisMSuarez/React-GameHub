@@ -19,7 +19,7 @@ const ExpandableText = ({ text }: Props) => {
 
   return (
     <Text>
-      {expanded ? text : text.substring(0, charLimit)} ...{" "}
+      {expanded ? text : text.substring(0, charLimit) + "..."}
       <Button size="2xs" onClick={() => setExpanded(!expanded)}>
         {expanded ? "Less" : "More"}
       </Button>

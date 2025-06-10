@@ -10,6 +10,7 @@ const LanguageSelector = () => {
     if (details.value.length === 0) {
       // user selected to clear the filter
       setLanguage("");
+      return;
     }
     // 1 or more items are selected
     setLanguage(details.items[0].value);

@@ -28,6 +28,7 @@ const PlatformSelector = () => {
     if (details.value.length === 0) {
       // user selected to clear the filter
       setPlatforms([]);
+      return;
     }
     // 1 or more items are selected
     setPlatforms(details.items);

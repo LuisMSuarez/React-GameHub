@@ -1,5 +1,6 @@
 # Game hub using React + TypeScript + Chakra + Vite + RAWG api
 
-![image](https://github.com/user-attachments/assets/07671085-e76d-4be3-ac0e-1c54202fd0d0)
+![GamersHub](https://github.com/user-attachments/assets/4ce79d07-2aed-441e-8274-9551b74cb45b)
+
 
 

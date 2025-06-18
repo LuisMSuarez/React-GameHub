@@ -16,6 +16,7 @@ on:
 # You can add these variables in your repository Settings - Secrets and variables - Actions - variables
 env:
   VITE_RAWG_API_KEY: ${{ secrets.RAWGAPIKEY }}
+  REGISTRY: ghcr.io
 
 jobs:
   build:
@@ -42,6 +43,27 @@ jobs:
         with:
           name: node-app
           path: dist
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Lowercase the repo name and username as container tags must be lowercase
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+      - name: Build and push container image to registry
+        id: push
+        uses: docker/build-push-action@v5
+        with:
+          push: ${{ github.event_name == 'push' }} # always build the container (incl. Pull Requests), but only push to the registry on code push
+          tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ github.sha }}
+          file: ./Dockerfile
 
   deploy:
     if: github.event_name == 'push' # Only deploy on push events

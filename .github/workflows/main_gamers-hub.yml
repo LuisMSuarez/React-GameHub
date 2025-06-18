@@ -22,7 +22,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read #This is required for actions/checkout
+      contents: read # Required for actions/checkout
+      packages: write # Required to publish docker image
 
     steps:
       - uses: actions/checkout@v4

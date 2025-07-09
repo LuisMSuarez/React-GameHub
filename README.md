@@ -1,15 +1,18 @@
 # Game hub using React + TypeScript + Chakra + Vite + RAWG api
 
-Website powered by React and Vite scaffolding to browse the RAWG game database.
+Website powered by React (using Vite scaffolding) to browse the RAWG game database.
 Visit the production endpoint at: http://gamers-hub.azurewebsites.net/
 
 Design highlights
 
-- Responsive UX, optimized for mobile, tablet and desktop
+- Responsive UX: Great browsing experience on mobile, tablet and desktop
 - Usage of Chakra UX layout and components
 - Dark mode switch
-- Infinite scrolling
+- Content pagination with infinite scrolling
+- Usage of popular libraries such as Zustand, React router, React icon
 - Client-side API caching using React query
+- Game screenshots displayed using carousel component
+- Source code authored in typescript
 
 Architecture diagram:
 

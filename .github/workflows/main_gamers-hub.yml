@@ -62,7 +62,7 @@ jobs:
         id: push
         uses: docker/build-push-action@v5
         with:
-          # UNCOMMENTME push: ${{ github.event_name == 'push' }} # always build the container (incl. Pull Requests), but only push to the registry on code push
+          push: ${{ github.event_name == 'pull_request' }} # always build the container (incl. Pull Requests), but only push to the registry on code push
           tags: ${{ env.REGISTRY }}/${{ env.REPO }}:${{ github.sha }}
           file: ./Dockerfile
 

@@ -33,6 +33,7 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Expose HTTP port only
 EXPOSE 80
+EXPOSE 443
 
 # Start Nginx server in the foreground
 CMD ["nginx", "-g", "daemon off;"]

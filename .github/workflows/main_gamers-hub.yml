@@ -15,7 +15,6 @@ on:
 # Optional: environment variables can be injected here
 # You can add these variables in your repository Settings - Secrets and variables - Actions - variables
 env:
-  VITE_RAWG_API_KEY: ${{ secrets.RAWGAPIKEY }}
   REGISTRY: ghcr.io
 
 jobs:

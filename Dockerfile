@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Build the Vite app for production (output will be in /app/dist)
-RUN npm run build
+RUN npm run build-container
 
 # ---------- Stage 2: Serve the app with Nginx ----------
 FROM nginx:alpine

@@ -7,20 +7,12 @@ export interface FetchDataResponse<T> {
     isLastPage: boolean;
 }
 
-const axiosInstance =  axios.create({
-    /* uncomment to invoke rawg api directly from the client 
-    baseURL: "https://api.rawg.io/api", */
-    /* uncomment to invoke local api service from the client
-     baseURL: "https://localhost:7285/v1", */
-     /* production url */
-    baseURL: "https://gamers-hub-api.azurewebsites.net/v1",
-    /*
-    uncomment if using rawg api directly
-    params: {
-        key: import.meta.env.VITE_RAWG_API_KEY
-    }
-    */
-})
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL,
+  ...(import.meta.env.VITE_RAWG_API_KEY && {
+    params: { key: import.meta.env.VITE_RAWG_API_KEY }
+  })
+});
 
 class APIClient<T> {
     resourcePath: string;

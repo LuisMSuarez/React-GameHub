@@ -12,11 +12,19 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const GameDetailPage = () => {
   const params = useParams();
   const { data, error, isLoading } = useGameDetails(params.id!);
+
+  // Scroll to the top of the page when data is loaded
+  useEffect(() => {
+    if (data) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [data]);
 
   return (
     <Box margin={5}>

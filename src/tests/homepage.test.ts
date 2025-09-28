@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { Builder, until } from "selenium-webdriver";
-import chrome from "selenium-webdriver/chrome";
-import { ServiceBuilder } from "selenium-webdriver/chrome";
+import chrome, { ServiceBuilder } from "selenium-webdriver/chrome";
 
 // to run: npm test -- src/tests/sample.test.ts
 // Use chromedriver package binary when available

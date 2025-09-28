@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Builder, By, until, Key } from "selenium-webdriver";
+import { Builder, until } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome";
 import { ServiceBuilder } from "selenium-webdriver/chrome";
 
@@ -15,12 +15,11 @@ const chromedriverPath = (() => {
   }
 })();
 
-// sample test, to be skipped, replace with describe()
-describe.skip("Google Search (Selenium)", () => {
-  it("should return results for Selenium WebDriver", async () => {
+describe("Navigate to HomePage", () => {
+  it("should display appropriate title", async () => {
     const options = new chrome.Options();
     options.addArguments(
-      "--headless=new",
+      // "--headless=new",
       "--no-sandbox",
       "--disable-dev-shm-usage"
     );
@@ -43,13 +42,10 @@ describe.skip("Google Search (Selenium)", () => {
 
     try {
       // Navigate directly to the search results page to avoid UI flakiness and consent overlays
-      await driver.get("https://www.google.com");
-      await driver
-        .findElement(By.name("q"))
-        .sendKeys("Selenium WebDriver", Key.RETURN);
-      await driver.wait(until.titleContains("Selenium WebDriver"), 3000);
+      await driver.get("http://localhost:5173");
+      await driver.wait(until.titleContains("Gamers' Hub"), 3000);
       const title = await driver.getTitle();
-      expect(title).toContain("Selenium WebDriver");
+      expect(title).toContain("Gamers' Hub");
     } finally {
       await driver.quit();
     }

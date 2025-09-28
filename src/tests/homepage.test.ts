@@ -19,7 +19,7 @@ describe("Navigate to HomePage", () => {
   it("should display appropriate title", async () => {
     const options = new chrome.Options();
     options.addArguments(
-      // "--headless=new",
+      "--headless=new",
       "--no-sandbox",
       "--disable-dev-shm-usage"
     );

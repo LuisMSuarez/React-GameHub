@@ -1,46 +1,15 @@
 // tests/browse-game.test.ts
 import { describe, it, beforeEach, afterEach, expect } from "vitest";
-import { Builder, By, Key, until, WebDriver } from "selenium-webdriver";
-import chrome, { ServiceBuilder } from "selenium-webdriver/chrome";
+import { By, Key, until, WebDriver } from "selenium-webdriver";
+import { createChromeDriver } from "./driver";
 
 // to run: npm test -- src/tests/sample.test.ts
-// Use chromedriver package binary when available
-const chromedriverPath = (() => {
-  try {
-    // chromedriver package exposes the binary path
-    const cd = require("chromedriver");
-    return cd.path || cd;
-  } catch (e) {
-    return undefined;
-  }
-})();
 
 describe("browse game", () => {
   let driver: WebDriver;
 
   beforeEach(async () => {
-    const options = new chrome.Options();
-    options.addArguments(
-      // "--headless=new",
-      "--no-sandbox",
-      "--disable-dev-shm-usage"
-    );
-
-    console.log("Launching Chrome...");
-    const builder = new Builder()
-      .forBrowser("chrome")
-      .setChromeOptions(options);
-    if (chromedriverPath) {
-      const service = new ServiceBuilder(chromedriverPath);
-      builder.setChromeService(service);
-      console.log("Using chromedriver at:", chromedriverPath);
-    } else {
-      console.log(
-        "No chromedriver package found; relying on system chromedriver."
-      );
-    }
-    driver = await builder.build();
-    console.log("Chrome launched. Navigating...");
+    driver = await createChromeDriver();
   });
 
   afterEach(async () => {
@@ -49,32 +18,31 @@ describe("browse game", () => {
 
   it("should search and interact with game UI", async () => {
     await driver.get("http://localhost:5173/");
-    await driver.manage().window().setRect({ width: 1514, height: 966 });
 
+    // Search for Portal 2 game
     const searchInput = await driver.findElement(By.css(".chakra-input"));
     await searchInput.click();
     await searchInput.sendKeys("portal 2", Key.ENTER);
 
-    const anchorSelector = By.css('a[href="/games/portal-2"] > img');
-
-    // Wait for the image to be present in the DOM
-    const firstGameImage = await driver.wait(
-      until.elementLocated(anchorSelector),
+    // Wait for the game to appear in the game grid
+    const portal2Link = await driver.wait(
+      until.elementLocated(By.xpath('//a[text()="Portal 2"]')),
       10000
     );
+    await driver.wait(until.elementIsVisible(portal2Link), 5000);
+    await portal2Link.click();
 
-    // Wait for it to be visible
-    await driver.wait(until.elementIsVisible(firstGameImage), 5000);
-
-    await firstGameImage.click();
-
-    const tooltipTrigger = await driver.findElement(
-      By.css("#tooltip\\3A\\ABr5i\\BB\\3Atrigger > svg")
+    // In the game detail page, wait until the game header is displayed
+    const portal2Heading = await driver.wait(
+      until.elementLocated(
+        By.xpath('//h2[normalize-space(text())="Portal 2"]')
+      ),
+      10000
     );
-    await tooltipTrigger.click();
+    await driver.wait(until.elementIsVisible(portal2Heading), 5000);
 
-    // Optional assertion example
+    // Check the url
     const currentUrl = await driver.getCurrentUrl();
-    expect(currentUrl).toContain("portal-2"); // Adjust based on expected navigation
+    expect(currentUrl).toContain("portal-2");
   }, 30000);
 });

@@ -1,34 +1,52 @@
 import { describe, it, expect } from "vitest";
 import { Builder, By, Key, until } from "selenium-webdriver";
-import chrome from "selenium-webdriver/chrome";
+import * as chrome from "selenium-webdriver/chrome";
+import { ServiceBuilder } from "selenium-webdriver/chrome";
+// Use chromedriver package binary when available
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const chromedriverPath = (() => {
+  try {
+    // chromedriver package exposes the binary path
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const cd = require("chromedriver");
+    return cd.path || cd;
+  } catch (e) {
+    return undefined;
+  }
+})();
 
 describe("Google Search (Selenium)", () => {
   it("should return results for Selenium WebDriver", async () => {
     const options = new chrome.Options();
     options.addArguments(
-      "--headless",
+      // "--headless=new",
       "--no-sandbox",
       "--disable-dev-shm-usage"
-    );
-    options.setChromeBinaryPath(
-      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
     );
     options.addArguments("--verbose");
     options.setChromeLogFile("chromedriver.log");
 
     console.log("Launching Chrome...");
-    const driver = await new Builder()
+    const builder = new Builder()
       .forBrowser("chrome")
-      .setChromeOptions(options)
-      .build();
+      .setChromeOptions(options);
+    if (chromedriverPath) {
+      const service = new ServiceBuilder(chromedriverPath);
+      builder.setChromeService(service);
+      console.log("Using chromedriver at:", chromedriverPath);
+    } else {
+      console.log(
+        "No chromedriver package found; relying on system chromedriver."
+      );
+    }
+    const driver = await builder.build();
     console.log("Chrome launched. Navigating...");
 
     try {
-      await driver.get("https://www.google.com");
-      await driver
-        .findElement(By.name("q"))
-        .sendKeys("Selenium WebDriver", Key.RETURN);
-      await driver.wait(until.titleContains("Selenium WebDriver"), 3000);
+      // Navigate directly to the search results page to avoid UI flakiness and consent overlays
+      await driver.get("https://www.google.com/search?q=Selenium+WebDriver");
+      // Wait for the search results container to appear
+      await driver.wait(until.elementLocated(By.id("search")), 15000);
       const title = await driver.getTitle();
       expect(title).toContain("Selenium WebDriver");
     } finally {

@@ -16,7 +16,7 @@ const chromedriverPath = (() => {
 export async function createChromeDriver() {
   const options = new chrome.Options();
   options.addArguments(
-    // "--headless=new",
+    "--headless=new",
     "--no-sandbox",
     "--disable-dev-shm-usage"
   );

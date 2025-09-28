@@ -9,8 +9,8 @@
     "build-container": "tsc -b && vite build --mode production-container",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run",
-    "testing": "vitest"
+    "test": "vitest run --testTimeout=60000",
+    "testing": "vitest --testTimeout=60000"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.15.1",

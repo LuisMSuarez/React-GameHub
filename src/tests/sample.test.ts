@@ -4,16 +4,24 @@ import chrome from "selenium-webdriver/chrome";
 
 describe("Google Search (Selenium)", () => {
   it("should return results for Selenium WebDriver", async () => {
-    const options = new chrome.Options().addArguments(
+    const options = new chrome.Options();
+    options.addArguments(
       "--headless",
       "--no-sandbox",
       "--disable-dev-shm-usage"
     );
+    options.setChromeBinaryPath(
+      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+    );
+    options.addArguments("--verbose");
+    options.setChromeLogFile("chromedriver.log");
 
+    console.log("Launching Chrome...");
     const driver = await new Builder()
       .forBrowser("chrome")
       .setChromeOptions(options)
       .build();
+    console.log("Chrome launched. Navigating...");
 
     try {
       await driver.get("https://www.google.com");
@@ -26,5 +34,5 @@ describe("Google Search (Selenium)", () => {
     } finally {
       await driver.quit();
     }
-  }, 10000); // ⏱️ Increase timeout for browser tests
+  }, 60000); // ⏱️ Increase timeout for browser tests
 });

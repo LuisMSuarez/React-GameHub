@@ -8,10 +8,12 @@ describe("Navigate to HomePage", () => {
 
   beforeEach(async () => {
     driver = await createChromeDriver();
-  });
+  }, 30000);
 
   afterEach(async () => {
-    await driver.quit();
+    if (driver) {
+      await driver.quit();
+    }
   }, 30000);
 
   it("should display appropriate title", async () => {

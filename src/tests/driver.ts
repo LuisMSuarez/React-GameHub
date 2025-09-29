@@ -1,4 +1,3 @@
-// utils/driver.ts
 import { Builder } from "selenium-webdriver";
 import chrome, { ServiceBuilder } from "selenium-webdriver/chrome";
 
@@ -21,7 +20,6 @@ export async function createChromeDriver() {
     "--disable-dev-shm-usage"
   );
 
-  console.log("Launching Chrome...");
   const builder = new Builder().forBrowser("chrome").setChromeOptions(options);
   if (chromedriverPath) {
     const service = new ServiceBuilder(chromedriverPath);
@@ -32,7 +30,5 @@ export async function createChromeDriver() {
       "No chromedriver package found; relying on system chromedriver."
     );
   }
-  const driver = await builder.build();
-  console.log("Chrome launched. Navigating...");
-  return driver;
+  return await builder.build();
 }

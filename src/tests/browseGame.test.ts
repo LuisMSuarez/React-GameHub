@@ -15,7 +15,7 @@ describe("browse game", () => {
 
   afterEach(async () => {
     await driver.quit();
-  });
+  }, 30000);
 
   it("should search and interact with game UI", async () => {
     await driver.get("http://localhost:5173/");

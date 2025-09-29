@@ -12,7 +12,7 @@ describe("Navigate to HomePage", () => {
 
   afterEach(async () => {
     await driver.quit();
-  });
+  }, 30000);
 
   it("should display appropriate title", async () => {
     // Navigate directly to the search results page to avoid UI flakiness and consent overlays

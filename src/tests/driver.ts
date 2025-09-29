@@ -24,7 +24,6 @@ export async function createChromeDriver() {
   if (chromedriverPath) {
     const service = new ServiceBuilder(chromedriverPath);
     builder.setChromeService(service);
-    console.log("Using chromedriver at:", chromedriverPath);
   } else {
     console.log(
       "No chromedriver package found; relying on system chromedriver."

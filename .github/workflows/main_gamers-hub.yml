@@ -40,7 +40,7 @@ jobs:
       - name: Set up Chrome and ChromeDriver
         uses: browser-actions/setup-chrome@v1
         with:
-          chrome-version: "140.0.4" # Match your local dev version from package.json
+          chrome-version: "140.0.7339.207" # Match your local dev version from package.json
           install-chromedriver: true
 
       - name: Run dev server and Selenium/vitest/jest tests

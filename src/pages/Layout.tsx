@@ -1,8 +1,10 @@
 import NavBar from "@/components/NavBar";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { Box } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 
 function Layout() {
+  const bgColor = useColorModeValue("gray.50", "gray.900");
   /* In Chakra UI v3, the 'none' value for the display property is used to
     completely hide an element. In Chakra UI v3, the block value for the
     display property is used to make an element behave as a block-level
@@ -11,7 +13,15 @@ function Layout() {
   */
   return (
     <>
-      <NavBar />
+      <Box
+        position="sticky"
+        top="0"
+        zIndex="sticky"
+        bg={bgColor}
+        boxShadow="md"
+      >
+        <NavBar />
+      </Box>
       <Box>
         <Outlet />
       </Box>

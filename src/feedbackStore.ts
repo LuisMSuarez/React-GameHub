@@ -1,7 +1,9 @@
 import { create } from "zustand";
 import { Sentiment } from "./entities/Sentiment";
+import { Game } from "./entities/Game";
 
 interface GameFeedback {
+  game: Game;
   sentiment: Sentiment;
 }
 

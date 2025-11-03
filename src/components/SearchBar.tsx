@@ -18,6 +18,8 @@ const SearchBar = () => {
           inputRef.current.value = "";
           inputRef.current.focus();
           setSearch("");
+          navigate("/");
+          window.scrollTo({ top: 0, behavior: "auto" });
         }
       }}
       me="-2"
@@ -31,6 +33,7 @@ const SearchBar = () => {
         if (inputRef.current) {
           setSearch(inputRef.current.value);
           navigate("/");
+          window.scrollTo({ top: 0, behavior: "auto" });
         }
       }}
     >

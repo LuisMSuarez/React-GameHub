@@ -10,7 +10,7 @@ enum LikeState {
 
 const LikeDislike = () => {
   const [state, setState] = useState<LikeState>(LikeState.Empty);
-
+  if (import.meta.env.VITE_GAME_DISCOVERY !== "enabled") return null;
   return (
     <HStack justifyContent="flex-end">
       <FaHeart

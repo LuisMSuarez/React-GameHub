@@ -31,8 +31,10 @@ const GameCard = ({ game }: Props) => {
           <Heading fontSize="2xl">
             <Link to={`/games/${game.slug}`}>{game.name}</Link>
           </Heading>
-          <Emoji rating={game.rating_top} />
-          {import.meta.env.VITE_GAME_DISCOVERY === "enabled" && <LikeDislike />}
+          <HStack justify="space-between">
+            <Emoji rating={game.rating_top} />
+            <LikeDislike />
+          </HStack>
         </Card.Body>
       </Card.Root>
     </GameCardContainer>

@@ -16,7 +16,7 @@ const NavBar = () => {
         <NavBack />
       </SimpleGrid>
       <SearchBar />
-      {process.env.NODE_ENV === "development" && <GameDiscovery />}
+      {import.meta.env.VITE_GAME_DISCOVERY === "enabled" && <GameDiscovery />}
       <ColorModeSwitch />
     </HStack>
   );

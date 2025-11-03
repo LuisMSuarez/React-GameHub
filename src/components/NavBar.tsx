@@ -8,7 +8,12 @@ import GameDiscovery from "../pages/GameDiscovery";
 
 const NavBar = () => {
   return (
-    <HStack justifyContent="space-between" margin="10px" spaceX="0px">
+    <HStack
+      justifyContent="space-between"
+      margin="10px"
+      marginTop="0px"
+      spaceX="0px"
+    >
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={1} placeItems="center">
         <Link to="/">
           <Image src={logo} boxSize="60px" borderRadius={6} />

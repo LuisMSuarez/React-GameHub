@@ -4,6 +4,7 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import NavBack from "./NavBack";
+import GameDiscovery from "./GameDiscovery";
 
 const NavBar = () => {
   return (
@@ -15,6 +16,7 @@ const NavBar = () => {
         <NavBack />
       </SimpleGrid>
       <SearchBar />
+      {import.meta.env.VITE_GAME_DISCOVERY === "enabled" && <GameDiscovery />}
       <ColorModeSwitch />
     </HStack>
   );

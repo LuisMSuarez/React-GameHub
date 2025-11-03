@@ -6,6 +6,7 @@ import Emoji from "./Emoji";
 import GameCardContainer from "./GameCardContainer";
 import PlatformIconList from "./PlatformIconList";
 import { Link } from "react-router-dom";
+import LikeDislike from "./LikeDislike";
 
 interface Props {
   game: Game;
@@ -29,8 +30,9 @@ const GameCard = ({ game }: Props) => {
           </HStack>
           <Heading fontSize="2xl">
             <Link to={`/games/${game.slug}`}>{game.name}</Link>
-            <Emoji rating={game.rating_top} />
           </Heading>
+          <Emoji rating={game.rating_top} />
+          {import.meta.env.VITE_GAME_DISCOVERY === "enabled" && <LikeDislike />}
         </Card.Body>
       </Card.Root>
     </GameCardContainer>

@@ -5,6 +5,8 @@ import { createChromeDriver } from "./driver";
 import { waitAndClick } from "./utils";
 
 // to run: npm test -- src/tests/browseGame.test.ts
+// to update chromedriver: npm install chromedriver@latest --save-dev
+// to query installed version:  npx chromedriver --version
 
 describe("browse game", () => {
   let driver: WebDriver;

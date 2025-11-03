@@ -31,9 +31,9 @@ const GameCard = ({ game }: Props) => {
           <Heading fontSize="2xl">
             <Link to={`/games/${game.slug}`}>{game.name}</Link>
           </Heading>
-          <HStack justify="space-between">
+          <HStack justify="space-between" marginTop={1}>
             <Emoji rating={game.rating_top} />
-            <LikeDislike />
+            <LikeDislike game={game} />
           </HStack>
         </Card.Body>
       </Card.Root>

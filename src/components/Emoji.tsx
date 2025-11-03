@@ -18,7 +18,7 @@ const Emoji = ({ rating }: Props) => {
   if (!rating || rating < 3 || rating > 5) return null;
   return (
     <Tooltip content={emojiMap[rating].alt}>
-      <Image {...emojiMap[rating]} marginTop={1} />
+      <Image {...emojiMap[rating]} />
     </Tooltip>
   );
 };

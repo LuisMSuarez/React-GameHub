@@ -22,7 +22,7 @@ const GameDetailPage = () => {
   // Scroll to the top of the page when data is loaded
   useEffect(() => {
     if (data) {
-      window.scrollTo({ top: 0, behavior: "instant" });
+      window.scrollTo({ top: 0, behavior: "auto" });
     }
   }, [data]);
 

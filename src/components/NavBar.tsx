@@ -16,8 +16,10 @@ const NavBar = () => {
         <NavBack />
       </SimpleGrid>
       <SearchBar />
-      {import.meta.env.VITE_GAME_DISCOVERY === "enabled" && <GameDiscovery />}
-      <ColorModeSwitch />
+      <HStack>
+        <GameDiscovery />
+        <ColorModeSwitch />
+      </HStack>
     </HStack>
   );
 };

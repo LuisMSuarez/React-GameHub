@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Sentiment } from "@/entities/Sentiment";
 import { useFeedbackStore } from "@/feedbackStore";
 import {
@@ -10,16 +11,25 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaHeartbeat } from "react-icons/fa";
+import "./GameDiscovery.css"; // Add this for animation styles
 
 const GameDiscovery = () => {
   const feedback = useFeedbackStore((s) => s.feedback);
+  const [pulse, setPulse] = useState(false);
+
+  useEffect(() => {
+    setPulse(true);
+    const timeout = setTimeout(() => setPulse(false), 600); // match animation duration
+    return () => clearTimeout(timeout);
+  }, [feedback]);
 
   if (import.meta.env.VITE_GAME_DISCOVERY !== "enabled") return null;
+
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
         <Button variant="plain" size="md" borderRadius="full">
-          <FaHeartbeat color="red" />
+          <FaHeartbeat className={pulse ? "pulse" : ""} color="red" />
         </Button>
       </Drawer.Trigger>
       <Portal>

@@ -2,6 +2,7 @@ import ExpandableText from "@/components/ExpandableText";
 import GameAttributes from "@/components/GameAttributes";
 import GameMedia from "@/components/GameMedia";
 import LanguageSelector from "@/components/LanguageSelector";
+import LikeDislike from "@/components/LikeDislike";
 import useGameDetails from "@/hooks/useGameDetails";
 import {
   Box,
@@ -33,8 +34,11 @@ const GameDetailPage = () => {
       {!isLoading && !error && data && (
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={5}>
           <GridItem>
-            <HStack justify="space-between" align="top">
-              <Heading marginBottom={5}>{data.name}</Heading>
+            <HStack justify="space-between" align="top" marginBottom={5}>
+              <Box>
+                <Heading>{data.name}</Heading>
+                <LikeDislike game={data} />
+              </Box>
               <LanguageSelector />
             </HStack>
             <ExpandableText text={data.description_raw}></ExpandableText>

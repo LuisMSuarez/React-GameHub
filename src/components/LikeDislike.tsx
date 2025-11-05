@@ -27,7 +27,7 @@ const LikeDislike = ({ game }: Props) => {
   };
 
   return (
-    <HStack justifyContent="flex-end">
+    <HStack>
       <FaHeart
         color={state === Sentiment.Like ? "red" : undefined}
         cursor="pointer"

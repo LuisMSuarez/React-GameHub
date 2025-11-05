@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaHeartbeat } from "react-icons/fa";
-import "./GameDiscovery.css"; // Add this for animation styles
+import styles from "./GameDiscovery.module.css";
 import { HiSparkles } from "react-icons/hi";
 import { GetGameRecommendationService } from "@/services/gamesService";
 import { useMutation } from "@tanstack/react-query";
@@ -56,7 +56,7 @@ const GameDiscovery = () => {
     <Drawer.Root>
       <Drawer.Trigger asChild>
         <Button variant="plain" size="md" borderRadius="full">
-          <FaHeartbeat className={pulse ? "pulse" : ""} color="red" />
+          <FaHeartbeat className={pulse ? styles.pulse : ""} color="red" />
         </Button>
       </Drawer.Trigger>
       <Portal>

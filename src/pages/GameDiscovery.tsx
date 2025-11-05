@@ -9,12 +9,16 @@ import {
   Portal,
   VStack,
   Text,
+  Image,
+  Heading,
 } from "@chakra-ui/react";
 import { FaHeartbeat } from "react-icons/fa";
 import styles from "./GameDiscovery.module.css";
 import { HiSparkles } from "react-icons/hi";
 import { GetGameRecommendationService } from "@/services/gamesService";
 import { useMutation } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import getGameBackgroundImage from "../utils/GetOptimizedImage";
 
 const GameDiscovery = () => {
   const feedback = useFeedbackStore((s) => s.feedback);
@@ -82,6 +86,7 @@ const GameDiscovery = () => {
 
                 <Button
                   size="md"
+                  mb="20px"
                   borderRadius="full"
                   onClick={() => recommendationMutation.mutate()}
                   disabled={recommendationMutation.isPending}
@@ -90,11 +95,20 @@ const GameDiscovery = () => {
                   Recommend games!
                 </Button>
                 {recommendationMutation.isSuccess && (
-                  <>
-                    {recommendationMutation.data.results.map((g) => (
-                      <p key={g.id}>{g.name}</p>
+                  <VStack spaceY="15px">
+                    <Heading size="lg" alignSelf="start">
+                      Recommendations
+                    </Heading>
+                    {recommendationMutation.data.results.map((game) => (
+                      <Link key={game.id} to={`/games/${game.slug}`}>
+                        <Image
+                          boxSize="50%"
+                          src={getGameBackgroundImage(game.background_image)}
+                        />
+                        {game.name}
+                      </Link>
                     ))}
-                  </>
+                  </VStack>
                 )}
               </VStack>
             </Drawer.Body>

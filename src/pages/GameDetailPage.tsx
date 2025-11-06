@@ -14,11 +14,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const GameDetailPage = () => {
   const params = useParams();
   const { data, error, isLoading } = useGameDetails(params.id!);
+
+  const navigate = useNavigate();
+
+  // Redirect if slug and param mismatch
+  // this happens in cases where Rawg api redirects a slug like watch-dogs-2 to watch_dogs-2
+  // the redirect is necessary to ensure we load assets such as screenshots an movies from the correct slug
+  useEffect(() => {
+    if (data && data.slug !== params.id) {
+      navigate(`/games/${data.slug}`, { replace: true });
+    }
+  }, [data, params.id, navigate]);
 
   // Scroll to the top of the page when data is loaded
   useEffect(() => {

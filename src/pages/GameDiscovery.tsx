@@ -92,7 +92,7 @@ const GameDiscovery = () => {
                   disabled={recommendationMutation.isPending}
                 >
                   <HiSparkles />
-                  Recommend games!
+                  Discover new titles!
                 </Button>
                 {recommendationMutation.isSuccess && (
                   <VStack spaceY="15px">

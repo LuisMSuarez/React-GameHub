@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 import { Sentiment } from "@/entities/Sentiment";
 import { useFeedbackStore } from "@/feedbackStore";
 import {
-  Box,
   Button,
   CloseButton,
   Drawer,
   Portal,
   VStack,
-  Text,
   Image,
   Heading,
+  HStack,
+  Text,
 } from "@chakra-ui/react";
-import { FaHeartbeat } from "react-icons/fa";
+import { FaHeart, FaHeartbeat, FaHeartBroken } from "react-icons/fa";
 import styles from "./GameDiscovery.module.css";
 import { HiSparkles } from "react-icons/hi";
 import { GetGameRecommendationService } from "@/services/gamesService";
@@ -56,6 +56,26 @@ const GameDiscovery = () => {
 
   if (import.meta.env.VITE_GAME_DISCOVERY !== "enabled") return null;
 
+  const renderGamesBySentiment = (sentiment: Sentiment) => {
+    const filteredGames = Object.entries(feedback).filter(
+      ([_, entry]) => entry.sentiment === sentiment
+    );
+
+    if (filteredGames.length === 0) {
+      return <Text>Start tagging to build your list!</Text>;
+    }
+
+    return filteredGames.map(([_, entry]) => (
+      <Link key={entry.game.id} to={`/games/${entry.game.slug}`}>
+        <Image
+          boxSize="50%"
+          src={getGameBackgroundImage(entry.game.background_image)}
+        />
+        {entry.game.name}
+      </Link>
+    ));
+  };
+
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
@@ -71,25 +91,31 @@ const GameDiscovery = () => {
               <Drawer.Title>Game Discovery</Drawer.Title>
             </Drawer.Header>
             <Drawer.Body>
-              <VStack align="start">
-                {Object.entries(feedback)
-                  .filter(([_, entry]) => entry.sentiment !== Sentiment.Neutral)
-                  .map(([gameId, entry]) => (
-                    <Box key={gameId} p={2}>
-                      {entry.game?.name && (
-                        <Text fontWeight="bold">Name: {entry.game.name}</Text>
-                      )}
-                      <Text>Game ID: {gameId}</Text>
-                      <Text>Sentiment: {entry.sentiment}</Text>
-                    </Box>
-                  ))}
+              <VStack align="start" spaceY={5}>
+                <Heading size="lg" alignSelf="start">
+                  <HStack>
+                    Liked games
+                    <FaHeart />
+                  </HStack>
+                </Heading>
+                {renderGamesBySentiment(Sentiment.Like)}
+                <Heading size="lg" alignSelf="start">
+                  <HStack>
+                    Disliked games
+                    <FaHeartBroken />
+                  </HStack>
+                </Heading>
+                {renderGamesBySentiment(Sentiment.Dislike)}
 
                 <Button
                   size="md"
-                  mb="20px"
                   borderRadius="full"
                   onClick={() => recommendationMutation.mutate()}
-                  disabled={recommendationMutation.isPending}
+                  disabled={
+                    recommendationMutation.isPending ||
+                    !feedback ||
+                    Object.keys(feedback).length < 1
+                  }
                 >
                   <HiSparkles />
                   Discover new titles!
@@ -97,7 +123,10 @@ const GameDiscovery = () => {
                 {recommendationMutation.isSuccess && (
                   <VStack spaceY="15px">
                     <Heading size="lg" alignSelf="start">
-                      Recommendations
+                      <HStack>
+                        Recommendations
+                        <FaHeartbeat />
+                      </HStack>
                     </Heading>
                     {recommendationMutation.data.results.map((game) => (
                       <Link key={game.id} to={`/games/${game.slug}`}>

@@ -6,19 +6,15 @@ import {
   CloseButton,
   Drawer,
   Portal,
+  Spinner,
   VStack,
-  Image,
-  Heading,
-  HStack,
-  Text,
 } from "@chakra-ui/react";
-import { FaHeart, FaHeartbeat, FaHeartBroken } from "react-icons/fa";
+import { FaHeartbeat } from "react-icons/fa";
 import styles from "./GameDiscovery.module.css";
 import { HiSparkles } from "react-icons/hi";
 import { GetGameRecommendationService } from "@/services/gamesService";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
-import getGameBackgroundImage from "../utils/GetOptimizedImage";
+import GameFeedback from "@/components/GameFeedback";
 
 const GameDiscovery = () => {
   const feedback = useFeedbackStore((s) => s.feedback);
@@ -56,25 +52,18 @@ const GameDiscovery = () => {
 
   if (import.meta.env.VITE_GAME_DISCOVERY !== "enabled") return null;
 
-  const renderGamesBySentiment = (sentiment: Sentiment) => {
-    const filteredGames = Object.entries(feedback).filter(
-      ([_, entry]) => entry.sentiment === sentiment
-    );
+  const likedGames = Object.entries(feedback)
+    .filter(([_, entry]) => entry.sentiment === Sentiment.Like)
+    .map(([_, entry]) => entry.game);
 
-    if (filteredGames.length === 0) {
-      return <Text>Start tagging to build your list!</Text>;
-    }
+  const dislikedGames = Object.entries(feedback)
+    .filter(([_, entry]) => entry.sentiment === Sentiment.Dislike)
+    .map(([_, entry]) => entry.game);
 
-    return filteredGames.map(([_, entry]) => (
-      <Link key={entry.game.id} to={`/games/${entry.game.slug}`}>
-        <Image
-          boxSize="50%"
-          src={getGameBackgroundImage(entry.game.background_image)}
-        />
-        {entry.game.name}
-      </Link>
-    ));
-  };
+  const recommended =
+    recommendationMutation.isSuccess && recommendationMutation?.data?.results
+      ? recommendationMutation?.data?.results
+      : [];
 
   return (
     <Drawer.Root>
@@ -91,25 +80,20 @@ const GameDiscovery = () => {
               <Drawer.Title>Game Discovery</Drawer.Title>
             </Drawer.Header>
             <Drawer.Body>
-              <VStack align="start" spaceY={5}>
-                <Heading size="lg" alignSelf="start">
-                  <HStack>
-                    Liked games
-                    <FaHeart />
-                  </HStack>
-                </Heading>
-                {renderGamesBySentiment(Sentiment.Like)}
-                <Heading size="lg" alignSelf="start">
-                  <HStack>
-                    Disliked games
-                    <FaHeartBroken />
-                  </HStack>
-                </Heading>
-                {renderGamesBySentiment(Sentiment.Dislike)}
-
+              <VStack>
+                <GameFeedback
+                  likedGames={likedGames}
+                  dislikedGames={dislikedGames}
+                  recommended={recommended}
+                />
+                {recommendationMutation.isPending && (
+                  <Spinner size="md" alignSelf="center" />
+                )}
                 <Button
                   size="md"
                   borderRadius="full"
+                  marginTop={5}
+                  alignSelf="start"
                   onClick={() => recommendationMutation.mutate()}
                   disabled={
                     recommendationMutation.isPending ||
@@ -118,27 +102,8 @@ const GameDiscovery = () => {
                   }
                 >
                   <HiSparkles />
-                  Discover new titles!
+                  Recommend games!
                 </Button>
-                {recommendationMutation.isSuccess && (
-                  <VStack spaceY="15px">
-                    <Heading size="lg" alignSelf="start">
-                      <HStack>
-                        Recommendations
-                        <FaHeartbeat />
-                      </HStack>
-                    </Heading>
-                    {recommendationMutation.data.results.map((game) => (
-                      <Link key={game.id} to={`/games/${game.slug}`}>
-                        <Image
-                          boxSize="50%"
-                          src={getGameBackgroundImage(game.background_image)}
-                        />
-                        {game.name}
-                      </Link>
-                    ))}
-                  </VStack>
-                )}
               </VStack>
             </Drawer.Body>
             <Drawer.CloseTrigger asChild>

@@ -1,5 +1,5 @@
 import { Game } from "@/entities/Game";
-import { Accordion, Icon, Stack, Image, Text } from "@chakra-ui/react";
+import { Accordion, Icon, Stack, Image, Text, Box } from "@chakra-ui/react";
 import { FaHeart, FaHeartbeat, FaHeartBroken } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import getGameBackgroundImage from "../utils/GetOptimizedImage";
@@ -48,13 +48,15 @@ const GameFeedback = ({ likedGames, dislikedGames, recommended }: Props) => {
     }
 
     return games.map((game) => (
-      <Link key={game.id} to={`/games/${game.slug}`}>
-        <Image
-          boxSize="50%"
-          src={getGameBackgroundImage(game.background_image)}
-        />
-        {game.name}
-      </Link>
+      <Box marginBottom={5}>
+        <Link key={game.id} to={`/games/${game.slug}`}>
+          <Image
+            boxSize="50%"
+            src={getGameBackgroundImage(game.background_image)}
+          />
+          {game.name}
+        </Link>
+      </Box>
     ));
   };
 

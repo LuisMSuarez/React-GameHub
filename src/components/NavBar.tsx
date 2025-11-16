@@ -5,6 +5,8 @@ import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import NavBack from "./NavBack";
 import GameDiscovery from "../pages/GameDiscovery";
+import { LoginButton } from "./LoginButton";
+import { AdminPage } from "@/pages/AdminPage";
 
 const NavBar = () => {
   return (
@@ -24,6 +26,8 @@ const NavBar = () => {
       <HStack>
         <GameDiscovery />
         <ColorModeSwitch />
+        <LoginButton />
+        <AdminPage />
       </HStack>
     </HStack>
   );

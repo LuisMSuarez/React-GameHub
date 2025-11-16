@@ -50,8 +50,6 @@ const GameDiscovery = () => {
     },
   });
 
-  if (import.meta.env.VITE_GAME_DISCOVERY !== "enabled") return null;
-
   const likedGames = Object.entries(feedback)
     .filter(([_, entry]) => entry.sentiment === Sentiment.Like)
     .map(([_, entry]) => entry.game);

@@ -1,9 +1,12 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../auth/authConfig";
+import { Button } from "@chakra-ui/react";
 
 export const LoginButton: React.FC = () => {
   const { instance } = useMsal();
+
+  if (import.meta.env.VITE_FEATURE_AUTH !== "enabled") return null;
 
   const handleLogin = async () => {
     try {
@@ -14,5 +17,5 @@ export const LoginButton: React.FC = () => {
     }
   };
 
-  return <button onClick={handleLogin}>Login with Microsoft</button>;
+  return <Button onClick={handleLogin}>Login</Button>;
 };

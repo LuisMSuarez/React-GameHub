@@ -1,9 +1,12 @@
 import React from "react";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../auth/authConfig";
+import { Button } from "@chakra-ui/react";
 
 export const AdminPage: React.FC = () => {
   const { instance, accounts } = useMsal();
+
+  if (import.meta.env.VITE_FEATURE_AUTH !== "enabled") return null;
 
   const callApi = async () => {
     if (accounts.length === 0) {
@@ -12,6 +15,11 @@ export const AdminPage: React.FC = () => {
     }
 
     try {
+      // Runs silently in the background.
+      // It checks for valid token in the cache, and if needed,
+      // uses a hidden iframe to refresh tokens.
+      // It never navigates the browser to your redirect URI
+      // Other behaviors are loginPopup and loginRedirect
       const response = await instance.acquireTokenSilent({
         ...loginRequest,
         account: accounts[0],
@@ -20,7 +28,7 @@ export const AdminPage: React.FC = () => {
       const token = response.accessToken;
 
       const res = await fetch(
-        "https://gamers-hub-api.azurewebsites.net/v1/Admin/test",
+        `${import.meta.env.VITE_API_BASE_URL}/Admin/test`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,5 +43,5 @@ export const AdminPage: React.FC = () => {
     }
   };
 
-  return <button onClick={callApi}>Call Admin API</button>;
+  return <Button onClick={callApi}>Call Admin API</Button>;
 };

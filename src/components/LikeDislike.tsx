@@ -13,7 +13,6 @@ const LikeDislike = ({ game }: Props) => {
   const setFeedback = useFeedbackStore((s) => s.setFeedback);
   const feedback = useFeedbackStore((s) => s.feedback);
 
-  if (import.meta.env.VITE_GAME_DISCOVERY !== "enabled") return null;
   const state = useMemo(() => {
     return feedback[game.id]?.sentiment ?? Sentiment.Neutral;
   }, [feedback, game.id]);

@@ -1,5 +1,13 @@
 import { Tooltip } from "@/components/ui/tooltip";
-import { Avatar, CloseButton, Drawer, Portal, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  CloseButton,
+  Drawer,
+  Portal,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useMsal } from "@azure/msal-react";
 
 const UserProfile = () => {
@@ -8,6 +16,15 @@ const UserProfile = () => {
   if (accounts.length === 0) {
     return null;
   }
+
+  const handleExpireSession = () => {
+    // Clear MSAL cache (depending on your cacheLocation config)
+    sessionStorage.clear();
+    localStorage.clear();
+
+    // Reload the page so the app reinitializes without the user session
+    window.location.reload();
+  };
 
   const account = accounts[0];
 
@@ -28,7 +45,10 @@ const UserProfile = () => {
               <Drawer.Title>My Profile</Drawer.Title>
             </Drawer.Header>
             <Drawer.Body>
-              <Text>Name: {account.name}</Text>
+              <VStack align="start" spaceY="5">
+                <Text>Name: {account.name}</Text>
+                <Button onClick={handleExpireSession}>Log out</Button>
+              </VStack>
             </Drawer.Body>
             <Drawer.CloseTrigger asChild>
               <CloseButton size="md" />

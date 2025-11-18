@@ -6,7 +6,7 @@ import { Button } from "@chakra-ui/react";
 export const AdminPage: React.FC = () => {
   const { instance, accounts } = useMsal();
 
-  if (import.meta.env.VITE_FEATURE_AUTH !== "enabled") return null;
+  if (import.meta.env.VITE_FEATURE_AUTH !== "dev") return null;
 
   const callApi = async () => {
     if (accounts.length === 0) {

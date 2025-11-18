@@ -46,6 +46,9 @@ const UserProfile = () => {
             </Drawer.Header>
             <Drawer.Body>
               <VStack align="start" spaceY="5">
+                <Text fontStyle="italic">
+                  Logged in experiences coming soon!
+                </Text>
                 <Text>Name: {account.name}</Text>
                 <Button onClick={handleExpireSession}>Log out</Button>
               </VStack>

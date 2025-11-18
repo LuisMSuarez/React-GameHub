@@ -66,7 +66,7 @@ const GameDiscovery = () => {
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
-        <Button variant="plain" size="md" borderRadius="full">
+        <Button variant="plain" size="md" borderRadius="full" padding={1}>
           <FaHeartbeat className={pulse ? styles.pulse : ""} color="red" />
         </Button>
       </Drawer.Trigger>

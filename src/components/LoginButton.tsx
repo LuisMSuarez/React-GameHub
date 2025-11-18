@@ -25,6 +25,7 @@ export const LoginButton: React.FC = () => {
         variant="plain"
         size="md"
         borderRadius="full"
+        padding={1}
         onClick={handleLogin}
       >
         <MdLogin />

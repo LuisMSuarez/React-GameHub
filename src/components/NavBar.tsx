@@ -7,6 +7,7 @@ import NavBack from "./NavBack";
 import GameDiscovery from "../pages/GameDiscovery";
 import { LoginButton } from "./LoginButton";
 import { AdminPage } from "@/pages/AdminPage";
+import UserProfile from "@/pages/UserProfilePage";
 
 const NavBar = () => {
   return (
@@ -27,6 +28,7 @@ const NavBar = () => {
         <GameDiscovery />
         <ColorModeSwitch />
         <LoginButton />
+        <UserProfile />
         <AdminPage />
       </HStack>
     </HStack>

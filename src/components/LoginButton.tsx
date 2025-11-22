@@ -7,8 +7,6 @@ import { MdLogin } from "react-icons/md";
 export const LoginButton: React.FC = () => {
   const { instance, accounts } = useMsal();
 
-  if (import.meta.env.VITE_FEATURE_AUTH !== "enabled") return null;
-
   const handleLogin = async () => {
     try {
       // const response = await instance.loginPopup(loginRequest);

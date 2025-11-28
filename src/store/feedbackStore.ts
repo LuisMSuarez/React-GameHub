@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Sentiment } from "../entities/Sentiment";
+import { parseSentiments, Sentiment } from "../entities/Sentiment";
 import { Game } from "../entities/Game";
 import { GetAllUserGameService } from "../services/gamesService";
 import { UserGame } from "../entities/UserGame";
@@ -50,8 +50,11 @@ export const useFeedbackStore = create<FeedbackStore>((set) => ({
       );
 
       const feedbackMap: Record<number, GameFeedback> = {};
-      data.results.forEach(async (item: UserGame) => {
-        let game: Game = {
+      data.results.forEach((item: UserGame) => {
+        // Create a stub of the Game with sufficient details to display in the
+        // Game discovery page
+        // Game detail page will fetch full details based on the id.
+        const game: Game = {
           id: item.gameId,
           slug: item.slug,
           name: item.name,
@@ -64,7 +67,15 @@ export const useFeedbackStore = create<FeedbackStore>((set) => ({
           genres: [],
           publishers: [],
         };
-        feedbackMap[game.id] = { game, sentiment: Sentiment.Like };
+        const sentiments = parseSentiments(item.preferences);
+        feedbackMap[game.id] = {
+          game,
+          sentiment: sentiments.includes(Sentiment.Like)
+            ? Sentiment.Like
+            : sentiments.includes(Sentiment.Dislike)
+            ? Sentiment.Dislike
+            : Sentiment.Neutral,
+        };
       });
       set({ feedback: feedbackMap });
     } catch (err) {

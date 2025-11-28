@@ -10,7 +10,7 @@ const useGameMovies = (gameId: string) => {
     queryKey: ["movies", { gameId }],
     queryFn: async () => {
       try {
-        return await getGameMoviesSvc.get({});
+        return await getGameMoviesSvc.get({}, {});
       } catch (error: any) {
         if (error.response?.status === 404) {
           throw new Error("Game not found (404)");

@@ -3,7 +3,7 @@ import { VStack, Spinner, Heading, HStack } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip";
 import GenreItem from "./GenreItem";
 import { IoMdCloseCircle } from "react-icons/io";
-import useGameQueryStore from "@/store";
+import useGameQueryStore from "@/store/gameQueryStore";
 
 const GenreList = () => {
   const selectedGenre = useGameQueryStore((s) => s.gameQuery.genre);

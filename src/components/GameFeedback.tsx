@@ -48,7 +48,7 @@ const GameFeedback = ({ likedGames, dislikedGames, recommended }: Props) => {
     }
 
     return games.map((game) => (
-      <Box marginBottom={5}>
+      <Box marginBottom={5} key={game.id}>
         <Link key={game.id} to={`/games/${game.slug}`}>
           <Image
             boxSize="50%"

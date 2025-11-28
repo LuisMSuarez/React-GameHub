@@ -1,4 +1,4 @@
-import useGameQueryStore from "@/store";
+import useGameQueryStore from "@/store/gameQueryStore";
 import {
   createListCollection,
   Portal,

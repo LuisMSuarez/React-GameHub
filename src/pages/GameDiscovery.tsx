@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Sentiment } from "@/entities/Sentiment";
-import { useFeedbackStore } from "@/feedbackStore";
+import { useFeedbackStore } from "@/store/feedbackStore";
 import {
   Button,
   CloseButton,

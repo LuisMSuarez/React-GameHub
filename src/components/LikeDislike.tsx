@@ -1,6 +1,6 @@
 import { Game } from "@/entities/Game";
 import { Sentiment } from "@/entities/Sentiment";
-import { useFeedbackStore } from "@/feedbackStore";
+import { useFeedbackStore } from "@/store/feedbackStore";
 import { HStack } from "@chakra-ui/react";
 import { useMemo } from "react";
 import { FaHeart, FaHeartBroken } from "react-icons/fa";

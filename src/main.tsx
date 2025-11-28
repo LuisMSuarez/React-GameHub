@@ -9,6 +9,7 @@ import router from "./routes";
 import { MsalProvider } from "@azure/msal-react";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { msalConfig } from "./auth/authConfig";
+import { AuthWatcher } from "./components/AuthWatcher";
 
 const msalInstance = new PublicClientApplication(msalConfig);
 const queryClient = new QueryClient();
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider>
       <MsalProvider instance={msalInstance}>
+        <AuthWatcher />
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
           <ReactQueryDevtools />

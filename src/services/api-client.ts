@@ -3,6 +3,7 @@ import axios from "axios";
 export interface FetchDataResponse<T> {
   count: number;
   next: string | null;
+  previous: string | null;
   results: T[];
   isLastPage: boolean;
 }
@@ -21,10 +22,14 @@ class APIClient<TRequest, TResponse> {
     this.resourcePath = resourcePath;
   }
 
-  get(params: TRequest): Promise<TResponse> {
+  get(
+    params: Record<string, string>,
+    headers: Record<string, string>
+  ): Promise<TResponse> {
     return axiosInstance
       .get<TResponse>(this.resourcePath, {
-        params: params,
+        params,
+        headers,
       })
       .then((res) => res.data);
   }

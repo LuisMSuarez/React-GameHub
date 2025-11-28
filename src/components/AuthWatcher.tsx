@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
-import { useFeedbackStore } from "../feedbackStore";
+import { useFeedbackStore } from "../store/feedbackStore";
 
 export function AuthWatcher() {
   const { accounts, instance } = useMsal();

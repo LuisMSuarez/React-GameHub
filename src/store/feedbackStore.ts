@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { Sentiment } from "./entities/Sentiment";
-import { Game } from "./entities/Game";
-import { GetAllUserGameService } from "./services/gamesService";
-import { UserGame } from "./entities/UserGame";
+import { Sentiment } from "../entities/Sentiment";
+import { Game } from "../entities/Game";
+import { GetAllUserGameService } from "../services/gamesService";
+import { UserGame } from "../entities/UserGame";
 import { AccountInfo, IPublicClientApplication } from "@azure/msal-browser";
-import { loginRequest } from "./auth/authConfig";
+import { loginRequest } from "../auth/authConfig";
 
 interface GameFeedback {
   game: Game;

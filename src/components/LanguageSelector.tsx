@@ -1,6 +1,6 @@
 import { Portal, Select, createListCollection } from "@chakra-ui/react";
 import languages from "@/data/languages";
-import useGameQueryStore from "@/store";
+import useGameQueryStore from "@/store/gameQueryStore";
 
 const LanguageSelector = () => {
   const setLanguage = useGameQueryStore((s) => s.setLanguage);

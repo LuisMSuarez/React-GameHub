@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { GetGameDetailService } from "@/services/gamesService";
 import { Game } from "@/entities/Game";
-import useGameQueryStore from "@/store";
+import useGameQueryStore from "@/store/gameQueryStore";
 
 const useGameDetails = (slug: string) => {
   const getGameDetailsSvc = GetGameDetailService(slug);

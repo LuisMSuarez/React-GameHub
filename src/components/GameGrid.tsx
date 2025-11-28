@@ -3,7 +3,7 @@ import { SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
-import useGameQueryStore from "@/store";
+import useGameQueryStore from "@/store/gameQueryStore";
 
 const GameGrid = () => {
   const pageSize = useGameQueryStore((s) => s.gameQuery.pageSize);

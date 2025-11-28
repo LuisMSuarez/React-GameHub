@@ -1,4 +1,4 @@
-import useGameQueryStore from "@/store";
+import useGameQueryStore from "@/store/gameQueryStore";
 import { CloseButton, Input, InputGroup } from "@chakra-ui/react";
 import { useRef } from "react";
 import { MdSearch } from "react-icons/md";

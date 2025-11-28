@@ -21,7 +21,7 @@ const useGames = () => {
     queryKey: ["games", params],
     queryFn: async ({ pageParam }) => {
       try {
-        return await gamesService.get({ ...params, page: pageParam });
+        return await gamesService.get({ ...params, page: pageParam }, {});
       } catch (error: any) {
         console.log(error);
         if (error.response?.status === 404) {
@@ -29,6 +29,7 @@ const useGames = () => {
           return {
             count: 0,
             results: [],
+            previous: null,
             next: null,
             isLastPage: true, // sentinel to mark this as the last page of data
           } as FetchDataResponse<Game>;

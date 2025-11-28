@@ -23,7 +23,7 @@ class APIClient<TRequest, TResponse> {
   }
 
   get(
-    params: Record<string, string>,
+    params: Record<string, string | number | unknown>,
     headers: Record<string, string>
   ): Promise<TResponse> {
     return axiosInstance

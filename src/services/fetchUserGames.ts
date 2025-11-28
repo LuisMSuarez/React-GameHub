@@ -13,7 +13,6 @@ export async function fetchUserGames(
   });
 
   const token = response.accessToken;
-
   const data = await GetAllUserGameService.get(
     {},
     { Authorization: `Bearer ${token}` }

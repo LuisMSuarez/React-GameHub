@@ -1,10 +1,7 @@
 import { create } from "zustand";
 import { Sentiment } from "./entities/Sentiment";
 import { Game } from "./entities/Game";
-import {
-  GetAllUserGameService,
-  GetGameDetailService,
-} from "./services/gamesService";
+import { GetAllUserGameService } from "./services/gamesService";
 import { UserGame } from "./entities/UserGame";
 import { AccountInfo, IPublicClientApplication } from "@azure/msal-browser";
 import { loginRequest } from "./auth/authConfig";
@@ -54,7 +51,19 @@ export const useFeedbackStore = create<FeedbackStore>((set) => ({
 
       const feedbackMap: Record<number, GameFeedback> = {};
       data.results.forEach(async (item: UserGame) => {
-        let game = await GetGameDetailService(item.gameId).get({}, {});
+        let game: Game = {
+          id: item.gameId,
+          slug: item.slug,
+          name: item.name,
+          background_image: item.background_image,
+          rating: 0,
+          parent_platforms: [],
+          metacritic: null,
+          rating_top: 0,
+          description_raw: "",
+          genres: [],
+          publishers: [],
+        };
         feedbackMap[game.id] = { game, sentiment: Sentiment.Like };
       });
       set({ feedback: feedbackMap });

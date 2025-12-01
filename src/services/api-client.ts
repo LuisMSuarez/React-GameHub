@@ -39,6 +39,12 @@ class APIClient<TRequest, TResponse> {
       .post<TResponse>(this.resourcePath, request)
       .then((res) => res.data);
   }
+
+  post(request: TRequest): Promise<TResponse> {
+    return axiosInstance
+      .post<TResponse>(this.resourcePath, request)
+      .then((res) => res.data);
+  }
 }
 
 export default APIClient;

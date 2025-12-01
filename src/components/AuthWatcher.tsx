@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useMsal } from "@azure/msal-react";
 import { useFeedbackStore } from "../store/feedbackStore";
-import { fetchUserGames } from "@/services/fetchUserGames";
+import { UserGameService } from "@/services/userGameService";
 
 export function AuthWatcher() {
   const { accounts, instance } = useMsal();
@@ -12,7 +12,8 @@ export function AuthWatcher() {
     const run = async () => {
       if (accounts.length > 0) {
         try {
-          const items = await fetchUserGames(instance, accounts[0]);
+          const service = new UserGameService(instance, accounts[0]);
+          const items = await service.fetchUserGames();
           loadFeedback(items);
         } catch (err) {
           console.error("Failed to initialize feedback:", err);

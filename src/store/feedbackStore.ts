@@ -4,6 +4,7 @@ import { Game } from "../entities/Game";
 import { UserGame } from "../entities/UserGame";
 
 interface GameFeedback {
+  id: string | undefined;
   game: Game;
   sentiment: Sentiment;
 }
@@ -49,6 +50,7 @@ export const useFeedbackStore = create<FeedbackStore>((set) => ({
         publishers: [],
       };
       feedbackMap[game.id] = {
+        id: item.id,
         game,
         sentiment: parseSentiment(item.preferences),
       };

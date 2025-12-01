@@ -34,9 +34,19 @@ class APIClient<TRequest, TResponse> {
       .then((res) => res.data);
   }
 
-  post(request: TRequest): Promise<TResponse> {
+  post(request: TRequest, headers: Record<string, string>): Promise<TResponse> {
     return axiosInstance
-      .post<TResponse>(this.resourcePath, request)
+      .post<TResponse>(this.resourcePath, request, {
+        headers,
+      })
+      .then((res) => res.data);
+  }
+
+  put(request: TRequest, headers: Record<string, string>): Promise<TResponse> {
+    return axiosInstance
+      .put<TResponse>(this.resourcePath, request, {
+        headers,
+      })
       .then((res) => res.data);
   }
 }

@@ -34,10 +34,13 @@ const GameDiscovery = () => {
       .filter(([_, entry]) => entry.sentiment === Sentiment.Dislike)
       .map(([_, entry]) => entry.game);
 
-    return await GetGameRecommendationService.post({
-      dislikedGames,
-      likedGames,
-    });
+    return await GetGameRecommendationService.post(
+      {
+        dislikedGames,
+        likedGames,
+      },
+      {}
+    );
   };
 
   const recommendationMutation = useMutation({

@@ -14,6 +14,7 @@ interface Props {
 
 const LikeDislike = ({ game }: Props) => {
   const setFeedback = useFeedbackStore((s) => s.setFeedback);
+  const removeFeedback = useFeedbackStore((s) => s.removeFeedback);
   const feedback = useFeedbackStore((s) => s.feedback);
   const { accounts, instance } = useMsal();
 
@@ -42,24 +43,41 @@ const LikeDislike = ({ game }: Props) => {
     };
 
     if (updatedFeedback.id) {
-      await service.updateUserGame(payload);
+      return service.updateUserGame(payload);
     } else {
       const created = await service.createUserGame(payload);
       updatedFeedback.id = created.id;
+      return created;
     }
   };
 
-  const toggleSentiment = async (target: Sentiment) => {
+  const toggleSentiment = (target: Sentiment) => {
     const sentiment = state === target ? Sentiment.Neutral : target;
+
+    const previousFeedback = feedback[game.id]; // snapshot for rollback
     const updatedFeedback: GameFeedback = {
-      ...feedback[game.id],
+      ...previousFeedback,
       game,
       sentiment,
     };
 
-    await persistFeedback(updatedFeedback, sentiment);
-
+    // update local store immediately
     setFeedback(game.id, updatedFeedback);
+
+    // persist asynchronously
+    persistFeedback(updatedFeedback, sentiment).catch((error) => {
+      console.error("Failed to persist feedback:", error);
+
+      // rollback to previous state if backend update fails
+      if (previousFeedback !== undefined) {
+        // previous feedback existed: roll back
+        setFeedback(game.id, previousFeedback);
+      } else {
+        // previous feedback did not exist: remove feedback that
+        // failed the backend update
+        removeFeedback(game.id);
+      }
+    });
   };
 
   return (

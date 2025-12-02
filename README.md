@@ -16,10 +16,14 @@ Visit Api backend source code at my [GamersHub-Api repo](https://github.com/Luis
 - Game recommendations based on user tagging and LLM OpenAI integration
 - Translation of game description to 137 languages using Azure AI cognitive services
 - CI/CD github action to run build, execute tests, build and publish container images and deploy to Azure App Service
+- Authenticated experience (OAuth2+OpenID connect) for users to tag their favorite games
+- AI-based Game recommendations
+- CosmosDb store of user preferences
 
 ## Architecture diagram:
 
-<img width="1954" height="1661" alt="GamersHub" src="https://github.com/user-attachments/assets/047fb7f9-af51-47f3-9b30-9d32a721b4fd" />
+<img width="1159" height="830" alt="GamersHub" src="https://github.com/user-attachments/assets/12a23bf3-7009-4bdb-9654-6795723eac4b" />
+
 
 
 ## Screenshots

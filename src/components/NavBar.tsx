@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import NavBack from "./NavBack";
 import GameDiscovery from "../pages/GameDiscovery";
 import { LoginButton } from "./LoginButton";
-import { AdminPage } from "@/pages/AdminPage";
 import UserProfile from "@/pages/UserProfilePage";
 
 const NavBar = () => {
@@ -29,7 +28,6 @@ const NavBar = () => {
         <ColorModeSwitch />
         <LoginButton />
         <UserProfile />
-        <AdminPage />
       </HStack>
     </HStack>
   );

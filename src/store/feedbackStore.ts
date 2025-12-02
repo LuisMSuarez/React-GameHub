@@ -3,8 +3,8 @@ import { parseSentiment, Sentiment } from "../entities/Sentiment";
 import { Game } from "../entities/Game";
 import { UserGame } from "../entities/UserGame";
 
-interface GameFeedback {
-  id: string | undefined;
+export interface GameFeedback {
+  id: string | null;
   game: Game;
   sentiment: Sentiment;
 }

@@ -1,6 +1,10 @@
 import { IPublicClientApplication, AccountInfo } from "@azure/msal-browser";
 import { loginRequest } from "../auth/authConfig";
-import { GetAllUserGameService, GetUserGameService } from "./gamesService";
+import {
+  GetAllUserGameService,
+  GetCreateUserGameService,
+  GetUserGameService,
+} from "./gamesService";
 import { UserGame } from "../entities/UserGame";
 
 export class UserGameService {
@@ -30,9 +34,18 @@ export class UserGameService {
     return data.results as UserGame[];
   }
 
+  public async createUserGame(userGame: UserGame): Promise<UserGame> {
+    const token = await this.getAccessToken();
+    const data = await GetCreateUserGameService.post(userGame, {
+      Authorization: `Bearer ${token}`,
+    });
+
+    return data as UserGame;
+  }
+
   public async updateUserGame(userGame: UserGame): Promise<UserGame> {
     const token = await this.getAccessToken();
-    const data = await GetUserGameService(userGame.id).put(userGame, {
+    const data = await GetUserGameService(userGame.id!).put(userGame, {
       Authorization: `Bearer ${token}`,
     });
 

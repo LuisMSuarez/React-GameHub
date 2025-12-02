@@ -22,7 +22,8 @@ Visit Api backend source code at my [GamersHub-Api repo](https://github.com/Luis
 
 ## Architecture diagram:
 
-<img width="1159" height="830" alt="GamersHub" src="https://github.com/user-attachments/assets/12a23bf3-7009-4bdb-9654-6795723eac4b" />
+<img width="2566" height="1663" alt="image" src="https://github.com/user-attachments/assets/c7a6153d-5fb6-40a1-ac0e-785964f7a2f1" />
+
 
 
 

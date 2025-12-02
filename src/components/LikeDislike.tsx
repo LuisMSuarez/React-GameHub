@@ -1,7 +1,8 @@
 import { Game } from "@/entities/Game";
 import { Sentiment } from "@/entities/Sentiment";
+import { UserGame } from "@/entities/UserGame";
 import { UserGameService } from "@/services/userGameService";
-import { useFeedbackStore } from "@/store/feedbackStore";
+import { GameFeedback, useFeedbackStore } from "@/store/feedbackStore";
 import { useMsal } from "@azure/msal-react";
 import { HStack } from "@chakra-ui/react";
 import { useMemo } from "react";
@@ -16,33 +17,48 @@ const LikeDislike = ({ game }: Props) => {
   const feedback = useFeedbackStore((s) => s.feedback);
   const { accounts, instance } = useMsal();
 
-  const state = useMemo(() => {
-    return feedback[game.id]?.sentiment ?? Sentiment.Neutral;
-  }, [feedback, game.id]);
+  const state = useMemo(
+    () => feedback[game.id]?.sentiment ?? Sentiment.Neutral,
+    [feedback, game.id]
+  );
+
+  const persistFeedback = async (
+    updatedFeedback: GameFeedback,
+    sentiment: Sentiment
+  ) => {
+    if (accounts.length === 0) return;
+
+    const account = accounts[0];
+    const service = new UserGameService(instance, account);
+
+    const payload: UserGame = {
+      id: updatedFeedback.id ?? null,
+      background_image: updatedFeedback.game.background_image,
+      gameId: updatedFeedback.game.id,
+      name: updatedFeedback.game.name,
+      preferences: sentiment,
+      slug: updatedFeedback.game.slug,
+      userId: account.localAccountId,
+    };
+
+    if (updatedFeedback.id) {
+      await service.updateUserGame(payload);
+    } else {
+      const created = await service.createUserGame(payload);
+      updatedFeedback.id = created.id;
+    }
+  };
 
   const toggleSentiment = async (target: Sentiment) => {
     const sentiment = state === target ? Sentiment.Neutral : target;
-    const updatedFeedback = {
+    const updatedFeedback: GameFeedback = {
       ...feedback[game.id],
       game,
       sentiment,
     };
 
-    // if authenticated, update in backend api
-    if (accounts.length > 0 && updatedFeedback.id) {
-      const service = new UserGameService(instance, accounts[0]);
-      await service.updateUserGame({
-        background_image: updatedFeedback.game.background_image,
-        gameId: updatedFeedback.game.id,
-        id: updatedFeedback.id,
-        name: updatedFeedback.game.name,
-        preferences: sentiment,
-        slug: updatedFeedback.game.slug,
-        userId: accounts[0].localAccountId,
-      });
-    }
+    await persistFeedback(updatedFeedback, sentiment);
 
-    // update local store
     setFeedback(game.id, updatedFeedback);
   };
 

@@ -20,6 +20,9 @@ const GetGameRecommendationService = new APIClient<
 const GetAllUserGameService = new APIClient<any, FetchDataResponse<UserGame>>(
   "/usergames"
 );
+const GetCreateUserGameService = new APIClient<UserGame, UserGame>(
+  "/usergames"
+);
 const GetUserGameService = (userGameId: string) =>
   new APIClient<UserGame, UserGame>(`/usergames/${userGameId}`);
 
@@ -29,6 +32,7 @@ export {
   GetGameScreenshotsService,
   GetGameRecommendationService,
   GetAllUserGameService,
+  GetCreateUserGameService,
   GetUserGameService,
 };
 export default new APIClient<any, FetchDataResponse<Game>>("/games");

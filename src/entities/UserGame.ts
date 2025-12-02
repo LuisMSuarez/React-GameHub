@@ -1,5 +1,5 @@
 export interface UserGame {
-  id: string;
+  id: string | null;
   gameId: number;
   slug: string;
   name: string;

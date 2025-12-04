@@ -15,6 +15,7 @@ import { HiSparkles } from "react-icons/hi";
 import { GetGameRecommendationService } from "@/services/gamesService";
 import { useMutation } from "@tanstack/react-query";
 import GameFeedback from "@/components/GameFeedback";
+import { Tooltip } from "@/components/ui/tooltip";
 
 const GameDiscovery = () => {
   const feedback = useFeedbackStore((s) => s.feedback);
@@ -70,7 +71,9 @@ const GameDiscovery = () => {
     <Drawer.Root>
       <Drawer.Trigger asChild>
         <Button variant="plain" size="md" borderRadius="full" padding={1}>
-          <FaHeartbeat className={pulse ? styles.pulse : ""} color="red" />
+          <Tooltip content="Game discovery">
+            <FaHeartbeat className={pulse ? styles.pulse : ""} color="red" />
+          </Tooltip>
         </Button>
       </Drawer.Trigger>
       <Portal>

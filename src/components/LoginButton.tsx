@@ -2,7 +2,8 @@ import React from "react";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../auth/authConfig";
 import { Button } from "@chakra-ui/react";
-import { MdLogin } from "react-icons/md";
+import { IoLogIn } from "react-icons/io5";
+import { Tooltip } from "@/components/ui/tooltip";
 
 export const LoginButton: React.FC = () => {
   const { instance, accounts } = useMsal();
@@ -19,15 +20,17 @@ export const LoginButton: React.FC = () => {
 
   if (accounts.length === 0) {
     return (
-      <Button
-        variant="plain"
-        size="md"
-        borderRadius="full"
-        padding={1}
-        onClick={handleLogin}
-      >
-        <MdLogin />
-      </Button>
+      <Tooltip content="Log in">
+        <Button
+          variant="plain"
+          borderRadius="full"
+          size="md"
+          padding={1}
+          onClick={handleLogin}
+        >
+          <IoLogIn />
+        </Button>
+      </Tooltip>
     );
   }
 };

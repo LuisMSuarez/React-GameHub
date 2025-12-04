@@ -9,6 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useMsal } from "@azure/msal-react";
+import { IoLogOut } from "react-icons/io5";
 
 const UserProfile = () => {
   const { accounts } = useMsal();
@@ -31,7 +32,7 @@ const UserProfile = () => {
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>
-        <Avatar.Root>
+        <Avatar.Root className="clickable-icon">
           <Tooltip content={account.name}>
             <Avatar.Fallback name={account.name} />
           </Tooltip>
@@ -47,7 +48,9 @@ const UserProfile = () => {
             <Drawer.Body>
               <VStack align="start" spaceY="5">
                 <Text>Name: {account.name}</Text>
-                <Button onClick={handleExpireSession}>Log out</Button>
+                <Button onClick={handleExpireSession}>
+                  <IoLogOut /> Log out
+                </Button>
               </VStack>
             </Drawer.Body>
             <Drawer.CloseTrigger asChild>
